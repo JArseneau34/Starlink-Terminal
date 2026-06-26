@@ -7,7 +7,7 @@ import {
   latLonSurfaceToScene,
   STARLINK_SHELLS,
 } from './starlinkCatalog';
-import { applyNightSky } from '../launch-manifest/rocketSceneEnvironment';
+import { applyNightSky } from './nightSky';
 import { createEarthGlobe, DEFAULT_EARTH_VISUAL, type EarthVisualOptions } from './earthGlobe';
 import {
   buildSatrecCache,
@@ -17,7 +17,6 @@ import {
 import type { SatRec } from 'satellite.js';
 import type {
   AuroraBoundaryPoint,
-  SsaPayload,
   StarlinkCatalogPayload,
   StarlinkMeshMode,
 } from '../../types/orbital';
@@ -67,8 +66,6 @@ export interface StarlinkMeshCanvasProps {
   liveCatalog?: StarlinkCatalogPayload | null;
   auroraNorth?: AuroraBoundaryPoint[];
   auroraSouth?: AuroraBoundaryPoint[];
-  showSsa?: boolean;
-  ssa?: SsaPayload | null;
   earthVisual?: EarthVisualOptions;
   className?: string;
 }
@@ -82,10 +79,6 @@ const TOPOLOGY_EDGE_COLOR_BOOST = 0.06;
 const TOPOLOGY_CROSS_EDGE_DIM = 0.55;
 const TOPOLOGY_HL_EDGE_OPACITY = 0.42;
 const GRATICULE_OPACITY = 0.018;
-const SSA_NODE_SIZE = 36;
-const SSA_GLOW_SIZE = 56;
-const SSA_NODE_COLOR_RGB: [number, number, number] = [1.0, 0.42, 0.48];
-const SSA_MESH_ALPHA = 0.08;
 const CAM_RAD_DEFAULT = 3.4;
 const CAM_RAD_MIN = 1.45;
 const CAM_RAD_MAX = 9;
@@ -140,38 +133,6 @@ function hoverLinkBudget(lod: number): number {
   return 8;
 }
 
-const SSA_VERTEX_SHADER = `attribute vec3 aColor; attribute float aAlpha; attribute float aSize;
-  uniform float uScale; uniform float uPx; varying vec3 vC; varying float vA;
-  void main(){vC=aColor; vA=aAlpha;
-    vec4 mv=modelViewMatrix*vec4(position,1.);
-    gl_PointSize=aSize*uScale*uPx*(1.0/-mv.z);
-    gl_Position=projectionMatrix*mv;}`;
-
-const SSA_FRAGMENT_SHADER = `uniform sampler2D uTex; uniform float uPulse; varying vec3 vC; varying float vA;
-  void main(){vec4 t=texture2D(uTex,gl_PointCoord);
-    if(t.a<0.01)discard;
-    vec3 hot=mix(vC,vec3(1.0,0.92,0.9),t.a*0.55);
-    gl_FragColor=vec4(hot,t.a*vA*uPulse);}`;
-
-function createSsaNodeShaderMaterial(
-  tex: THREE.CanvasTexture,
-  pixelRatio: number
-): THREE.ShaderMaterial {
-  return new THREE.ShaderMaterial({
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    uniforms: {
-      uTex: { value: tex },
-      uScale: { value: 1.0 },
-      uPx: { value: pixelRatio },
-      uPulse: { value: 1.0 },
-    },
-    vertexShader: SSA_VERTEX_SHADER,
-    fragmentShader: SSA_FRAGMENT_SHADER,
-  });
-}
-
 const NODE_VERTEX_SHADER = `attribute vec3 aColor; attribute float aAlpha; attribute float aSize;
   uniform float uScale; uniform float uPx; varying vec3 vC; varying float vA;
   void main(){vC=aColor; vA=aAlpha;
@@ -199,23 +160,6 @@ function createNodeShaderMaterial(
     vertexShader: NODE_VERTEX_SHADER,
     fragmentShader: NODE_FRAGMENT_SHADER,
   });
-}
-
-interface SsaNodeInput {
-  latitude: number;
-  longitude: number;
-  altitudeKm: number;
-  inclination?: number;
-}
-
-function subsampleNodes(objects: SsaNodeInput[], maxVis: number): SsaNodeInput[] {
-  if (objects.length <= maxVis) return objects;
-  const step = Math.max(1, Math.ceil(objects.length / maxVis));
-  const picked: SsaNodeInput[] = [];
-  for (let i = 0; i < objects.length && picked.length < maxVis; i += step) {
-    picked.push(objects[i]!);
-  }
-  return picked;
 }
 
 function createSpriteTexture(): THREE.CanvasTexture {
@@ -258,8 +202,6 @@ export function StarlinkMeshCanvas({
   liveCatalog = null,
   auroraNorth = [],
   auroraSouth = [],
-  showSsa = false,
-  ssa = null,
   earthVisual = DEFAULT_EARTH_VISUAL,
   className = '',
 }: StarlinkMeshCanvasProps) {
@@ -274,8 +216,8 @@ export function StarlinkMeshCanvas({
   const visibleShellsRef = useRef(visibleShells);
   const meshModeRef = useRef(meshMode);
   const liveCatalogRef = useRef(liveCatalog);
-  const controlsRef = useRef({ speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, showSsa, earthVisual });
-  const liveRef = useRef({ auroraNorth, auroraSouth, ssa });
+  const controlsRef = useRef({ speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, earthVisual });
+  const liveRef = useRef({ auroraNorth, auroraSouth });
 
   onHoverRef.current = onHover;
   onSelectRef.current = onSelect;
@@ -287,8 +229,8 @@ export function StarlinkMeshCanvas({
   visibleShellsRef.current = visibleShells;
   meshModeRef.current = meshMode;
   liveCatalogRef.current = liveCatalog;
-  controlsRef.current = { speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, showSsa, earthVisual };
-  liveRef.current = { auroraNorth, auroraSouth, ssa };
+  controlsRef.current = { speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, earthVisual };
+  liveRef.current = { auroraNorth, auroraSouth };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -391,195 +333,6 @@ export function StarlinkMeshCanvas({
 
     const spriteTex = createSpriteTexture();
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
-    const ssaNodeMat = createSsaNodeShaderMaterial(spriteTex, pixelRatio);
-    const ssaGlowMat = createSsaNodeShaderMaterial(spriteTex, pixelRatio);
-
-    const ssaGroup = new THREE.Group();
-    const ssaDebrisGroup = new THREE.Group();
-    const ssaConjunctionGroup = new THREE.Group();
-    const ssaReentryGroup = new THREE.Group();
-    ssaGroup.add(ssaDebrisGroup, ssaConjunctionGroup, ssaReentryGroup);
-    ssaGroup.visible = false;
-    scene.add(ssaGroup);
-    let ssaBuiltSig = '';
-    let ssaPointsMesh: THREE.Points | null = null;
-    let ssaGlowMesh: THREE.Points | null = null;
-
-    function buildSsaPointBuffers(
-      visible: SsaNodeInput[]
-    ): {
-      dPos: Float32Array;
-      dCol: Float32Array;
-      dAlpha: Float32Array;
-      dSize: Float32Array;
-      dGlowSize: Float32Array;
-    } {
-      const count = visible.length;
-      const dPos = new Float32Array(count * 3);
-      const dCol = new Float32Array(count * 3);
-      const dAlpha = new Float32Array(count);
-      const dSize = new Float32Array(count);
-      const dGlowSize = new Float32Array(count);
-      const [r, g, b] = SSA_NODE_COLOR_RGB;
-
-      for (let i = 0; i < count; i++) {
-        const d = visible[i]!;
-        const [x, y, z] = toScene(d.latitude, d.longitude, d.altitudeKm);
-        dPos[i * 3] = x;
-        dPos[i * 3 + 1] = y;
-        dPos[i * 3 + 2] = z;
-        dCol[i * 3] = r;
-        dCol[i * 3 + 1] = g;
-        dCol[i * 3 + 2] = b;
-        dAlpha[i] = 1.0;
-        dSize[i] = SSA_NODE_SIZE;
-        dGlowSize[i] = SSA_GLOW_SIZE;
-      }
-
-      return { dPos, dCol, dAlpha, dSize, dGlowSize };
-    }
-
-    function upsertSsaPoints(
-      mesh: THREE.Points | null,
-      mat: THREE.ShaderMaterial,
-      buffers: ReturnType<typeof buildSsaPointBuffers>,
-      sizeAttr: 'aSize' | 'glowSize',
-      renderOrder: number
-    ): THREE.Points {
-      const { dPos, dCol, dAlpha, dSize, dGlowSize } = buffers;
-      const sizes = sizeAttr === 'aSize' ? dSize : dGlowSize;
-
-      if (!mesh) {
-        const dGeo = new THREE.BufferGeometry();
-        dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
-        dGeo.setAttribute('aColor', new THREE.BufferAttribute(dCol, 3));
-        dGeo.setAttribute('aAlpha', new THREE.BufferAttribute(dAlpha, 1));
-        dGeo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
-        dGeo.computeBoundingSphere();
-        const points = new THREE.Points(dGeo, mat);
-        points.frustumCulled = false;
-        points.renderOrder = renderOrder;
-        scene.add(points);
-        return points;
-      }
-
-      const geo = mesh.geometry as THREE.BufferGeometry;
-      geo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
-      geo.setAttribute('aColor', new THREE.BufferAttribute(dCol, 3));
-      geo.setAttribute('aAlpha', new THREE.BufferAttribute(dAlpha, 1));
-      geo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
-      geo.computeBoundingSphere();
-      mesh.visible = true;
-      return mesh;
-    }
-
-    function disposeSsaOverlayChildren(group: THREE.Group): void {
-      while (group.children.length) {
-        const child = group.children[0]!;
-        group.remove(child);
-        if (child instanceof THREE.Points) {
-          child.geometry.dispose();
-        } else if (child instanceof THREE.Mesh || child instanceof THREE.Line) {
-          child.geometry.dispose();
-          const mat = child.material;
-          if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
-          else mat.dispose();
-        }
-      }
-    }
-
-    function rebuildSsa(): void {
-      const ctrl = controlsRef.current;
-      const { ssa: ssaData } = liveRef.current;
-
-      if (!ctrl.showSsa || !ssaData) {
-        if (ssaPointsMesh) ssaPointsMesh.visible = false;
-        if (ssaGlowMesh) ssaGlowMesh.visible = false;
-        ssaBuiltSig = '';
-        return;
-      }
-
-      const sig = `${ssaData.fetchedAt}:${ssaData.debris.length}:${ssaData.otherObjects?.length ?? 0}:hl1`;
-      const overlayDirty = sig !== ssaBuiltSig;
-
-      if (overlayDirty) {
-        disposeSsaOverlayChildren(ssaConjunctionGroup);
-        disposeSsaOverlayChildren(ssaReentryGroup);
-      }
-
-      const allNodes: SsaNodeInput[] = [
-        ...ssaData.debris,
-        ...(ssaData.otherObjects ?? []),
-      ];
-
-      if (allNodes.length > 0 && (overlayDirty || !ssaPointsMesh)) {
-        const visible = subsampleNodes(allNodes, 120);
-        const buffers = buildSsaPointBuffers(visible);
-        const glowAlpha = new Float32Array(visible.length);
-        glowAlpha.fill(0.5);
-        buffers.dAlpha = glowAlpha;
-
-        ssaGlowMesh = upsertSsaPoints(ssaGlowMesh, ssaGlowMat, buffers, 'glowSize', 9);
-
-        const coreBuffers = buildSsaPointBuffers(visible);
-        ssaPointsMesh = upsertSsaPoints(ssaPointsMesh, ssaNodeMat, coreBuffers, 'aSize', 10);
-      } else if (ssaPointsMesh && allNodes.length > 0) {
-        ssaPointsMesh.visible = true;
-        if (ssaGlowMesh) ssaGlowMesh.visible = true;
-      }
-
-      if (overlayDirty) {
-        const topConjunctions = [...ssaData.conjunctions]
-          .sort((a, b) => a.minRangeKm - b.minRangeKm)
-          .slice(0, 5);
-
-        for (const c of topConjunctions) {
-          const [ax, ay, az] = toScene(c.primaryLat, c.primaryLon, c.primaryAltKm);
-          const [bx, by, bz] = toScene(c.secondaryLat, c.secondaryLon, c.secondaryAltKm);
-          const cGeo = new THREE.BufferGeometry();
-          cGeo.setAttribute('position', new THREE.Float32BufferAttribute([ax, ay, az, bx, by, bz], 3));
-          ssaConjunctionGroup.add(
-            new THREE.Line(
-              cGeo,
-              new THREE.LineBasicMaterial({
-                color: 0xff4d5a,
-                transparent: true,
-                opacity: 0.22,
-                depthWrite: false,
-              })
-            )
-          );
-        }
-
-        for (const r of ssaData.reentries) {
-          const [x, y, z] = latLonSurfaceToScene(r.latitude, r.longitude, 1.008);
-          const color =
-            r.confidence === 'high' ? 0xff4d5a : r.confidence === 'medium' ? 0xffc24b : 0xa78bfa;
-          const marker = new THREE.Mesh(
-            new THREE.SphereGeometry(0.014, 8, 8),
-            new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85 })
-          );
-          marker.position.set(x, y, z);
-          ssaReentryGroup.add(marker);
-
-          const ring = new THREE.Mesh(
-            new THREE.RingGeometry(0.018, 0.028, 20),
-            new THREE.MeshBasicMaterial({
-              color,
-              transparent: true,
-              opacity: 0.35,
-              side: THREE.DoubleSide,
-              depthWrite: false,
-            })
-          );
-          ring.position.set(x, y, z);
-          ring.lookAt(0, 0, 0);
-          ssaReentryGroup.add(ring);
-        }
-
-        ssaBuiltSig = sig;
-      }
-    }
 
     const satPos = new Float32Array(N * 3);
     const aCol = new Float32Array(N * 3);
@@ -832,25 +585,11 @@ export function StarlinkMeshCanvas({
 
     function refreshTopologyVisualState(): void {
       const indices = highlightRef.current;
-      const ctrl = controlsRef.current;
-      const ssaActive = ctrl.showSsa && !!liveRef.current.ssa;
       if (effectiveTopologyHighlight() >= 0) {
         setHighlight(hovered);
       } else if (indices && indices.size > 0) {
         lastDeploySig = '';
         applyDeploymentFilter(indices);
-      } else if (ssaActive) {
-        for (let i = 0; i < N; i++) {
-          if (!isShellVisible(satellites[i]!.shell)) {
-            aAlpha[i] = 0;
-            aSize[i] = 0;
-            continue;
-          }
-          aAlpha[i] = SSA_MESH_ALPHA;
-          aSize[i] = BASE_SIZE * 0.75;
-        }
-        satGeo.attributes.aAlpha!.needsUpdate = true;
-        satGeo.attributes.aSize!.needsUpdate = true;
       } else {
         restoreDefaultAppearance();
       }
@@ -1471,7 +1210,6 @@ export function StarlinkMeshCanvas({
         updateTopologyPositions(simTime);
       }
 
-      const ssaActive = ctrl.showSsa && !!liveRef.current.ssa && !isLive;
       const deployIndices = highlightRef.current;
       const deployKey = deploymentKeyRef.current ?? '';
       if (!isLive && deployIndices && deployIndices.size > 0 && hovered < 0) {
@@ -1482,21 +1220,8 @@ export function StarlinkMeshCanvas({
         lastDeploySig = '';
       }
 
-      if (ssaActive && hovered < 0 && (!deployIndices || deployIndices.size === 0) && !isLive) {
-        for (let i = 0; i < N; i++) {
-          if (!isShellVisible(satellites[i]!.shell)) {
-            aAlpha[i] = 0;
-            aSize[i] = 0;
-            continue;
-          }
-          aAlpha[i] = SSA_MESH_ALPHA;
-          aSize[i] = BASE_SIZE * 0.75;
-        }
-        satGeo.attributes.aAlpha!.needsUpdate = true;
-        satGeo.attributes.aSize!.needsUpdate = true;
-      } else if (
+      if (
         !isLive &&
-        !ssaActive &&
         effectiveTopologyHighlight() < 0 &&
         (!deployIndices || deployIndices.size === 0)
       ) {
@@ -1531,7 +1256,6 @@ export function StarlinkMeshCanvas({
       const showPerShellLinks =
         !isLive &&
         shouldShowPerShellLinks() &&
-        !ssaActive &&
         (!deployIndices || deployIndices.size === 0);
       edgeLines.visible = showPerShellLinks;
       if (showPerShellLinks) updateShellEdgeLines(lod);
@@ -1540,7 +1264,7 @@ export function StarlinkMeshCanvas({
       const edgeMat = edgeLines.material as THREE.LineBasicMaterial;
       edgeMat.opacity = TOPOLOGY_EDGE_OPACITY * (1 - lod * 0.06);
 
-      satMat.uniforms.uScale!.value = ssaActive ? ctrl.nodeScale * 0.85 : ctrl.nodeScale;
+      satMat.uniforms.uScale!.value = ctrl.nodeScale;
       if (isLive) {
         satMat.uniforms.uScale!.value = ctrl.nodeScale * 0.9;
       }
@@ -1588,25 +1312,6 @@ export function StarlinkMeshCanvas({
       }
 
       rebuildAurora();
-      rebuildSsa();
-      ssaGroup.visible = ssaActive;
-      if (ssaPointsMesh) ssaPointsMesh.visible = ssaActive;
-      if (ssaGlowMesh) ssaGlowMesh.visible = ssaActive;
-      if (ssaActive) {
-        const pulse = 0.82 + 0.18 * Math.sin(now * 0.0045);
-        const scale = ctrl.nodeScale * 1.75 * pulse;
-        ssaNodeMat.uniforms.uScale!.value = scale;
-        ssaNodeMat.uniforms.uPulse!.value = 0.95 + 0.05 * pulse;
-        ssaGlowMat.uniforms.uScale!.value = scale * 1.12;
-        ssaGlowMat.uniforms.uPulse!.value = 0.5 + 0.35 * pulse;
-      }
-
-      const conjPulse = 0.4 + 0.2 * Math.sin(now * 0.004);
-      for (const child of ssaConjunctionGroup.children) {
-        if (child instanceof THREE.Line) {
-          (child.material as THREE.LineBasicMaterial).opacity = conjPulse;
-        }
-      }
 
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(frame);
@@ -1629,16 +1334,6 @@ export function StarlinkMeshCanvas({
       topologyGroup.remove(points, edgeLines, hlLines, deployHlLines);
       scene.remove(topologyGroup);
       satMat.dispose();
-      ssaNodeMat.dispose();
-      ssaGlowMat.dispose();
-      if (ssaPointsMesh) {
-        ssaPointsMesh.geometry.dispose();
-        scene.remove(ssaPointsMesh);
-      }
-      if (ssaGlowMesh) {
-        ssaGlowMesh.geometry.dispose();
-        scene.remove(ssaGlowMesh);
-      }
       spriteTex.dispose();
       edgeGeo.dispose();
       (edgeLines.material as THREE.Material).dispose();
@@ -1652,7 +1347,6 @@ export function StarlinkMeshCanvas({
       graticule.geometry.dispose();
       (graticule.material as THREE.Material).dispose();
       rebuildAurora();
-      rebuildSsa();
       renderer.dispose();
     };
   }, []);

@@ -1,6 +1,17 @@
-import type { Launch } from '../types';
 import type { StarlinkSatMeta } from '../types/orbital';
 import { catalogIndex, planeSatCounts, STARLINK_SHELLS } from '../components/starlink/starlinkCatalog';
+
+export interface StarlinkLaunch {
+  id: string;
+  name: string;
+  provider: string;
+  rocket: string;
+  location: string;
+  date: Date;
+  status: string;
+  mission?: string;
+  pad?: string;
+}
 
 export interface StarlinkDeploymentSpec {
   /** Stable key for UI selection */
@@ -154,7 +165,7 @@ const SPEC_BY_NAME = new Map(
   STARLINK_DEPLOYMENT_SPECS.map((s) => [s.launchName.toLowerCase(), s])
 );
 
-export function isStarlinkLaunch(launch: Launch): boolean {
+export function isStarlinkLaunch(launch: StarlinkLaunch): boolean {
   const text = `${launch.name} ${launch.mission ?? ''} ${launch.provider}`;
   return /starlink/i.test(text);
 }
@@ -184,7 +195,7 @@ function inferFromGroupName(name: string, launchId: string): StarlinkDeploymentS
   };
 }
 
-export function resolveDeploymentForLaunch(launch: Launch): StarlinkDeploymentSpec | null {
+export function resolveDeploymentForLaunch(launch: StarlinkLaunch): StarlinkDeploymentSpec | null {
   if (!isStarlinkLaunch(launch)) return null;
 
   const exact = SPEC_BY_NAME.get(launch.name.toLowerCase());
@@ -199,7 +210,7 @@ export function resolveDeploymentForLaunch(launch: Launch): StarlinkDeploymentSp
 }
 
 export interface StarlinkLaunchOption {
-  launch: Launch;
+  launch: StarlinkLaunch;
   spec: StarlinkDeploymentSpec;
   indices: ReadonlySet<number>;
   noradIds: ReadonlySet<number>;
@@ -268,7 +279,7 @@ export function buildDefaultStarlinkLaunchOptions(): StarlinkLaunchOption[] {
   return buildStarlinkLaunchOptions([]);
 }
 
-export function buildStarlinkLaunchOptions(launches: Launch[]): StarlinkLaunchOption[] {
+export function buildStarlinkLaunchOptions(launches: StarlinkLaunch[]): StarlinkLaunchOption[] {
   const seen = new Set<string>();
   const options: StarlinkLaunchOption[] = [];
 

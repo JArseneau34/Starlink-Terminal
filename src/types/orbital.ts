@@ -45,63 +45,6 @@ export interface OrbitalPayload {
   fetchedAt: string;
 }
 
-export interface DebrisObject {
-  noradId: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  altitudeKm: number;
-  inclination: number;
-  epoch: string;
-}
-
-export interface AltitudeBand {
-  minKm: number;
-  maxKm: number;
-  label: string;
-  count: number;
-  densityIndex: number;
-}
-
-export interface ConjunctionAlert {
-  id: string;
-  primaryName: string;
-  primaryNorad: number;
-  secondaryName: string;
-  secondaryNorad: number;
-  minRangeKm: number;
-  probability: number;
-  tca: string;
-  relativeSpeedKms: number;
-  primaryLat: number;
-  primaryLon: number;
-  primaryAltKm: number;
-  secondaryLat: number;
-  secondaryLon: number;
-  secondaryAltKm: number;
-}
-
-export interface ReentryForecast {
-  noradId: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  windowStart: string;
-  windowEnd: string;
-  perigeeKm: number;
-  inclination: number;
-  confidence: 'high' | 'medium' | 'low';
-}
-
-export interface SsaPayload {
-  debris: DebrisObject[];
-  otherObjects: DebrisObject[];
-  densityBands: AltitudeBand[];
-  conjunctions: ConjunctionAlert[];
-  reentries: ReentryForecast[];
-  fetchedAt: string;
-}
-
 export interface StarlinkSatMeta {
   noradId: number;
   name: string;
