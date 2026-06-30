@@ -1,14 +1,12 @@
 import { json2satrec, propagate, gstime, degreesLat, degreesLong, eciToGeodetic } from '../lib/satelliteJsCore';
 import type { OMMJsonObject, SatRec } from 'satellite.js';
 import type { StarlinkCatalogPayload, StarlinkSatMeta } from '../types/orbital';
+import { buildCatalogShells } from '../data/starlinkShellBands';
 import {
   STARLINK_SHELLS,
   meanMotionRevPerDay,
   type StarlinkSatellite,
 } from '../components/starlink/starlinkCatalog';
-
-const TAU = Math.PI * 2;
-const EARTH_RADIUS_KM = 6371;
 
 export const TOPOLOGY_REFERENCE_EPOCH = '2024-01-01T00:00:00.000Z';
 
@@ -16,37 +14,6 @@ export interface GeodeticPosition {
   lat: number;
   lon: number;
   altKm: number;
-}
-
-/** Circular Walker ECI position — matches grid RAAN / mean anomaly exactly. */
-export function propagateWalkerSatellite(
-  sat: StarlinkSatellite,
-  when: Date,
-  epoch: Date
-): GeodeticPosition {
-  const sh = STARLINK_SHELLS[sat.shell]!;
-  const inc = sh.inc * (Math.PI / 180);
-  const raan = sat.raan;
-  const dtSec = (when.getTime() - epoch.getTime()) / 1000;
-  const n = meanMotionRevPerDay(sh.altKm) * (TAU / 86400);
-  let M = sat.phase0 + n * dtSec;
-  M = ((M % TAU) + TAU) % TAU;
-  const rKm = EARTH_RADIUS_KM + sh.altKm;
-  const cosO = Math.cos(raan);
-  const sinO = Math.sin(raan);
-  const cosI = Math.cos(inc);
-  const sinI = Math.sin(inc);
-  const cosM = Math.cos(M);
-  const sinM = Math.sin(M);
-  const x = rKm * (cosO * cosM - sinO * sinM * cosI);
-  const y = rKm * (sinO * cosM + cosO * sinM * cosI);
-  const z = rKm * sinM * sinI;
-  const gd = eciToGeodetic({ x, y, z }, gstime(when));
-  return {
-    lat: degreesLat(gd.latitude),
-    lon: degreesLong(gd.longitude),
-    altKm: gd.height,
-  };
 }
 
 function radiansToOmmDegrees(rad: number): number {
@@ -167,6 +134,7 @@ export function buildTopologyCatalogPayload(
       apogeeKm: sh.altKm,
       eccentricity: 0,
       lifecycle: 'operational',
+      modelHint: 'unknown',
       r: s.r,
       g: s.g,
       b: s.b,
@@ -193,6 +161,8 @@ export function buildTopologyCatalogPayload(
     ommMeanMotionDot: new Array(count).fill(0),
     ommMeanMotionDdot: new Array(count).fill(0),
     ommElementSetNo: new Array(count).fill(999),
+    shells: buildCatalogShells(satellites.map((s) => s.shell)),
+    tleSource: 'cache',
     fetchedAt: liveCatalog?.fetchedAt ?? epoch,
   };
 

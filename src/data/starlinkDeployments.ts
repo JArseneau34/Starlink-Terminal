@@ -1,5 +1,10 @@
 import type { StarlinkSatMeta } from '../types/orbital';
 import { catalogIndex, planeSatCounts, STARLINK_SHELLS } from '../components/starlink/starlinkCatalog';
+import {
+  extractStarlinkGroupKey,
+  lookupLaunchArchiveByDate,
+  lookupLaunchArchiveByName,
+} from './starlinkLaunchArchiveLookup';
 
 export interface StarlinkLaunch {
   id: string;
@@ -23,6 +28,8 @@ export interface StarlinkDeploymentSpec {
   count: number;
   pad?: string;
   note?: string;
+  starlinkModel?: string | null;
+  archiveMatched?: boolean;
 }
 
 export function indicesForDeployment(spec: StarlinkDeploymentSpec): number[] {
@@ -170,19 +177,31 @@ export function isStarlinkLaunch(launch: StarlinkLaunch): boolean {
   return /starlink/i.test(text);
 }
 
-function inferFromGroupName(name: string, launchId: string): StarlinkDeploymentSpec | null {
+function inferFromGroupName(name: string, launchId: string, launchDate?: Date): StarlinkDeploymentSpec | null {
   const m = name.match(/starlink.*?group\s+(\d+)-(\d+)/i);
   if (!m) return null;
 
   const group = Number(m[1]);
   const batch = Number(m[2]);
+  const groupKey = `${group}-${batch}`;
+  const archive =
+    lookupLaunchArchiveByName(name) ??
+    (launchDate
+      ? lookupLaunchArchiveByDate(launchDate.toISOString().slice(0, 10)).find((entry) => {
+          const payloadKey = entry.payload ? extractStarlinkGroupKey(entry.payload) : null;
+          return payloadKey === groupKey;
+        }) ?? null
+      : null);
+
   const shell =
     group >= 12 ? 4 : group >= 10 ? 1 : group >= 6 ? 0 : group >= 4 ? 2 : group >= 3 ? 5 : 0;
   const sh = STARLINK_SHELLS[shell]!;
   const counts = planeSatCounts(sh);
   const plane = (group * 2 + batch) % sh.planes;
   const slotStart = (batch * 3) % counts[plane]!;
-  const count = shell >= 4 ? 16 : batch % 3 === 0 ? 23 : 22;
+  const count =
+    archive?.numberOfStarlinkSatellites ??
+    (shell >= 4 ? 16 : batch % 3 === 0 ? 23 : 22);
 
   return {
     key: `inferred-${launchId}`,
@@ -191,7 +210,11 @@ function inferFromGroupName(name: string, launchId: string): StarlinkDeploymentS
     plane,
     slotStart,
     count,
-    note: 'Inferred plane assignment from group ID',
+    starlinkModel: archive?.starlinkModel ?? null,
+    archiveMatched: Boolean(archive),
+    note: archive
+      ? `Launch archive · ${archive.starlinkModel ?? 'unknown model'} · ${count} sats`
+      : 'Inferred plane assignment from group ID',
   };
 }
 
@@ -199,14 +222,32 @@ export function resolveDeploymentForLaunch(launch: StarlinkLaunch): StarlinkDepl
   if (!isStarlinkLaunch(launch)) return null;
 
   const exact = SPEC_BY_NAME.get(launch.name.toLowerCase());
-  if (exact) return { ...exact, key: launch.id || exact.key };
+  if (exact) {
+    const archive = lookupLaunchArchiveByName(launch.name);
+    return {
+      ...exact,
+      key: launch.id || exact.key,
+      count: archive?.numberOfStarlinkSatellites ?? exact.count,
+      starlinkModel: archive?.starlinkModel ?? exact.starlinkModel ?? null,
+      archiveMatched: Boolean(archive) || exact.archiveMatched,
+    };
+  }
 
   const partial = STARLINK_DEPLOYMENT_SPECS.find((s) =>
     launch.name.toLowerCase().includes(s.launchName.toLowerCase())
   );
-  if (partial) return { ...partial, key: launch.id || partial.key };
+  if (partial) {
+    const archive = lookupLaunchArchiveByName(launch.name);
+    return {
+      ...partial,
+      key: launch.id || partial.key,
+      count: archive?.numberOfStarlinkSatellites ?? partial.count,
+      starlinkModel: archive?.starlinkModel ?? partial.starlinkModel ?? null,
+      archiveMatched: Boolean(archive) || partial.archiveMatched,
+    };
+  }
 
-  return inferFromGroupName(launch.name, launch.id);
+  return inferFromGroupName(launch.name, launch.id, launch.date);
 }
 
 export interface StarlinkLaunchOption {
@@ -227,6 +268,16 @@ export function matchDeploymentToLiveCatalog(
   launchDate: Date,
   catalog: StarlinkSatMeta[]
 ): number[] {
+  const archive =
+    lookupLaunchArchiveByName(spec.launchName) ??
+    lookupLaunchArchiveByDate(launchDate.toISOString().slice(0, 10)).find((entry) => {
+      const groupKey = extractStarlinkGroupKey(spec.launchName);
+      const payloadKey = entry.payload ? extractStarlinkGroupKey(entry.payload) : null;
+      return groupKey && payloadKey === groupKey;
+    }) ??
+    null;
+  const matchCount = archive?.numberOfStarlinkSatellites ?? spec.count;
+
   const targetInc = STARLINK_SHELLS[spec.shell]?.inc ?? 53;
   const launchMs = launchDate.getTime();
   const windowStart = launchMs - EPOCH_WINDOW_BEFORE_MS;
@@ -246,7 +297,7 @@ export function matchDeploymentToLiveCatalog(
       return a.noradId - b.noradId;
     });
 
-  return candidates.slice(0, spec.count).map((s) => s.noradId);
+  return candidates.slice(0, matchCount).map((s) => s.noradId);
 }
 
 export function enrichLaunchOptionsWithLiveCatalog(

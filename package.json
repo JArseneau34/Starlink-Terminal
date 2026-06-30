@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "concurrently -n api,web -c cyan,amber \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "vite",
-    "dev:server": "tsx watch server/index.ts",
+    "dev:server": "node --use-system-ca ./node_modules/tsx/dist/cli.mjs watch server/index.ts",
+    "sync:pipeline": "node scripts/sync-pipeline.mjs",
+    "verify:layer1": "node --use-system-ca ./node_modules/tsx/dist/cli.mjs scripts/verifyLayer1.ts",
+    "verify:layer2": "node ./node_modules/tsx/dist/cli.mjs scripts/verifyLayer2.ts",
+    "verify:live-shells": "node --use-system-ca ./node_modules/tsx/dist/cli.mjs scripts/verifyLiveShells.ts",
+    "verify:topology": "npm run verify:layer2",
+    "verify:layers": "npm run verify:live-shells && npm run verify:layer1 && npm run verify:layer2",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

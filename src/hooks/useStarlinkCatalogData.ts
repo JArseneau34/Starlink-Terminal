@@ -18,6 +18,7 @@ export function useStarlinkCatalogData(enabled: boolean) {
     try {
       const payload = await fetchStarlinkCatalog();
       setData(payload);
+      setError(null);
     } catch {
       setError('Starlink catalog unavailable');
     } finally {

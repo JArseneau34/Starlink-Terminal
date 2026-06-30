@@ -1021,16 +1021,76 @@ body {
   isolation: isolate;
 }
 
+.orbital-ops-topbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--color-bbg-border-subtle);
+  background: linear-gradient(180deg, rgba(12, 12, 18, 0.94), rgba(5, 5, 8, 0.88));
+  z-index: 12;
+}
+
+.orbital-ops-brand {
+  min-width: 0;
+}
+
+.orbital-ops-tabs {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.orbital-ops-tab {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 1px solid var(--color-bbg-border-subtle);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--color-bbg-gray);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.orbital-ops-tab:hover:not(.subtab-btn-active) {
+  color: var(--color-bbg-white);
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.orbital-ops-tab.subtab-btn-active {
+  border-color: rgba(61, 232, 255, 0.4);
+  background: rgba(61, 232, 255, 0.05);
+}
+
+.orbital-ops-body {
+  width: 100%;
+}
+
 .orbital-ops-chrome {
   position: absolute;
   inset: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: minmax(0, 248px) minmax(0, 1fr) minmax(0, 228px);
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 248px) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: 10px;
   padding: 10px;
   pointer-events: none;
+}
+
+.orbital-ops-kpi-strip {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  padding: 8px 10px;
+  pointer-events: auto;
+}
+
+.orbital-ops-kpi-strip.starlink-inv-block--kpis {
+  margin: 0;
 }
 
 .orbital-ops-title {
@@ -1039,9 +1099,27 @@ body {
   pointer-events: auto;
 }
 
+.orbital-ops-investor-row {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 10px;
+  min-height: 0;
+  max-height: min(34vh, 280px);
+  pointer-events: auto;
+}
+
+.orbital-ops-investor-row > * {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
 .orbital-ops-left,
 .orbital-ops-right {
-  grid-row: 2;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1050,28 +1128,14 @@ body {
   pointer-events: none;
 }
 
-.orbital-ops-right-data {
-  flex: 1 1 0;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-}
-
-.orbital-ops-right-data > * {
-  flex: 1 1 0;
-  min-height: 0;
-}
-
 .orbital-ops-left {
   grid-column: 1;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto minmax(0, min(32vh, 240px));
+  grid-template-rows: auto minmax(0, 1fr) minmax(0, min(34vh, 260px));
 }
 
 .orbital-ops-right {
-  grid-column: 3;
+  grid-column: 2;
 }
 
 .orbital-ops-left > *,
@@ -1079,10 +1143,378 @@ body {
   pointer-events: auto;
 }
 
+.orbital-ops-econ {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 12px;
+  scrollbar-width: thin;
+}
+
+/* ── Bottom controls dock ──────────────────────────────── */
+.orbital-ops-dock {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  pointer-events: auto;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 8px 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.orbital-ops-dock-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 0 14px;
+  border-right: 1px solid var(--color-bbg-border-subtle);
+}
+
+.orbital-ops-dock-section:last-child {
+  border-right: none;
+}
+
+.orbital-ops-dock-section--deploy {
+  width: 190px;
+}
+
+.orbital-ops-dock-section--sliders {
+  width: 188px;
+}
+
+.orbital-ops-dock-section--shells {
+  width: 200px;
+}
+
+.orbital-ops-dock-section--earth {
+  width: 196px;
+}
+
+.orbital-ops-dock-label {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.orbital-ops-dock-hint {
+  font-size: 8px;
+  line-height: 1.3;
+  color: var(--color-bbg-muted);
+  letter-spacing: 0.03em;
+}
+
+.orbital-ops-dock-section--sliders .mesh-control-label {
+  margin: 2px 0 0;
+}
+
+.orbital-ops-dock-section--sliders .mesh-range {
+  margin-bottom: 2px;
+}
+
+.orbital-ops-dock-section--shells .starlink-shell-filter {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ── Model mix economics panel ─────────────────────────── */
+.starlink-econ-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.starlink-econ-lede {
+  font-size: 9px;
+  line-height: 1.4;
+  color: var(--color-bbg-gray);
+  margin: 6px 0 8px;
+}
+
+.starlink-econ-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.starlink-econ-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 2px solid var(--econ-accent, #3de8ff);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 7px 7px 8px;
+  min-width: 0;
+}
+
+.starlink-econ-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-bbg-white);
+}
+
+.starlink-econ-card-cap {
+  font-size: 7.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--econ-accent, #3de8ff);
+  margin-top: 1px;
+}
+
+.starlink-econ-metric {
+  margin: 7px 0 6px;
+}
+
+.starlink-econ-metric-value {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-bbg-white);
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.starlink-econ-unit {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-econ-metric-label {
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+  margin-top: 2px;
+}
+
+.starlink-econ-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  font-size: 9px;
+  color: var(--color-bbg-muted);
+  padding: 1.5px 0;
+}
+
+.starlink-econ-row b {
+  color: var(--color-bbg-white);
+  font-weight: 600;
+}
+
+.starlink-econ-share-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  margin-top: 7px;
+}
+
+.starlink-econ-share-fill {
+  height: 100%;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+.starlink-econ-share-label {
+  font-size: 7.5px;
+  letter-spacing: 0.03em;
+  color: var(--color-bbg-gray);
+  margin-top: 3px;
+}
+
+.starlink-econ-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-bbg-border-subtle);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-econ-foot b {
+  font-size: 12px;
+  text-transform: none;
+}
+
+/* ── Direct-to-cell revenue tracker ────────────────────── */
+.starlink-dtc {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-bbg-border-subtle);
+}
+
+.starlink-dtc-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.starlink-dtc-pill {
+  color: #07100a;
+  background: #2ee86a;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.starlink-dtc-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 9px;
+  border: 1px solid rgba(46, 232, 106, 0.2);
+  background:
+    radial-gradient(circle at 84% 30%, rgba(46, 232, 106, 0.16), transparent 34%),
+    rgba(46, 232, 106, 0.04);
+}
+
+.starlink-dtc-hero-value {
+  color: #2ee86a;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.starlink-dtc-hero-label {
+  color: var(--color-bbg-gray);
+  font-size: 8px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.starlink-dtc-orbit {
+  position: relative;
+  flex: 0 0 44px;
+  height: 44px;
+  border: 1px solid rgba(46, 232, 106, 0.35);
+  border-radius: 50%;
+}
+
+.starlink-dtc-orbit span {
+  position: absolute;
+  inset: 11px;
+  border: 1px solid rgba(61, 232, 255, 0.28);
+  border-radius: 50%;
+}
+
+.starlink-dtc-orbit i {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ee86a;
+  box-shadow: 0 0 10px rgba(46, 232, 106, 0.75);
+}
+
+.starlink-dtc-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.starlink-dtc-metric {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 7px;
+}
+
+.starlink-dtc-metric span {
+  display: block;
+  color: var(--color-bbg-muted);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.starlink-dtc-metric b {
+  display: block;
+  color: var(--color-bbg-white);
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 2px 0 5px;
+}
+
+.starlink-dtc-track {
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(46, 232, 106, 0.12);
+}
+
+.starlink-dtc-track i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: #2ee86a;
+  box-shadow: 0 0 8px rgba(46, 232, 106, 0.55);
+}
+
+.starlink-dtc-stage {
+  margin-top: 8px;
+  border-top: 1px solid var(--color-bbg-border-subtle);
+  padding-top: 6px;
+}
+
+.starlink-dtc-stage > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--color-bbg-muted);
+  font-size: 9px;
+  padding: 2px 0;
+}
+
+.starlink-dtc-stage b {
+  color: var(--color-bbg-white);
+  font-weight: 600;
+  text-align: right;
+}
+
+.starlink-dtc-note {
+  color: var(--color-bbg-gray);
+  font-size: 8.5px;
+  line-height: 1.45;
+  margin-top: 8px;
+}
+
+.starlink-dtc-note span {
+  color: #2ee86a;
+}
+
 .orbital-ops-stats {
   flex: none;
   padding: 9px 12px;
   font-size: 10px;
+}
+
+.orbital-ops-debug-divider {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .orbital-ops-deployments {
@@ -1188,6 +1620,243 @@ body {
   background: rgba(61, 232, 255, 0.08);
 }
 
+.starlink-fleet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.starlink-fleet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--color-bbg-border-subtle);
+  white-space: nowrap;
+  flex: none;
+}
+
+.starlink-fleet-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 5px currentColor;
+}
+
+.starlink-fleet-pill--live {
+  color: var(--color-bbg-green);
+  background: var(--color-bbg-green-dim);
+}
+
+.starlink-fleet-pill--stale {
+  color: var(--color-bbg-amber);
+  background: rgba(167, 139, 250, 0.12);
+}
+
+.starlink-fleet-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
+
+.starlink-fleet-headline-num {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-bbg-green);
+  letter-spacing: -0.01em;
+}
+
+.starlink-fleet-headline-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 9px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-bbg-gray);
+}
+
+.starlink-fleet-headline-src {
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-fleet-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.starlink-fleet-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-bbg-border-subtle);
+  border-radius: 2px;
+  padding: 6px 8px;
+}
+
+.starlink-fleet-card-value {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.starlink-fleet-card-label {
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+  margin-top: 2px;
+}
+
+.starlink-fleet-recon {
+  border-left: 2px solid var(--color-bbg-border);
+  padding-left: 8px;
+}
+
+.starlink-fleet-recon-note {
+  font-size: 8px;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--color-bbg-muted);
+  margin-top: 3px;
+}
+
+.starlink-growth {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.starlink-growth-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-growth-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.starlink-growth-legend-item b {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.starlink-growth-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.starlink-growth-svg {
+  width: 100%;
+  height: 64px;
+  display: block;
+  overflow: visible;
+}
+
+.starlink-growth-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: var(--color-bbg-gray);
+  font-variant-numeric: tabular-nums;
+}
+
+.starlink-growth-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  font-size: 8px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-growth-foot b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.starlink-growth-foot-span {
+  color: var(--color-bbg-gray);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.starlink-fleet-model-bar {
+  display: flex;
+  height: 7px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(167, 139, 250, 0.12);
+}
+
+.starlink-fleet-model-seg {
+  height: 100%;
+  min-width: 1px;
+}
+
+.starlink-fleet-models {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.starlink-fleet-model-row {
+  display: grid;
+  grid-template-columns: 8px 1fr auto 40px;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  padding: 1px 0;
+  color: var(--color-bbg-gray);
+}
+
+.starlink-fleet-model-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+}
+
+.starlink-fleet-model-name {
+  color: var(--color-bbg-gray);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.starlink-fleet-model-count {
+  color: var(--color-bbg-white);
+  text-align: right;
+}
+
+.starlink-fleet-model-pct {
+  color: var(--color-bbg-muted);
+  font-size: 9px;
+  text-align: right;
+}
+
 .starlink-lifecycle-bar {
   display: flex;
   height: 5px;
@@ -1269,21 +1938,9 @@ body {
   scrollbar-width: thin;
 }
 
-.orbital-ops-space {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 10px 12px;
-}
-
-.orbital-ops-legend {
-  flex: none;
-  padding: 10px 12px;
-}
-
 .orbital-ops-controls {
-  flex: 0 1 auto;
-  max-height: min(46vh, 440px);
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 10px 12px;
@@ -1332,10 +1989,6 @@ body {
     display: none;
   }
 
-  .orbital-ops-controls {
-    max-height: min(40vh, 380px);
-  }
-
   .orbital-ops-deployments {
     max-height: min(20vh, 120px);
   }
@@ -1343,7 +1996,7 @@ body {
 
 @media (max-width: 1280px) {
   .orbital-ops-chrome {
-    grid-template-columns: minmax(0, 236px) minmax(0, 1fr) minmax(0, 220px);
+    grid-template-columns: minmax(0, 236px) minmax(0, 1fr);
   }
 }
 
@@ -1660,11 +2313,32 @@ body {
 /* ── Starlink investor sub-tab ─────────────────────────── */
 
 .starlink-investor-view {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  padding: 8px 10px;
-  gap: 8px;
-  min-height: 0;
+  padding: 10px;
+  gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.starlink-investor-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.starlink-investor-grid > .starlink-inv-block {
+  overflow: visible;
+}
+
+@media (max-width: 1024px) {
+  .starlink-investor-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .starlink-investor-header {
@@ -1734,9 +2408,311 @@ body {
   grid-row: 3;
 }
 
+.starlink-inv-block--revenue,
+.starlink-inv-block--catalysts {
+  margin: 0;
+}
+
+/* ── Revenue scenario panel ───────────────────────────── */
+.starlink-rev-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.starlink-rev-runrate {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.starlink-rev-runrate span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-rev-runrate b {
+  display: block;
+  font-size: 18px;
+  color: var(--color-bbg-cyan);
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.starlink-rev-bridge {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 8px;
+  padding: 7px 8px;
+  border: 1px solid rgba(61, 232, 255, 0.15);
+  background: rgba(61, 232, 255, 0.04);
+}
+
+.starlink-rev-bridge-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.starlink-rev-bridge-step span {
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-rev-bridge-step b {
+  font-size: 11px;
+  color: var(--color-bbg-white);
+}
+
+.starlink-rev-bridge-step--out b {
+  font-size: 13px;
+}
+
+.starlink-rev-bridge-op {
+  color: var(--color-bbg-muted);
+  font-size: 10px;
+}
+
+.starlink-rev-scenarios {
+  margin-bottom: 8px;
+}
+
+.starlink-rev-scenarios-label {
+  margin-bottom: 4px;
+}
+
+.starlink-rev-scenarios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.starlink-rev-scenario {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 2px solid var(--rev-accent, #3de8ff);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 6px 7px;
+  min-width: 0;
+}
+
+.starlink-rev-scenario-label {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-rev-scenario-arr {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-bbg-white);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.starlink-rev-scenario-sub {
+  font-size: 7.5px;
+  color: var(--color-bbg-gray);
+  margin-top: 2px;
+}
+
+.starlink-rev-streams {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.starlink-rev-stream-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  color: var(--color-bbg-gray);
+}
+
+.starlink-rev-stream-head b {
+  color: var(--color-bbg-white);
+  font-weight: 600;
+}
+
+.starlink-rev-stream-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(167, 139, 250, 0.12);
+  overflow: hidden;
+  margin: 3px 0;
+}
+
+.starlink-rev-stream-track i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #3de8ff, #a78bfa);
+}
+
+.starlink-rev-stream-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  font-size: 7.5px;
+  color: var(--color-bbg-muted);
+}
+
+/* ── Catalyst timeline panel ──────────────────────────── */
+.starlink-cat-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.starlink-cat-next {
+  flex-shrink: 0;
+  max-width: 160px;
+  text-align: right;
+  padding: 5px 7px;
+  border: 1px solid rgba(255, 194, 75, 0.3);
+  background: rgba(255, 194, 75, 0.06);
+}
+
+.starlink-cat-next span {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.starlink-cat-next b {
+  display: block;
+  font-size: 9px;
+  color: #ffc24b;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.starlink-cat-section {
+  margin-top: 6px;
+}
+
+.starlink-cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.starlink-cat-event {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.starlink-cat-event:last-child {
+  border-bottom: none;
+}
+
+.starlink-cat-event-rail {
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.starlink-cat-event-rail i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-accent, #2ee86a);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cat-accent, #2ee86a) 60%, transparent);
+}
+
+.starlink-cat-event--completed .starlink-cat-event-rail i {
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.starlink-cat-event-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.starlink-cat-date {
+  font-size: 8px;
+  color: var(--color-bbg-amber);
+  letter-spacing: 0.04em;
+}
+
+.starlink-cat-horizon {
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+  padding: 1px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.starlink-cat-impact {
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.starlink-cat-impact--high {
+  color: #2ee86a;
+  border: 1px solid rgba(46, 232, 106, 0.3);
+}
+
+.starlink-cat-impact--medium {
+  color: #3de8ff;
+  border: 1px solid rgba(61, 232, 255, 0.3);
+}
+
+.starlink-cat-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-bbg-white);
+  margin: 2px 0 0;
+  line-height: 1.25;
+}
+
+.starlink-cat-detail {
+  font-size: 8.5px;
+  color: var(--color-bbg-gray);
+  margin: 2px 0 0;
+  line-height: 1.35;
+}
+
+.starlink-cat-hook {
+  font-size: 8px;
+  color: var(--color-bbg-muted);
+  margin: 3px 0 0;
+  line-height: 1.35;
+  font-style: italic;
+}
+
+.starlink-cat-milestones {
+  max-height: none;
+  grid-template-columns: 1fr;
+}
+
 .starlink-inv-kpi-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
 }
 

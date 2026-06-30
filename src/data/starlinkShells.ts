@@ -1,8 +1,9 @@
 /**
- * Single source of truth for Starlink inclination shells.
- * Topology node counts (~7,504) approximate the live NORAD fleet scale (mid-2026).
- * Gen2 V2 Mini shells use FCC 2022 altitudes; plane×sat grids are Walker topology models.
+ * Walker topology shell grids — ISL plane×slot geometry only.
+ * Live CelesTrak visual grouping uses starlinkVisualShells.ts (multi-factor classifier).
  */
+
+import { STARLINK_FLEET_SNAPSHOT } from './starlinkFleetSnapshot';
 
 export interface StarlinkShellSpec {
   name: string;
@@ -17,10 +18,11 @@ export interface StarlinkShellSpec {
   generation: 'gen1' | 'gen2';
 }
 
-/** Topology fleet target — sum of shellSatCount across STARLINK_SHELL_SPECS. */
-export const TOPOLOGY_FLEET_TARGET = 7_504;
+/** Topology fleet target — McDowell snapshot total_working (synthetic Walker model only; live mode uses NORAD TLE counts). */
+export const TOPOLOGY_FLEET_TARGET = STARLINK_FLEET_SNAPSHOT.totalWorking;
 
-export const STARLINK_SHELL_SPECS: StarlinkShellSpec[] = [
+/** Representative Walker grid before proportional scaling to TOPOLOGY_FLEET_TARGET. */
+export const STARLINK_SHELL_SPECS_BASE: StarlinkShellSpec[] = [
   {
     name: '53.0°',
     inc: 53.0,
@@ -84,9 +86,79 @@ export const STARLINK_SHELL_SPECS: StarlinkShellSpec[] = [
   },
 ];
 
-/** Live TLE shell assignment bands — names/colors must match STARLINK_SHELL_SPECS. */
-export const STARLINK_SHELL_BANDS = STARLINK_SHELL_SPECS.map(({ name, inc, color }) => ({
-  name,
-  inc,
-  color,
-}));
+export function shellSatCountFromSpec(sh: StarlinkShellSpec): number {
+  if (sh.planeSats?.length === sh.planes) {
+    return sh.planeSats.reduce((sum, n) => sum + n, 0);
+  }
+  return sh.planes * sh.sats;
+}
+
+export function distributeSatsAcrossPlanes(planes: number, total: number): number[] {
+  const base = Math.floor(total / planes);
+  const rem = total % planes;
+  return Array.from({ length: planes }, (_, p) => base + (p < rem ? 1 : 0));
+}
+
+function scaleShellSpecToCount(sh: StarlinkShellSpec, targetCount: number): StarlinkShellSpec {
+  const planeSats = distributeSatsAcrossPlanes(sh.planes, targetCount);
+  const uniform = planeSats.every((n) => n === planeSats[0]);
+  if (uniform) {
+    return { ...sh, sats: planeSats[0]!, planeSats: undefined };
+  }
+  return { ...sh, planeSats, sats: planeSats[0]! };
+}
+
+/** Proportionally scale representative shell grids to an exact fleet total. */
+export function scaleShellSpecsToFleetTarget(
+  specs: readonly StarlinkShellSpec[],
+  targetTotal: number
+): StarlinkShellSpec[] {
+  const baseCounts = specs.map(shellSatCountFromSpec);
+  const baseTotal = baseCounts.reduce((sum, n) => sum + n, 0);
+  if (baseTotal <= 0 || targetTotal === baseTotal) {
+    return specs.map((sh) => ({ ...sh }));
+  }
+
+  const quotas = baseCounts.map((count) => (count / baseTotal) * targetTotal);
+  const allocated = quotas.map((q) => Math.floor(q));
+  const remainder = targetTotal - allocated.reduce((sum, n) => sum + n, 0);
+  const order = quotas
+    .map((q, i) => ({ i, frac: q - Math.floor(q) }))
+    .sort((a, b) => b.frac - a.frac || a.i - b.i);
+  for (let r = 0; r < remainder; r++) {
+    allocated[order[r % order.length]!.i]!++;
+  }
+
+  return specs.map((sh, i) => scaleShellSpecToCount(sh, allocated[i]!));
+}
+
+/** Walker topology shells scaled to McDowell total_working. */
+export const STARLINK_SHELL_SPECS = scaleShellSpecsToFleetTarget(
+  STARLINK_SHELL_SPECS_BASE,
+  TOPOLOGY_FLEET_TARGET
+);
+
+/** Sum of representative (pre-scale) Walker grid counts. */
+export const TOPOLOGY_BASE_TOTAL = STARLINK_SHELL_SPECS_BASE.reduce(
+  (sum, sh) => sum + shellSatCountFromSpec(sh),
+  0
+);
+
+export const TOPOLOGY_MODELED_TOTAL = STARLINK_SHELL_SPECS.reduce(
+  (sum, sh) => sum + shellSatCountFromSpec(sh),
+  0
+);
+
+/** Nearest Walker topology shell by inclination (not live visual categories). */
+export function walkerShellIndexForInclination(inc: number): number {
+  let best = 0;
+  let bestDiff = Infinity;
+  for (let i = 0; i < STARLINK_SHELL_SPECS.length; i++) {
+    const diff = Math.abs(STARLINK_SHELL_SPECS[i]!.inc - inc);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = i;
+    }
+  }
+  return best;
+}

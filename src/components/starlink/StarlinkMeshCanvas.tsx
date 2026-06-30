@@ -4,7 +4,6 @@ import {
   buildStarlinkCatalog,
   EARTH_R,
   latLonAltToScene,
-  latLonSurfaceToScene,
   STARLINK_SHELLS,
 } from './starlinkCatalog';
 import { applyNightSky } from './nightSky';
@@ -16,10 +15,10 @@ import {
 } from '../../utils/starlinkPropagation';
 import type { SatRec } from 'satellite.js';
 import type {
-  AuroraBoundaryPoint,
   StarlinkCatalogPayload,
   StarlinkMeshMode,
 } from '../../types/orbital';
+import { TOPOLOGY_FLEET_TARGET } from '../../data/starlinkShells';
 
 export interface StarlinkHoverInfoTopology {
   mode: 'topology';
@@ -47,6 +46,18 @@ export interface StarlinkHoverInfoLive {
 
 export type StarlinkHoverInfo = StarlinkHoverInfoTopology | StarlinkHoverInfoLive;
 
+export interface StarlinkTopologyDebugInfo {
+  modeledNodes: number;
+  fleetTarget: number;
+  visibleNodes: number;
+  generatedEdges: number;
+  generatedRingEdges: number;
+  generatedCrossEdges: number;
+  drawnEdges: number;
+  drawnRingEdges: number;
+  drawnCrossEdges: number;
+}
+
 export interface StarlinkMeshCanvasProps {
   meshMode?: StarlinkMeshMode;
   speedMul: number;
@@ -57,15 +68,15 @@ export interface StarlinkMeshCanvasProps {
   resetViewToken: number;
   onHover: (info: StarlinkHoverInfo | null) => void;
   onSelect?: (info: StarlinkHoverInfo | null) => void;
+  onTopologyDebug?: (info: StarlinkTopologyDebugInfo) => void;
   selectedNoradId?: number | null;
   selectedTopologyIndex?: number | null;
   highlightedIndices?: ReadonlySet<number> | null;
   highlightedNoradIds?: ReadonlySet<number> | null;
   deploymentFilterKey?: string | null;
   visibleShells?: ReadonlySet<number> | null;
+  shellSlotCount?: number;
   liveCatalog?: StarlinkCatalogPayload | null;
-  auroraNorth?: AuroraBoundaryPoint[];
-  auroraSouth?: AuroraBoundaryPoint[];
   earthVisual?: EarthVisualOptions;
   className?: string;
 }
@@ -90,26 +101,6 @@ function zoomLod(rad: number): number {
   if (near < 1) return near;
   const far = (rad - CAM_RAD_DEFAULT) / (CAM_RAD_MAX - CAM_RAD_DEFAULT);
   return Math.min(1.35, 1 + far * 0.35);
-}
-
-function shellLinkStride(lod: number, allShellsVisible: boolean): number {
-  if (allShellsVisible) {
-    if (lod <= 0.45) return 2;
-    if (lod <= 0.75) return 3;
-    return 4;
-  }
-  return 1;
-}
-
-function shellLinkBudget(lod: number, allShellsVisible: boolean): number {
-  if (allShellsVisible) {
-    if (lod <= 0.45) return 9000;
-    if (lod <= 0.75) return 6000;
-    return 4200;
-  }
-  if (lod <= 0.45) return 20_000;
-  if (lod <= 0.75) return 14_000;
-  return 9000;
 }
 
 function enhanceLinkColor(
@@ -193,44 +184,62 @@ export function StarlinkMeshCanvas({
   resetViewToken,
   onHover,
   onSelect,
+  onTopologyDebug,
   selectedNoradId = null,
   selectedTopologyIndex = null,
   highlightedIndices = null,
   highlightedNoradIds = null,
   deploymentFilterKey = null,
   visibleShells = null,
+  shellSlotCount = STARLINK_SHELLS.length,
   liveCatalog = null,
-  auroraNorth = [],
-  auroraSouth = [],
   earthVisual = DEFAULT_EARTH_VISUAL,
   className = '',
 }: StarlinkMeshCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const onHoverRef = useRef(onHover);
   const onSelectRef = useRef(onSelect);
+  const onTopologyDebugRef = useRef(onTopologyDebug);
   const selectedNoradRef = useRef(selectedNoradId);
   const selectedTopologyRef = useRef(selectedTopologyIndex);
   const highlightRef = useRef(highlightedIndices);
   const highlightNoradRef = useRef(highlightedNoradIds);
   const deploymentKeyRef = useRef(deploymentFilterKey);
   const visibleShellsRef = useRef(visibleShells);
+  const shellSlotCountRef = useRef(shellSlotCount);
   const meshModeRef = useRef(meshMode);
   const liveCatalogRef = useRef(liveCatalog);
-  const controlsRef = useRef({ speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, earthVisual });
-  const liveRef = useRef({ auroraNorth, auroraSouth });
+  const controlsRef = useRef({
+    speedMul,
+    nodeScale,
+    altExag,
+    showLinks,
+    autoSpin,
+    resetViewToken,
+    earthVisual,
+  });
 
   onHoverRef.current = onHover;
   onSelectRef.current = onSelect;
+  onTopologyDebugRef.current = onTopologyDebug;
   selectedNoradRef.current = selectedNoradId;
   selectedTopologyRef.current = selectedTopologyIndex;
   highlightRef.current = highlightedIndices;
   highlightNoradRef.current = highlightedNoradIds;
   deploymentKeyRef.current = deploymentFilterKey;
   visibleShellsRef.current = visibleShells;
+  shellSlotCountRef.current = shellSlotCount;
   meshModeRef.current = meshMode;
   liveCatalogRef.current = liveCatalog;
-  controlsRef.current = { speedMul, nodeScale, altExag, showLinks, autoSpin, resetViewToken, earthVisual };
-  liveRef.current = { auroraNorth, auroraSouth };
+  controlsRef.current = {
+    speedMul,
+    nodeScale,
+    altExag,
+    showLinks,
+    autoSpin,
+    resetViewToken,
+    earthVisual,
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -280,56 +289,6 @@ export function StarlinkMeshCanvas({
     );
     graticule.visible = earthVisual.graticule;
     scene.add(graticule);
-
-    const auroraGroup = new THREE.Group();
-    scene.add(auroraGroup);
-    let auroraSig = '';
-
-    function rebuildAurora(): void {
-      const { auroraNorth: north, auroraSouth: south } = liveRef.current;
-      const sig = `${north.length}:${south.length}:${north[0]?.lat ?? 0}`;
-      if (sig === auroraSig) return;
-      auroraSig = sig;
-
-      while (auroraGroup.children.length) {
-        const child = auroraGroup.children[0]!;
-        auroraGroup.remove(child);
-        if (child instanceof THREE.Line) {
-          child.geometry.dispose();
-          (child.material as THREE.Material).dispose();
-        }
-      }
-
-      const addRing = (points: AuroraBoundaryPoint[], color: number) => {
-        if (points.length < 3) return;
-        const verts: number[] = [];
-        for (const p of points) {
-          const [x, y, z] = latLonSurfaceToScene(p.lat, p.lon, 1.018);
-          verts.push(x, y, z);
-        }
-        const p0 = points[0]!;
-        const [x0, y0, z0] = latLonSurfaceToScene(p0.lat, p0.lon, 1.018);
-        verts.push(x0, y0, z0);
-
-        const geo = new THREE.BufferGeometry();
-        geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
-        auroraGroup.add(
-          new THREE.Line(
-            geo,
-            new THREE.LineBasicMaterial({
-              color,
-              transparent: true,
-              opacity: 0.7,
-              depthWrite: false,
-              blending: THREE.AdditiveBlending,
-            })
-          )
-        );
-      };
-
-      addRing(north, 0x3de8ff);
-      addRing(south, 0xff6bd6);
-    }
 
     const spriteTex = createSpriteTexture();
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
@@ -442,11 +401,14 @@ export function StarlinkMeshCanvas({
     let liveHovered = -1;
     let liveDeploymentActive = false;
     let lastLiveDeploySig = '';
+    let wasLiveMode = false;
 
-    function rebuildLiveMesh(): void {
+    function rebuildLiveMesh(): boolean {
       const catalog = liveCatalogRef.current;
-      const sig = catalog ? `${catalog.fetchedAt}:${catalog.count}` : '';
-      if (sig === liveCatalogSig) return;
+      const sig = catalog
+        ? `${catalog.fetchedAt}:${catalog.referenceTime}:${catalog.count}`
+        : '';
+      if (sig === liveCatalogSig) return false;
       liveCatalogSig = sig;
 
       if (!catalog || catalog.count === 0) {
@@ -456,7 +418,7 @@ export function StarlinkMeshCanvas({
         liveGeo.dispose();
         liveGeo = new THREE.BufferGeometry();
         livePoints.geometry = liveGeo;
-        return;
+        return true;
       }
 
       liveCount = catalog.count;
@@ -502,6 +464,8 @@ export function StarlinkMeshCanvas({
       liveDeploymentActive = false;
       lastLiveDeploySig = '';
       simTimeLive = 0;
+      refreshLiveVisualState();
+      return true;
     }
 
     function livePositionsBuffer(): Float32Array {
@@ -552,13 +516,9 @@ export function StarlinkMeshCanvas({
 
     function isShellVisible(shell: number): boolean {
       const v = visibleShellsRef.current;
-      if (!v || v.size >= STARLINK_SHELLS.length) return true;
+      const total = shellSlotCountRef.current;
+      if (!v || v.size >= total) return true;
       return v.has(shell);
-    }
-
-    function allShellsVisible(): boolean {
-      const v = visibleShellsRef.current;
-      return !v || v.size >= STARLINK_SHELLS.length;
     }
 
     function shouldShowPerShellLinks(): boolean {
@@ -569,7 +529,7 @@ export function StarlinkMeshCanvas({
       return liveCatalogRef.current?.satellites[i]?.shell ?? 0;
     }
 
-    let lastVisibleShellSig = '0,1,2,3';
+    let lastVisibleShellSig = Array.from({ length: shellSlotCountRef.current }, (_, i) => i).join(',');
 
     function refreshLiveVisualState(): void {
       const noradIds = highlightNoradRef.current;
@@ -899,14 +859,64 @@ export function StarlinkMeshCanvas({
       hlGeo.attributes.position!.needsUpdate = true;
     }
 
-    function updateShellEdgeLines(lod: number): void {
-      const allShells = allShellsVisible();
-      const budget = shellLinkBudget(lod, allShells);
-      const crossStride = shellLinkStride(lod, allShells);
-      const ringBudget = Math.floor(budget * 0.68);
-      let e = 0;
+    function countVisibleTopologyEdges(): {
+      total: number;
+      ring: number;
+      cross: number;
+      visibleNodes: number;
+    } {
+      let total = 0;
+      let ring = 0;
+      let cross = 0;
+      let visibleNodes = 0;
+      for (let i = 0; i < N; i++) {
+        if (isShellVisible(satellites[i]!.shell)) visibleNodes++;
+      }
+      for (let i = 0; i < E; i++) {
+        const aIdx = edgeA[i]!;
+        const bIdx = edgeB[i]!;
+        if (!isShellVisible(satellites[aIdx]!.shell) || !isShellVisible(satellites[bIdx]!.shell)) {
+          continue;
+        }
+        total++;
+        if (edgeCross[i]) cross++;
+        else ring++;
+      }
+      return { total, ring, cross, visibleNodes };
+    }
 
-      const writeEdge = (aIdx: number, bIdx: number, cross: boolean): void => {
+    let lastDebugSig = '';
+
+    function emitTopologyDebug(info: StarlinkTopologyDebugInfo): void {
+      const sig = [
+        info.modeledNodes,
+        info.fleetTarget,
+        info.visibleNodes,
+        info.generatedEdges,
+        info.generatedRingEdges,
+        info.generatedCrossEdges,
+        info.drawnEdges,
+        info.drawnRingEdges,
+        info.drawnCrossEdges,
+      ].join('|');
+      if (sig === lastDebugSig) return;
+      lastDebugSig = sig;
+      onTopologyDebugRef.current?.(info);
+    }
+
+    function updateShellEdgeLines(_lod: number): void {
+      const generated = countVisibleTopologyEdges();
+      let e = 0;
+      let drawnRing = 0;
+      let drawnCross = 0;
+
+      for (let i = 0; i < E; i++) {
+        const aIdx = edgeA[i]!;
+        const bIdx = edgeB[i]!;
+        const shellA = satellites[aIdx]!.shell;
+        const shellB = satellites[bIdx]!.shell;
+        if (!isShellVisible(shellA) || !isShellVisible(shellB)) continue;
+        const cross = edgeCross[i]!;
         const ap = aIdx * 3;
         const bp = bIdx * 3;
         const o = e * 6;
@@ -925,33 +935,25 @@ export function StarlinkMeshCanvas({
         edgeCol[o + 4] = lg;
         edgeCol[o + 5] = lb;
         e++;
-      };
-
-      // Full Walker ISL: intra-plane rings first, then cross-plane stagger links.
-      for (let i = 0; i < E && e < ringBudget; i++) {
-        if (edgeCross[i]) continue;
-        const aIdx = edgeA[i]!;
-        const bIdx = edgeB[i]!;
-        if (!isShellVisible(satellites[aIdx]!.shell) || !isShellVisible(satellites[bIdx]!.shell)) {
-          continue;
-        }
-        writeEdge(aIdx, bIdx, false);
-      }
-
-      for (let i = 0; i < E && e < budget; i++) {
-        if (!edgeCross[i]) continue;
-        if (crossStride > 1 && i % crossStride !== 0) continue;
-        const aIdx = edgeA[i]!;
-        const bIdx = edgeB[i]!;
-        if (!isShellVisible(satellites[aIdx]!.shell) || !isShellVisible(satellites[bIdx]!.shell)) {
-          continue;
-        }
-        writeEdge(aIdx, bIdx, true);
+        if (cross) drawnCross++;
+        else drawnRing++;
       }
 
       edgeGeo.setDrawRange(0, e * 2);
       edgeGeo.attributes.position!.needsUpdate = true;
       edgeGeo.attributes.color!.needsUpdate = true;
+
+      emitTopologyDebug({
+        modeledNodes: N,
+        fleetTarget: TOPOLOGY_FLEET_TARGET,
+        visibleNodes: generated.visibleNodes,
+        generatedEdges: generated.total,
+        generatedRingEdges: generated.ring,
+        generatedCrossEdges: generated.cross,
+        drawnEdges: e,
+        drawnRingEdges: drawnRing,
+        drawnCrossEdges: drawnCross,
+      });
     }
 
     function pickAt(clientX: number, clientY: number): StarlinkHoverInfo | null {
@@ -1157,7 +1159,6 @@ export function StarlinkMeshCanvas({
       const lod = zoomLod(ctr.rad);
 
       topologyGroup.visible = !isLive;
-      livePoints.visible = isLive && liveCount > 0;
 
       const shellSig = visibleShellsRef.current
         ? [...visibleShellsRef.current].sort((a, b) => a - b).join(',')
@@ -1169,7 +1170,12 @@ export function StarlinkMeshCanvas({
       }
 
       if (isLive) {
+        if (!wasLiveMode) {
+          liveCatalogSig = '';
+        }
+        wasLiveMode = true;
         rebuildLiveMesh();
+        livePoints.visible = liveCount > 0;
         if (liveCount > 0) {
           if (ctrl.speedMul <= 0) {
             simTimeLive = (Date.now() - liveRefMs) / 1000;
@@ -1193,6 +1199,8 @@ export function StarlinkMeshCanvas({
           }
         }
       } else {
+        wasLiveMode = false;
+        livePoints.visible = false;
         const live = liveCatalogRef.current;
         const liveSig = live
           ? `${live.fetchedAt}:${live.referenceTime}:${live.count}`
@@ -1259,7 +1267,21 @@ export function StarlinkMeshCanvas({
         (!deployIndices || deployIndices.size === 0);
       edgeLines.visible = showPerShellLinks;
       if (showPerShellLinks) updateShellEdgeLines(lod);
-      else edgeGeo.setDrawRange(0, 0);
+      else {
+        edgeGeo.setDrawRange(0, 0);
+        const generated = countVisibleTopologyEdges();
+        emitTopologyDebug({
+          modeledNodes: N,
+          fleetTarget: TOPOLOGY_FLEET_TARGET,
+          visibleNodes: generated.visibleNodes,
+          generatedEdges: generated.total,
+          generatedRingEdges: generated.ring,
+          generatedCrossEdges: generated.cross,
+          drawnEdges: 0,
+          drawnRingEdges: 0,
+          drawnCrossEdges: 0,
+        });
+      }
 
       const edgeMat = edgeLines.material as THREE.LineBasicMaterial;
       edgeMat.opacity = TOPOLOGY_EDGE_OPACITY * (1 - lod * 0.06);
@@ -1311,8 +1333,6 @@ export function StarlinkMeshCanvas({
           TOPOLOGY_HL_EDGE_OPACITY * (1 - lod * 0.15);
       }
 
-      rebuildAurora();
-
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(frame);
     }
@@ -1346,7 +1366,6 @@ export function StarlinkMeshCanvas({
       earthGlobe.dispose();
       graticule.geometry.dispose();
       (graticule.material as THREE.Material).dispose();
-      rebuildAurora();
       renderer.dispose();
     };
   }, []);

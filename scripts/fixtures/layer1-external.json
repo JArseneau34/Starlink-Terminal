@@ -1,0 +1,7 @@
+{
+  "recordedAt": "2026-06-29T12:00:00.000Z",
+  "source": "n2yo",
+  "observer": { "lat": 0, "lng": 0, "alt": 0 },
+  "tolerance": { "altKm": 5, "latDeg": 0.15, "lonDeg": 0.15 },
+  "satellites": []
+}

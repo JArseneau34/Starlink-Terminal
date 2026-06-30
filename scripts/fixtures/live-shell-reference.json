@@ -1,0 +1,42 @@
+{
+  "description": "Live catalog reference: image taxonomy (9 mission buckets) + McDowell working fleet totals.",
+  "recordedAt": null,
+  "source": "mcdowell-working",
+  "totalTracked": 10397,
+  "totalTolerancePct": 8,
+  "totalSource": "mcdowell-working",
+  "imageNoradTotal": 10548,
+  "imageTaxonomy": "reference-image-gen-buckets",
+  "mcdowellWorking": 10397,
+  "mcdowellSnapshotDate": "2026-05-31",
+  "generationMix": {
+    "v1": 749,
+    "v15": 2574,
+    "v2Mini": 2574,
+    "v2MiniD2c": 644,
+    "v2MiniOpt": 3856,
+    "gen1Hardware": 3323,
+    "gen2Hardware": 7074
+  },
+  "categories": {
+    "Gen1-I": { "count": 749, "tolerancePct": 20, "source": "McDowell v1.0" },
+    "Gen1-II": { "count": 2111, "tolerancePct": 18, "source": "McDowell v1.5 @ 53°" },
+    "Gen1-Transit": { "count": 53, "tolerancePct": 50, "source": "NORAD−McDowell gen1 transit" },
+    "Gen2": { "count": 7074, "tolerancePct": 12, "source": "McDowell v2 mini family" },
+    "Gen2-Transit": { "count": 98, "tolerancePct": 50, "source": "NORAD−McDowell gen2 transit" },
+    "Polar": { "count": 744, "tolerancePct": 18, "source": "McDowell 70° shell" },
+    "SSO Shell 1": { "count": 233, "tolerancePct": 25, "source": "McDowell 97.6° shell" },
+    "SSO Shell 2": { "count": 400, "tolerancePct": 25, "source": "McDowell 97.4° shell" },
+    "Other": { "count": 0, "tolerancePct": 0, "maxCount": 50, "source": "unclassified" }
+  },
+  "inclinationBins": {
+    "33.0": { "count": 200, "tolerancePct": 25, "source": "McDowell 33° shell" },
+    "43.0": { "count": 640, "tolerancePct": 18, "source": "McDowell 43° shell" },
+    "53.0": { "count": 2100, "tolerancePct": 15, "source": "McDowell 53.0° gen1" },
+    "53.2": { "count": 5200, "tolerancePct": 12, "source": "McDowell 53.2° gen2" },
+    "70.0": { "count": 744, "tolerancePct": 18, "source": "McDowell 70° shell" },
+    "97.4": { "count": 400, "tolerancePct": 25, "source": "McDowell 97.4° shell" },
+    "97.6": { "count": 233, "tolerancePct": 25, "source": "McDowell 97.6° shell" }
+  },
+  "notes": "totalTracked = McDowell working (authoritative). imageNoradTotal = raw NORAD count from reference image. Category targets use image bucket names with McDowell generation/orbit estimates. Run verify:live-shells -- --record to refresh from live TLE."
+}

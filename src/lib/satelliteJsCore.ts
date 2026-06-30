@@ -6,5 +6,10 @@ export { propagate, gstime } from '../../node_modules/satellite.js/dist/propagat
 export {
   degreesLat,
   degreesLong,
+  radiansLat,
+  radiansLong,
   eciToGeodetic,
+  geodeticToEcf,
+  ecfToEci,
+  eciToEcf,
 } from '../../node_modules/satellite.js/dist/transforms.js';

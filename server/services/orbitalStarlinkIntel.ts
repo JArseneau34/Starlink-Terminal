@@ -1,8 +1,13 @@
 import { getCached, setCache } from '../cache.js';
+import type { StarlinkFleetSnapshot } from '../../src/data/starlinkFleetSnapshot.ts';
+import { buildShellSummary } from '../../src/data/starlinkShellBands.ts';
+import { VISUAL_SHELL_SPECS } from '../../src/data/starlinkVisualShells.ts';
 import {
-  SHELL_BANDS,
+  resolveFleetSnapshot,
+  type PipelineFleetMeta,
+} from './pipelineFleet.js';
+import {
   apogeeKmFromOmm,
-  classifyStarlinkLifecycle,
   getTrackedStarlinkCatalog,
   meanAltitudeKmFromOmm,
   perigeeKmFromOmm,
@@ -10,7 +15,6 @@ import {
   type StarlinkOmmRecord,
   type TrackedStarlinkSat,
 } from './orbitalStarlink.js';
-
 const STARLINK_MANIFEST_URL = 'https://api.starlink.com/public-files/ephemerides/MANIFEST.txt';
 const INTEL_CACHE_TTL = 5 * 60_000;
 
@@ -32,6 +36,29 @@ export interface StarlinkRecentLaunch {
   dominantShell: string;
 }
 
+export interface StarlinkFleetModelCounts {
+  v1: number;
+  v15: number;
+  v2Mini: number;
+  v2MiniD2c: number;
+  v2MiniOpt: number;
+}
+
+export interface StarlinkFleetReconciliation {
+  tleTracked: number;
+  delta: number;
+  note: string;
+}
+
+export interface StarlinkFleetAuthoritative {
+  totalWorking: number;
+  totalDown: number;
+  snapshotDate: string;
+  models: StarlinkFleetModelCounts;
+  bandwidthTbps: number;
+  reconciliation: StarlinkFleetReconciliation;
+}
+
 export interface StarlinkIntelPayload {
   totalTracked: number;
   ephemerisPublished: number;
@@ -41,12 +68,11 @@ export interface StarlinkIntelPayload {
   staleTleCount: number;
   launchedYtd: number;
   recentLaunches: StarlinkRecentLaunch[];
+  authoritative: StarlinkFleetAuthoritative;
+  /** False when the live CelesTrak TLE feed was unreachable and the payload is snapshot-only. */
+  liveTleAvailable: boolean;
   tleFetchedAt: string;
   fetchedAt: string;
-}
-
-function classifyLifecycle(omm: StarlinkOmmRecord): StarlinkLifecycle {
-  return classifyStarlinkLifecycle(omm);
 }
 
 function launchKey(objectId: string | undefined): string | null {
@@ -76,37 +102,13 @@ async function fetchEphemerisCount(): Promise<number> {
 }
 
 function buildShellStats(sats: TrackedStarlinkSat[]): StarlinkShellStats[] {
-  const buckets = SHELL_BANDS.map((band) => ({
-    name: band.name,
-    inclination: band.inc,
-    count: 0,
-    operational: 0,
-    raising: 0,
-    deorbiting: 0,
-    altSum: 0,
-  }));
-
-  for (const sat of sats) {
-    const bucket = buckets[sat.shell];
-    if (!bucket) continue;
-
-    const lifecycle = classifyLifecycle(sat.omm);
-    bucket.count++;
-    bucket.altSum += meanAltitudeKmFromOmm(sat.omm);
-    if (lifecycle === 'operational') bucket.operational++;
-    else if (lifecycle === 'raising') bucket.raising++;
-    else if (lifecycle === 'deorbiting') bucket.deorbiting++;
-  }
-
-  return buckets.map((b) => ({
-    name: b.name,
-    inclination: b.inclination,
-    count: b.count,
-    operational: b.operational,
-    raising: b.raising,
-    deorbiting: b.deorbiting,
-    meanAltitudeKm: b.count > 0 ? Math.round(b.altSum / b.count) : 0,
-  }));
+  return buildShellSummary(
+    sats.map((sat) => ({
+      shell: sat.shell,
+      meanAltitudeKm: meanAltitudeKmFromOmm(sat.omm),
+      lifecycle: sat.lifecycle,
+    }))
+  );
 }
 
 function buildRecentLaunches(sats: TrackedStarlinkSat[]): StarlinkRecentLaunch[] {
@@ -118,7 +120,7 @@ function buildRecentLaunches(sats: TrackedStarlinkSat[]): StarlinkRecentLaunch[]
 
     const entry = groups.get(key) ?? { count: 0, shells: new Map() };
     entry.count++;
-    const shellName = SHELL_BANDS[sat.shell]?.name ?? '—';
+    const shellName = VISUAL_SHELL_SPECS[sat.shell]?.name ?? '—';
     entry.shells.set(shellName, (entry.shells.get(shellName) ?? 0) + 1);
     groups.set(key, entry);
   }
@@ -148,15 +150,58 @@ function countLaunchedYtd(sats: TrackedStarlinkSat[], year: number): number {
   return sats.filter((s) => s.omm.OBJECT_ID?.startsWith(prefix)).length;
 }
 
+function buildAuthoritativeBlock(
+  tleTracked: number,
+  snap: StarlinkFleetSnapshot,
+  meta: PipelineFleetMeta,
+  liveTleAvailable: boolean
+): StarlinkFleetAuthoritative {
+  const delta = tleTracked - snap.totalWorking;
+  let note = 'NORAD TLE count matches McDowell working fleet.';
+  if (!liveTleAvailable) {
+    note =
+      'Live CelesTrak NORAD feed unavailable — figures shown are from the McDowell / pipeline snapshot.';
+  } else if (delta > 0) {
+    note = `CelesTrak tracks ${delta.toLocaleString()} more than McDowell working total (raising/decay TLEs or catalog lag).`;
+  } else if (delta < 0) {
+    note = `McDowell reports ${Math.abs(delta).toLocaleString()} more working sats than NORAD TLE set (snapshot ahead of TLE refresh).`;
+  }
+  if (meta.source === 'pipeline') {
+    const id = meta.snapshotId != null ? ` #${meta.snapshotId}` : '';
+    note = `Pipeline live snapshot${id}. ${note}`;
+  }
+
+  return {
+    totalWorking: snap.totalWorking,
+    totalDown: snap.totalDown,
+    snapshotDate: snap.snapshotDate,
+    models: { ...snap.models },
+    bandwidthTbps: snap.totalBandwidthInOrbitTbps,
+    reconciliation: {
+      // When the live feed is down we have no meaningful TLE count or delta.
+      tleTracked: liveTleAvailable ? tleTracked : 0,
+      delta: liveTleAvailable ? delta : 0,
+      note,
+    },
+  };
+}
+
 export async function buildStarlinkIntelPayload(): Promise<StarlinkIntelPayload> {
-  const cached = getCached<StarlinkIntelPayload>('starlink:intel:v1');
+  const cached = getCached<StarlinkIntelPayload>('starlink:intel:v2');
   if (cached) return cached;
 
-  const [{ sats, fetchedAt }, ephemerisPublished] = await Promise.all([
-    getTrackedStarlinkCatalog(),
-    fetchEphemerisCount(),
+  // The live CelesTrak TLE fetch can fail (upstream 403/timeout/network). Degrade gracefully
+  // instead of throwing so the authoritative McDowell/pipeline fleet data still renders.
+  const [catalog, ephemerisPublished, fleetResolved] = await Promise.all([
+    getTrackedStarlinkCatalog().then(
+      (result) => ({ ...result, liveTleAvailable: true }),
+      () => ({ sats: [] as TrackedStarlinkSat[], fetchedAt: 0, liveTleAvailable: false })
+    ),
+    fetchEphemerisCount().catch(() => 0),
+    resolveFleetSnapshot(),
   ]);
 
+  const { sats, fetchedAt, liveTleAvailable } = catalog;
   const now = Date.now();
   const lifecycle: Record<StarlinkLifecycle, number> = {
     operational: 0,
@@ -169,7 +214,7 @@ export async function buildStarlinkIntelPayload(): Promise<StarlinkIntelPayload>
   let staleTleCount = 0;
 
   for (const sat of sats) {
-    const state = classifyLifecycle(sat.omm);
+    const state = sat.lifecycle;
     lifecycle[state]++;
 
     const ageH = epochAgeHours(sat.omm.EPOCH, now);
@@ -192,10 +237,22 @@ export async function buildStarlinkIntelPayload(): Promise<StarlinkIntelPayload>
     staleTleCount,
     launchedYtd: countLaunchedYtd(sats, new Date().getUTCFullYear()),
     recentLaunches: buildRecentLaunches(sats),
-    tleFetchedAt: new Date(fetchedAt).toISOString(),
+    authoritative: buildAuthoritativeBlock(
+      sats.length,
+      fleetResolved.fleet,
+      fleetResolved.meta,
+      liveTleAvailable
+    ),
+    liveTleAvailable,
+    tleFetchedAt: new Date(liveTleAvailable && fetchedAt ? fetchedAt : now).toISOString(),
     fetchedAt: new Date().toISOString(),
   };
 
-  setCache('starlink:intel:v1', payload, INTEL_CACHE_TTL);
+  // Only cache fully-live payloads; a snapshot-only result should retry the live feed soon.
+  if (liveTleAvailable) {
+    setCache('starlink:intel:v2', payload, INTEL_CACHE_TTL);
+  } else {
+    setCache('starlink:intel:v2', payload, 30_000);
+  }
   return payload;
 }

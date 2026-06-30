@@ -4,7 +4,14 @@ import cors from 'cors';
 import { clearCache } from './cache.js';
 import { PORT } from './config.js';
 import { buildOrbitalPayload } from './services/orbital.js';
-import { buildStarlinkPayload } from './services/orbitalStarlink.js';
+import {
+  buildStarlinkPayload,
+  getStarlinkCatalogStatus,
+  getTrackedStarlinkCatalog,
+  refreshStarlinkTle,
+} from './services/orbitalStarlink.js';
+import { clearStarlinkCatalogRuntimeCache } from './services/starlinkCatalogFetch.js';
+import { STARLINK_TLE_CACHE_TTL_MS } from './config.js';
 import { buildStarlinkIntelPayload } from './services/orbitalStarlinkIntel.js';
 import {
   getStarlinkSatelliteByNorad,
@@ -39,6 +46,18 @@ app.get('/api/orbital/starlink', async (_req, res) => {
   } catch (err) {
     res.status(500).json({
       error: 'Failed to build Starlink catalog',
+      message: err instanceof Error ? err.message : 'Unknown error',
+    });
+  }
+});
+
+app.get('/api/orbital/starlink/status', async (_req, res) => {
+  try {
+    const catalog = await getTrackedStarlinkCatalog();
+    res.json(getStarlinkCatalogStatus(catalog));
+  } catch (err) {
+    res.status(500).json({
+      error: 'Failed to read Starlink catalog status',
       message: err instanceof Error ? err.message : 'Unknown error',
     });
   }
@@ -98,6 +117,7 @@ app.get('/api/orbital/starlink/search', async (req, res) => {
 
 app.post('/api/refresh', (_req, res) => {
   clearCache();
+  clearStarlinkCatalogRuntimeCache();
   res.json({ ok: true, message: 'Cache cleared' });
 });
 
@@ -115,4 +135,8 @@ server.on('error', (err: NodeJS.ErrnoException) => {
 
 server.listen(PORT, () => {
   console.log(`Starlink orbital API on http://localhost:${PORT}`);
+  void refreshStarlinkTle();
+  setInterval(() => {
+    void refreshStarlinkTle();
+  }, STARLINK_TLE_CACHE_TTL_MS * 0.9);
 });

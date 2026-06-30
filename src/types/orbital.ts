@@ -57,11 +57,22 @@ export interface StarlinkSatMeta {
   apogeeKm: number;
   eccentricity: number;
   lifecycle: StarlinkLifecycle;
+  modelHint: StarlinkModelHint;
   r: number;
   g: number;
   b: number;
   epoch: string;
 }
+
+export interface StarlinkCatalogShell {
+  index: number;
+  name: string;
+  inclination: number;
+  count: number;
+  color: number;
+}
+
+export type StarlinkTleSource = 'group' | 'name' | 'tleapi' | 'cache';
 
 export interface StarlinkCatalogPayload {
   count: number;
@@ -83,6 +94,8 @@ export interface StarlinkCatalogPayload {
   ommMeanMotionDot?: number[];
   ommMeanMotionDdot?: number[];
   ommElementSetNo?: number[];
+  shells: StarlinkCatalogShell[];
+  tleSource: StarlinkTleSource;
   fetchedAt: string;
 }
 
@@ -90,6 +103,14 @@ export interface StarlinkCatalogPayload {
 export const STARLINK_CATALOG_REFRESH_MS = 20_000;
 
 export type StarlinkLifecycle = 'operational' | 'raising' | 'deorbiting' | 'other';
+
+export type StarlinkModelHint =
+  | 'v1'
+  | 'v15'
+  | 'v2Mini'
+  | 'v2MiniDtc'
+  | 'v2MiniOpt'
+  | 'unknown';
 
 export interface StarlinkShellStats {
   name: string;
@@ -107,6 +128,29 @@ export interface StarlinkRecentLaunch {
   dominantShell: string;
 }
 
+export interface StarlinkFleetModelCounts {
+  v1: number;
+  v15: number;
+  v2Mini: number;
+  v2MiniD2c: number;
+  v2MiniOpt: number;
+}
+
+export interface StarlinkFleetReconciliation {
+  tleTracked: number;
+  delta: number;
+  note: string;
+}
+
+export interface StarlinkFleetAuthoritative {
+  totalWorking: number;
+  totalDown: number;
+  snapshotDate: string;
+  models: StarlinkFleetModelCounts;
+  bandwidthTbps: number;
+  reconciliation: StarlinkFleetReconciliation;
+}
+
 export interface StarlinkIntelPayload {
   totalTracked: number;
   ephemerisPublished: number;
@@ -116,6 +160,9 @@ export interface StarlinkIntelPayload {
   staleTleCount: number;
   launchedYtd: number;
   recentLaunches: StarlinkRecentLaunch[];
+  authoritative: StarlinkFleetAuthoritative;
+  /** False when the live CelesTrak TLE feed was unreachable and the payload is snapshot-only. */
+  liveTleAvailable: boolean;
   tleFetchedAt: string;
   fetchedAt: string;
 }

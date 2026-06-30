@@ -8,47 +8,48 @@ import {
   type SatRec,
 } from 'satellite.js';
 import { coalesceAsync, getCached, setCache } from '../cache.js';
+import type { StarlinkModelHint } from '../../src/data/starlinkVisualShells.ts';
+import {
+  CANONICAL_SHELL_BANDS,
+  type StarlinkCatalogShell,
+} from '../../src/data/starlinkShellBands.ts';
+import {
+  meanAltitudeKmFromOmm,
+  perigeeKmFromOmm,
+  apogeeKmFromOmm,
+  type StarlinkLifecycle,
+} from '../../src/data/starlinkOrbitOmm.ts';
+import {
+  getStarlinkCatalogBucketStatus,
+  refreshStarlinkCatalog,
+  resolveStarlinkCatalog,
+  type BucketedStarlinkSat,
+  type StarlinkOmmRecord,
+  type StarlinkTleSource,
+} from './starlinkCatalogFetch.js';
 
-// NAME=STARLINK avoids CelesTrak's one-download-per-update 403 on GROUP=starlink.
-const STARLINK_URL = 'https://celestrak.org/NORAD/elements/gp.php?NAME=STARLINK&FORMAT=JSON';
-const CELESTRAK_HEADERS = { 'User-Agent': 'SPCX-Terminal/1.0' };
-const TLE_CACHE_TTL = 8 * 60 * 60 * 1000;
-/** Re-propagate positions from cached TLE without re-fetching CelesTrak. */
+export type { StarlinkOmmRecord, StarlinkTleSource } from './starlinkCatalogFetch.js';
+export {
+  apogeeKmFromOmm,
+  classifyStarlinkLifecycle,
+  classifyStarlinkLifecycleFromOmm,
+  meanAltitudeKmFromOmm,
+  perigeeKmFromOmm,
+  type StarlinkLifecycle,
+} from '../../src/data/starlinkOrbitOmm.ts';
+export { shellIndexForInclination } from '../../src/data/starlinkShellBands.ts';
+
 const POSITION_CACHE_TTL = 20_000;
 
-import {
-  STARLINK_SHELL_BANDS,
-} from '../../src/data/starlinkShells.ts';
-
-/** Inclination bands for live TLE shell assignment — align with src/data/starlinkShells.ts */
-export const SHELL_BANDS = STARLINK_SHELL_BANDS;
-
-export interface StarlinkOmmRecord {
-  OBJECT_NAME: string;
-  OBJECT_ID?: string;
-  NORAD_CAT_ID: number;
-  EPOCH: string;
-  MEAN_MOTION: number;
-  INCLINATION: number;
-  ECCENTRICITY?: number;
-  BSTAR?: number;
-  RA_OF_ASC_NODE?: number;
-  ARG_OF_PERICENTER?: number;
-  MEAN_ANOMALY?: number;
-  ELEMENT_SET_NO?: number;
-  MEAN_MOTION_DOT?: number;
-  MEAN_MOTION_DDOT?: number;
-}
+export const SHELL_BANDS = CANONICAL_SHELL_BANDS;
 
 export interface TrackedStarlinkSat {
   omm: StarlinkOmmRecord;
   satrec: SatRec;
   shell: number;
+  lifecycle: StarlinkLifecycle;
+  modelHint: StarlinkModelHint;
 }
-
-type OmmRecord = StarlinkOmmRecord;
-
-interface TrackedSat extends TrackedStarlinkSat {}
 
 export interface StarlinkSatMeta {
   noradId: number;
@@ -62,11 +63,14 @@ export interface StarlinkSatMeta {
   apogeeKm: number;
   eccentricity: number;
   lifecycle: StarlinkLifecycle;
+  modelHint: StarlinkModelHint;
   r: number;
   g: number;
   b: number;
   epoch: string;
 }
+
+export type { StarlinkCatalogShell };
 
 export interface StarlinkCatalogPayload {
   count: number;
@@ -87,22 +91,83 @@ export interface StarlinkCatalogPayload {
   ommMeanMotionDot: number[];
   ommMeanMotionDdot: number[];
   ommElementSetNo: number[];
+  shells: StarlinkCatalogShell[];
+  tleSource: StarlinkTleSource;
   fetchedAt: string;
 }
 
-let trackedCatalog: { sats: TrackedSat[]; fetchedAt: number } | null = null;
+export interface StarlinkCatalogStatus {
+  count: number;
+  tleFetchedAt: string;
+  tleExpiresAt: string;
+  source: StarlinkTleSource;
+  shells: StarlinkCatalogShell[];
+}
 
-export function shellIndexForInclination(inc: number): number {
-  let best = 0;
-  let bestDiff = Infinity;
-  for (let i = 0; i < SHELL_BANDS.length; i++) {
-    const diff = Math.abs(SHELL_BANDS[i]!.inc - inc);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      best = i;
-    }
+function satrecFromOmm(omm: StarlinkOmmRecord): SatRec | null {
+  try {
+    return json2satrec(omm);
+  } catch {
+    return null;
   }
-  return best;
+}
+
+function hydrateTrackedSats(bucketed: BucketedStarlinkSat[]): TrackedStarlinkSat[] {
+  const sats: TrackedStarlinkSat[] = [];
+  for (const row of bucketed) {
+    const satrec = satrecFromOmm(row.omm);
+    if (!satrec) continue;
+    sats.push({
+      omm: row.omm,
+      satrec,
+      shell: row.shell,
+      lifecycle: row.lifecycle,
+      modelHint: row.modelHint,
+    });
+  }
+  return sats;
+}
+
+export async function getTrackedStarlinkCatalog(): Promise<{
+  sats: TrackedStarlinkSat[];
+  fetchedAt: number;
+  source: StarlinkTleSource;
+  shells: StarlinkCatalogShell[];
+  offline: boolean;
+}> {
+  const catalog = await resolveStarlinkCatalog();
+  return {
+    sats: hydrateTrackedSats(catalog.sats),
+    fetchedAt: catalog.fetchedAt,
+    source: catalog.source,
+    shells: catalog.shells,
+    offline: catalog.offline,
+  };
+}
+
+export async function refreshStarlinkTle(): Promise<void> {
+  await refreshStarlinkCatalog();
+}
+
+export function getStarlinkCatalogStatus(catalog: {
+  sats: TrackedStarlinkSat[];
+  fetchedAt: number;
+  source: StarlinkTleSource;
+  shells: StarlinkCatalogShell[];
+}): StarlinkCatalogStatus {
+  return getStarlinkCatalogBucketStatus({
+    sats: catalog.sats.map((s) => ({
+      omm: s.omm,
+      shell: s.shell,
+      lifecycle: s.lifecycle,
+      modelHint: s.modelHint,
+    })),
+    shells: catalog.shells,
+    count: catalog.sats.length,
+    fetchedAt: catalog.fetchedAt,
+    source: catalog.source,
+    offline: false,
+  });
 }
 
 function colorComponents(hex: number): [number, number, number] {
@@ -125,45 +190,6 @@ function positionAt(satrec: SatRec, date: Date): { lat: number; lon: number; alt
   }
 }
 
-async function fetchStarlinkOmm(): Promise<OmmRecord[]> {
-  const res = await fetch(STARLINK_URL, {
-    headers: CELESTRAK_HEADERS,
-    signal: AbortSignal.timeout(45_000),
-  });
-  if (!res.ok) throw new Error(`CelesTrak Starlink fetch failed: ${res.status}`);
-  const data = (await res.json()) as OmmRecord[];
-  return Array.isArray(data) ? data : [];
-}
-
-export function perigeeKmFromOmm(omm: StarlinkOmmRecord): number {
-  const nRadPerSec = (omm.MEAN_MOTION * 2 * Math.PI) / 86400;
-  const a = Math.pow(398600.4418 / (nRadPerSec * nRadPerSec), 1 / 3);
-  return a * (1 - (omm.ECCENTRICITY ?? 0)) - 6378.137;
-}
-
-export function apogeeKmFromOmm(omm: StarlinkOmmRecord): number {
-  const nRadPerSec = (omm.MEAN_MOTION * 2 * Math.PI) / 86400;
-  const a = Math.pow(398600.4418 / (nRadPerSec * nRadPerSec), 1 / 3);
-  return a * (1 + (omm.ECCENTRICITY ?? 0)) - 6378.137;
-}
-
-export function meanAltitudeKmFromOmm(omm: StarlinkOmmRecord): number {
-  return (perigeeKmFromOmm(omm) + apogeeKmFromOmm(omm)) / 2;
-}
-
-export type StarlinkLifecycle = 'operational' | 'raising' | 'deorbiting' | 'other';
-
-export function classifyStarlinkLifecycle(omm: StarlinkOmmRecord): StarlinkLifecycle {
-  const perigee = perigeeKmFromOmm(omm);
-  const apogee = apogeeKmFromOmm(omm);
-  const ecc = omm.ECCENTRICITY ?? 0;
-
-  if (perigee < 220) return 'deorbiting';
-  if (perigee < 350 || (ecc > 0.0015 && perigee < 450)) return 'raising';
-  if (perigee >= 350 && perigee <= 600 && apogee <= 650) return 'operational';
-  return 'other';
-}
-
 export function launchBatchFromObjectId(objectId: string | undefined): string | null {
   if (!objectId) return null;
   const match = objectId.match(/^(\d{4}-\d+)/);
@@ -182,59 +208,12 @@ export function groundSpeedKms(
   return Math.sqrt(vx * vx + vy * vy + velAlt * velAlt);
 }
 
-export async function getTrackedStarlinkCatalog(): Promise<{
-  sats: TrackedStarlinkSat[];
-  fetchedAt: number;
-}> {
-  if (trackedCatalog && Date.now() - trackedCatalog.fetchedAt < TLE_CACHE_TTL) {
-    return trackedCatalog;
-  }
-
-  const cached = getCached<{ sats: TrackedSat[]; fetchedAt: number }>('starlink:tle:v1');
-  if (cached && Date.now() - cached.fetchedAt < TLE_CACHE_TTL) {
-    trackedCatalog = cached;
-    return cached;
-  }
-
-  return coalesceAsync('starlink:tle:fetch', async () => {
-    try {
-      const raw = await fetchStarlinkOmm();
-      const sats: TrackedSat[] = [];
-
-      for (const omm of raw) {
-        if (!omm.NORAD_CAT_ID || !omm.EPOCH) continue;
-        try {
-          const satrec = json2satrec(omm);
-          const shell = shellIndexForInclination(omm.INCLINATION);
-          sats.push({ omm, satrec, shell });
-        } catch {
-          // skip malformed records
-        }
-      }
-
-      const entry = { sats, fetchedAt: Date.now() };
-      trackedCatalog = entry;
-      setCache('starlink:tle:v1', entry, TLE_CACHE_TTL);
-      return entry;
-    } catch (err) {
-      // CelesTrak may return 403 when data has not updated; reuse last good catalog.
-      if (trackedCatalog?.sats.length) return trackedCatalog;
-      const stale = getCached<{ sats: TrackedSat[]; fetchedAt: number }>('starlink:tle:v1');
-      if (stale?.sats.length) {
-        trackedCatalog = stale;
-        return stale;
-      }
-      throw err;
-    }
-  });
-}
-
 function minuteBucket(d = new Date()): number {
   return Math.floor(d.getTime() / POSITION_CACHE_TTL);
 }
 
 function buildPositions(
-  tracked: TrackedSat[],
+  tracked: TrackedStarlinkSat[],
   when: Date
 ): {
   meta: StarlinkSatMeta[];
@@ -275,7 +254,7 @@ function buildPositions(
     const posLater = positionAt(sat.satrec, later);
     if (!pos || !posLater) continue;
 
-    const band = SHELL_BANDS[sat.shell]!;
+    const band = CANONICAL_SHELL_BANDS[sat.shell]!;
     const [r, g, b] = colorComponents(band.color);
 
     const perigeeKm = Math.round(perigeeKmFromOmm(sat.omm) * 10) / 10;
@@ -292,7 +271,8 @@ function buildPositions(
       perigeeKm,
       apogeeKm,
       eccentricity: Math.round((sat.omm.ECCENTRICITY ?? 0) * 1_000_000) / 1_000_000,
-      lifecycle: classifyStarlinkLifecycle(sat.omm),
+      lifecycle: sat.lifecycle,
+      modelHint: sat.modelHint,
       r,
       g,
       b,
@@ -347,9 +327,25 @@ export async function buildStarlinkPayload(): Promise<StarlinkCatalogPayload> {
   if (cached) return cached;
 
   return coalesceAsync(cacheKey, async () => {
-    const { sats, fetchedAt } = await getTrackedStarlinkCatalog();
+    const { sats, fetchedAt, source, shells } = await getTrackedStarlinkCatalog();
     const when = new Date(bucket * POSITION_CACHE_TTL);
-    const { meta, lat, lon, altKm, velLat, velLon, velAlt, ommMeanMotion, ommRaan, ommArgPerigee, ommMeanAnomaly, ommBstar, ommMeanMotionDot, ommMeanMotionDdot, ommElementSetNo } = buildPositions(sats, when);
+    const {
+      meta,
+      lat,
+      lon,
+      altKm,
+      velLat,
+      velLon,
+      velAlt,
+      ommMeanMotion,
+      ommRaan,
+      ommArgPerigee,
+      ommMeanAnomaly,
+      ommBstar,
+      ommMeanMotionDot,
+      ommMeanMotionDdot,
+      ommElementSetNo,
+    } = buildPositions(sats, when);
 
     const payload: StarlinkCatalogPayload = {
       count: meta.length,
@@ -370,6 +366,8 @@ export async function buildStarlinkPayload(): Promise<StarlinkCatalogPayload> {
       ommMeanMotionDot,
       ommMeanMotionDdot,
       ommElementSetNo,
+      shells,
+      tleSource: source,
       fetchedAt: new Date().toISOString(),
     };
 

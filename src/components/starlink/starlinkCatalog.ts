@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { STARLINK_SHELL_SPECS, type StarlinkShellSpec } from '../../data/starlinkShells';
+import { shellIndexForInclination } from '../../data/starlinkShellBands';
 
 const TAU = Math.PI * 2;
 const D2R = Math.PI / 180;
@@ -12,8 +13,7 @@ const EARTH_RADIUS_KM = 6371;
 export type StarlinkShell = StarlinkShellSpec;
 
 /**
- * Gen1 + Gen2 shells — topology totals ~7,504 nodes (live fleet scale).
- * 4,104 + 1,872 + 252 + 144 + 612 + 520
+ * Gen1 + Gen2 shells — topology totals scaled to McDowell total_working (see starlinkShells).
  */
 export const STARLINK_SHELLS: StarlinkShell[] = STARLINK_SHELL_SPECS;
 
@@ -200,18 +200,7 @@ export function buildStarlinkCatalog(): {
   return { satellites, edgeA, edgeB, edgeCross, adjacency };
 }
 
-export function shellIndexForInclination(inc: number): number {
-  let best = 0;
-  let bestDiff = Infinity;
-  for (let i = 0; i < STARLINK_SHELLS.length; i++) {
-    const diff = Math.abs(STARLINK_SHELLS[i]!.inc - inc);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      best = i;
-    }
-  }
-  return best;
-}
+export { shellIndexForInclination };
 
 export function shellHex(color: number): string {
   return `#${color.toString(16).padStart(6, '0')}`;

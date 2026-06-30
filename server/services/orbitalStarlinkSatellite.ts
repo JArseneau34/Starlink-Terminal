@@ -1,5 +1,4 @@
 import {
-  classifyStarlinkLifecycle,
   getTrackedStarlinkCatalog,
   groundSpeedKms,
   launchBatchFromObjectId,
@@ -92,7 +91,7 @@ export async function getStarlinkSatelliteByNorad(
     perigeeKm: Math.round(perigeeKmFromOmm(sat.omm) * 10) / 10,
     apogeeKm: Math.round(apogeeKmFromOmm(sat.omm) * 10) / 10,
     eccentricity: Math.round((sat.omm.ECCENTRICITY ?? 0) * 1_000_000) / 1_000_000,
-    lifecycle: classifyStarlinkLifecycle(sat.omm),
+    lifecycle: sat.lifecycle,
     groundSpeedKms: Math.round(groundSpeedKms(lat, velLat, velLon, velAlt) * 100) / 100,
     verticalSpeedKms: Math.round(velAlt * 1000) / 1000,
     epoch: sat.omm.EPOCH,

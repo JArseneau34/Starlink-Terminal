@@ -1,0 +1,5762 @@
+[
+  {
+    "flightNo": "F9 619",
+    "dateUtc": "2026-03-22",
+    "payload": "Starlink Group 10-62",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 618",
+    "dateUtc": "2026-03-20",
+    "payload": "Starlink Group 17-15",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 617",
+    "dateUtc": "2026-03-19",
+    "payload": "Starlink Group 10-33",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 616",
+    "dateUtc": "2026-03-17",
+    "payload": "Starlink Group 10-46",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 615",
+    "dateUtc": "2026-03-17",
+    "payload": "Starlink Group 17-24",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 614",
+    "dateUtc": "2026-03-14",
+    "payload": "Starlink Group 10-48",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 613",
+    "dateUtc": "2026-03-13",
+    "payload": "Starlink Group 17-31",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 612",
+    "dateUtc": "2026-03-10",
+    "payload": "EchoStar XXV",
+    "numberOfStarlinkSatellites": 186,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 611",
+    "dateUtc": "2026-03-08",
+    "payload": "Starlink Group 17-18",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 610",
+    "dateUtc": "2026-03-04",
+    "payload": "Starlink Group 10-40",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 609",
+    "dateUtc": "2026-03-02",
+    "payload": "Starlink Group 10-41",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 608",
+    "dateUtc": "2026-03-01",
+    "payload": "Starlink Group 17-23",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 607",
+    "dateUtc": "2026-02-27",
+    "payload": "Starlink Group 6-108",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 606",
+    "dateUtc": "2026-02-25",
+    "payload": "Starlink Group 17-26",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 605",
+    "dateUtc": "2026-02-24",
+    "payload": "Starlink Group 6-110",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 604",
+    "dateUtc": "2026-02-22",
+    "payload": "Starlink Group 6-104",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 603",
+    "dateUtc": "2026-02-21",
+    "payload": "Starlink Group 17-25",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 602",
+    "dateUtc": "2026-02-20",
+    "payload": "Starlink Group 10-36",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 601",
+    "dateUtc": "2026-02-16",
+    "payload": "Starlink Group 6-103",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 600",
+    "dateUtc": "2026-02-15",
+    "payload": "Starlink Group 17-13",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 599",
+    "dateUtc": "2026-02-13",
+    "payload": "Crew-12 (Crew Dragon C212-5 Freedom)",
+    "numberOfStarlinkSatellites": 231,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 598",
+    "dateUtc": "2026-02-11",
+    "payload": "Starlink Group 17-34",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 597",
+    "dateUtc": "2026-02-07",
+    "payload": "Starlink Group 17-33",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 596",
+    "dateUtc": "2026-02-02",
+    "payload": "Starlink Group 17-32",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 595",
+    "dateUtc": "2026-01-30",
+    "payload": "Starlink Group 6-101",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 594",
+    "dateUtc": "2026-01-29",
+    "payload": "Starlink Group 17-19",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 593",
+    "dateUtc": "2026-01-28",
+    "payload": "GPS III-9",
+    "numberOfStarlinkSatellites": 252,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 592",
+    "dateUtc": "2026-01-25",
+    "payload": "Starlink Group 17-20",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 591",
+    "dateUtc": "2026-01-22",
+    "payload": "Starlink Group 17-30",
+    "numberOfStarlinkSatellites": 25,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 590",
+    "dateUtc": "2026-01-18",
+    "payload": "Starlink Group 6-100",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 589",
+    "dateUtc": "2026-01-17",
+    "payload": "NROL-105",
+    "numberOfStarlinkSatellites": 267,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 588",
+    "dateUtc": "2026-01-14",
+    "payload": "Starlink Group 6-98",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 587",
+    "dateUtc": "2026-01-12",
+    "payload": "Starlink Group 6-97",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 586",
+    "dateUtc": "2026-01-11",
+    "payload": "Twilight rideshare",
+    "numberOfStarlinkSatellites": 279,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 585",
+    "dateUtc": "2026-01-09",
+    "payload": "Starlink Group 6-96",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 584",
+    "dateUtc": "2026-01-04",
+    "payload": "Starlink Group 6-88",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 583",
+    "dateUtc": "2026-01-03",
+    "payload": "CSG-3",
+    "numberOfStarlinkSatellites": 290,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 581",
+    "dateUtc": "2025-12-17",
+    "payload": "Starlink Group 6-99",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 582",
+    "dateUtc": "2025-12-17",
+    "payload": "Starlink Group 15-13",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 580",
+    "dateUtc": "2025-12-15",
+    "payload": "Starlink Group 6-82",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 579",
+    "dateUtc": "2025-12-14",
+    "payload": "Starlink Group 15-12",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 578",
+    "dateUtc": "2025-12-11",
+    "payload": "Starlink Group 6-90",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 577",
+    "dateUtc": "2025-12-10",
+    "payload": "Starlink Group 15-11",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 576",
+    "dateUtc": "2025-12-09",
+    "payload": "NROL-77",
+    "numberOfStarlinkSatellites": 315,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 575",
+    "dateUtc": "2025-12-08",
+    "payload": "Starlink Group 6-92",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 574",
+    "dateUtc": "2025-12-07",
+    "payload": "Starlink Group 11-15",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 573",
+    "dateUtc": "2025-12-04",
+    "payload": "Starlink Group 11-25",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 571",
+    "dateUtc": "2025-12-02",
+    "payload": "Starlink Group 15-10",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 572",
+    "dateUtc": "2025-12-02",
+    "payload": "Starlink Group 6-95",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 570",
+    "dateUtc": "2025-12-01",
+    "payload": "Starlink Group 6-86",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 569",
+    "dateUtc": "2025-11-28",
+    "payload": "Transporter-15",
+    "numberOfStarlinkSatellites": 279,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 568",
+    "dateUtc": "2025-11-23",
+    "payload": "Starlink Group 11-30",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 567",
+    "dateUtc": "2025-11-22",
+    "payload": "Starlink Group 6-79",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 566",
+    "dateUtc": "2025-11-21",
+    "payload": "Starlink Group 6-78",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 565",
+    "dateUtc": "2025-11-19",
+    "payload": "Starlink Group 6-94",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 564",
+    "dateUtc": "2025-11-17",
+    "payload": "Sentinel-6B",
+    "numberOfStarlinkSatellites": 356,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 562",
+    "dateUtc": "2025-11-15",
+    "payload": "Starlink Group 6-89",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 563",
+    "dateUtc": "2025-11-15",
+    "payload": "Starlink Group 6-85",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 561",
+    "dateUtc": "2025-11-11",
+    "payload": "Starlink Group 6-87",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 560",
+    "dateUtc": "2025-11-09",
+    "payload": "Starlink Group 10-51",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 558",
+    "dateUtc": "2025-11-06",
+    "payload": "Starlink Group 6-81",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 559",
+    "dateUtc": "2025-11-06",
+    "payload": "Starlink Group 11-14",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 557",
+    "dateUtc": "2025-11-02",
+    "payload": "Bandwagon-4",
+    "numberOfStarlinkSatellites": 279,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 556",
+    "dateUtc": "2025-10-31",
+    "payload": "Starlink Group 11-23",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 555",
+    "dateUtc": "2025-10-29",
+    "payload": "Starlink Group 10-37",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 554",
+    "dateUtc": "2025-10-28",
+    "payload": "Starlink Group 11-21",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 553",
+    "dateUtc": "2025-10-26",
+    "payload": "Starlink Group 10-21",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 552",
+    "dateUtc": "2025-10-25",
+    "payload": "Starlink Group 11-12",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 551",
+    "dateUtc": "2025-10-24",
+    "payload": "Spainsat NG II",
+    "numberOfStarlinkSatellites": 401,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 550",
+    "dateUtc": "2025-10-22",
+    "payload": "Starlink Group 11-5",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 548",
+    "dateUtc": "2025-10-19",
+    "payload": "Starlink Group 10-17",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 549",
+    "dateUtc": "2025-10-19",
+    "payload": "Starlink Group 11-19",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 547",
+    "dateUtc": "2025-10-16",
+    "payload": "Starlink Group 10-52",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 546",
+    "dateUtc": "2025-10-15",
+    "payload": "SDA Tranche 1 Transport Layer C",
+    "numberOfStarlinkSatellites": 422,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 545",
+    "dateUtc": "2025-10-14",
+    "payload": "KuiperSat KF-03",
+    "numberOfStarlinkSatellites": 427,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 544",
+    "dateUtc": "2025-10-08",
+    "payload": "Starlink Group 11-17",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 543",
+    "dateUtc": "2025-10-07",
+    "payload": "Starlink Group 10-59",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 542",
+    "dateUtc": "2025-10-03",
+    "payload": "Starlink Group 11-39",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 541",
+    "dateUtc": "2025-09-29",
+    "payload": "Starlink Group 11-20",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 440,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 540",
+    "dateUtc": "2025-09-26",
+    "payload": "Starlink Group 17-11",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 444,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 539",
+    "dateUtc": "2025-09-25",
+    "payload": "Starlink Group 10-15",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 448,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 538",
+    "dateUtc": "2025-09-24",
+    "payload": "IMAP + SWFO-L1 + C-GO",
+    "numberOfStarlinkSatellites": 453,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 537",
+    "dateUtc": "2025-09-22",
+    "payload": "NROL-48 (~11 Starshield satellites)",
+    "numberOfStarlinkSatellites": 457,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 536",
+    "dateUtc": "2025-09-21",
+    "payload": "Starlink Group 10-27",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 448,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 535",
+    "dateUtc": "2025-09-19",
+    "payload": "Starlink Group 17-12",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 444,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 534",
+    "dateUtc": "2025-09-18",
+    "payload": "Starlink Group 10-61",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 448,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 533",
+    "dateUtc": "2025-09-14",
+    "payload": "CRS NG-23 (Cygnus S.S. Willie C. McCool)",
+    "numberOfStarlinkSatellites": 471,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 532",
+    "dateUtc": "2025-09-13",
+    "payload": "Starlink Group 17-10",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 444,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 531",
+    "dateUtc": "2025-09-12",
+    "payload": "Nusantara Lima",
+    "numberOfStarlinkSatellites": 479,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 530",
+    "dateUtc": "2025-09-10",
+    "payload": "SDA Tranche 1 Transport Layer B (21 sats)",
+    "numberOfStarlinkSatellites": 483,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 529",
+    "dateUtc": "2025-09-06",
+    "payload": "Starlink Group 17-9",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 487,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 528",
+    "dateUtc": "2025-09-05",
+    "payload": "Starlink Group 10-57",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 491,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 526",
+    "dateUtc": "2025-09-03",
+    "payload": "Starlink Group 17-8",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 495,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 527",
+    "dateUtc": "2025-09-03",
+    "payload": "Starlink Group 10-22",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 499,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 525",
+    "dateUtc": "2025-08-31",
+    "payload": "Starlink Group 10-14",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 448,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 524",
+    "dateUtc": "2025-08-30",
+    "payload": "Starlink Group 17-7",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 444,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 523",
+    "dateUtc": "2025-08-28",
+    "payload": "Starlink Group 10-11",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 509,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 522",
+    "dateUtc": "2025-08-27",
+    "payload": "Starlink Group 10-56",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 513,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 11",
+    "dateUtc": "2025-10-13",
+    "payload": "8 Starlink simulator satellites",
+    "numberOfStarlinkSatellites": 522,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "SS 10",
+    "dateUtc": "2025-08-26",
+    "payload": "8 Starlink simulator satellites",
+    "numberOfStarlinkSatellites": 8,
+    "starlinkModel": "526",
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 521",
+    "dateUtc": "2025-08-26",
+    "payload": "NAOS + 7 rideshares",
+    "numberOfStarlinkSatellites": 531,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 520",
+    "dateUtc": "2025-08-24",
+    "payload": "SpaceX CRS-33 (Dragon C211-3)",
+    "numberOfStarlinkSatellites": 536,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 518",
+    "dateUtc": "2025-08-22",
+    "payload": "USSF-36 (X-37B OTV-8)",
+    "numberOfStarlinkSatellites": 540,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 519",
+    "dateUtc": "2025-08-22",
+    "payload": "Starlink Group 17-6",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 495,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 517",
+    "dateUtc": "2025-08-18",
+    "payload": "Starlink Group 17-5",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 547,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 515",
+    "dateUtc": "2025-08-14",
+    "payload": "Starlink Group 17-4",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 551,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 516",
+    "dateUtc": "2025-08-14",
+    "payload": "Starlink Group 10-20",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 555,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 514",
+    "dateUtc": "2025-08-11",
+    "payload": "KuiperSat √ó 24 (KF-02)",
+    "numberOfStarlinkSatellites": 560,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 513",
+    "dateUtc": "2025-08-04",
+    "payload": "Starlink Group 10-30",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 564,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 512",
+    "dateUtc": "2025-08-01",
+    "payload": "Crew-11 (Crew Dragon C206-6 Endeavour)",
+    "numberOfStarlinkSatellites": 569,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 511",
+    "dateUtc": "2025-07-31",
+    "payload": "Group 13-4",
+    "numberOfStarlinkSatellites": 19,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 573,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 510",
+    "dateUtc": "2025-07-30",
+    "payload": "Group 10-29",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 577,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 509",
+    "dateUtc": "2025-07-27",
+    "payload": "Group 17-2",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 581,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 508",
+    "dateUtc": "2025-07-26",
+    "payload": "Group 10-26",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 577,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 507",
+    "dateUtc": "2025-07-23",
+    "payload": "TRACERS (2 satellites) + 5 rideshares",
+    "numberOfStarlinkSatellites": 588,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 506",
+    "dateUtc": "2025-07-22",
+    "payload": "O3b mPOWER 9 &amp; 10",
+    "numberOfStarlinkSatellites": 593,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 505",
+    "dateUtc": "2025-07-19",
+    "payload": "Group 17-3",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 581,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 504",
+    "dateUtc": "2025-07-16",
+    "payload": "KuiperSat √ó 24 (KF-01)",
+    "numberOfStarlinkSatellites": 600,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 503",
+    "dateUtc": "2025-07-16",
+    "payload": "Group 15-2",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 604,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 502",
+    "dateUtc": "2025-07-13",
+    "payload": "Dror-1",
+    "numberOfStarlinkSatellites": 609,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 501",
+    "dateUtc": "2025-07-08",
+    "payload": "Group 10-28",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 613,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 500",
+    "dateUtc": "2025-07-02",
+    "payload": "Group 10-25",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 617,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 499",
+    "dateUtc": "2025-07-01",
+    "payload": "MTG-S1 / Sentinel-4A",
+    "numberOfStarlinkSatellites": 622,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 498",
+    "dateUtc": "2025-06-28",
+    "payload": "Group 15-7",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 626,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 497",
+    "dateUtc": "2025-06-28",
+    "payload": "Group 10-34",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 630,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 496",
+    "dateUtc": "2025-06-25",
+    "payload": "Group 10-16",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 630,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 495",
+    "dateUtc": "2025-06-25",
+    "payload": "Axiom Mission 4 (Crew Dragon C213.1 Grace)",
+    "numberOfStarlinkSatellites": 638,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 494",
+    "dateUtc": "2025-06-23",
+    "payload": "Transporter-14 (70 payloads smallsat rideshare)",
+    "numberOfStarlinkSatellites": 643,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 493",
+    "dateUtc": "2025-06-23",
+    "payload": "Group 10-23",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 630,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 492",
+    "dateUtc": "2025-06-18",
+    "payload": "Group 10-18",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 577,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 491",
+    "dateUtc": "2025-06-17",
+    "payload": "Group 15-9",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 626,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 490",
+    "dateUtc": "2025-06-13",
+    "payload": "Group 12-26",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 489",
+    "dateUtc": "2025-06-13",
+    "payload": "Group 15-6",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 660,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 488",
+    "dateUtc": "2025-06-10",
+    "payload": "Group 12-24",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 487",
+    "dateUtc": "2025-06-08",
+    "payload": "Group 15-8",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 626,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 486",
+    "dateUtc": "2025-06-07",
+    "payload": "SXM-10",
+    "numberOfStarlinkSatellites": 671,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 485",
+    "dateUtc": "2025-06-04",
+    "payload": "Group 11-22",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 675,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 484",
+    "dateUtc": "2025-06-03",
+    "payload": "Group 12-19",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 483",
+    "dateUtc": "2025-05-31",
+    "payload": "Group 11-18",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 682,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 482",
+    "dateUtc": "2025-05-30",
+    "payload": "GPS III-8",
+    "numberOfStarlinkSatellites": 686,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 481",
+    "dateUtc": "2025-05-28",
+    "payload": "Group 10-32",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 9",
+    "dateUtc": "2025-05-27",
+    "payload": "8 Starlink simulator satellites",
+    "numberOfStarlinkSatellites": 8,
+    "starlinkModel": "696",
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 480",
+    "dateUtc": "2025-05-27",
+    "payload": "Group 17-1",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 700,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 479",
+    "dateUtc": "2025-05-24",
+    "payload": "Group 12-22",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 704,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 478",
+    "dateUtc": "2025-05-23",
+    "payload": "Group 11-16",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 708,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 477",
+    "dateUtc": "2025-05-21",
+    "payload": "Group 12-15",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 704,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 476",
+    "dateUtc": "2025-05-16",
+    "payload": "Group 15-5",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 626,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 475",
+    "dateUtc": "2025-05-14",
+    "payload": "Group 6-67",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 718,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 473",
+    "dateUtc": "2025-05-13",
+    "payload": "Group 15-4",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 626,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 474",
+    "dateUtc": "2025-05-13",
+    "payload": "Group 6-83",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 725,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 471",
+    "dateUtc": "2025-05-10",
+    "payload": "Group 15-3",
+    "numberOfStarlinkSatellites": 26,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 729,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 472",
+    "dateUtc": "2025-05-10",
+    "payload": "Group 6-91",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 725,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 470",
+    "dateUtc": "2025-05-07",
+    "payload": "Group 6-93",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 725,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 469",
+    "dateUtc": "2025-05-04",
+    "payload": "Group 6-84",
+    "numberOfStarlinkSatellites": 29,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 739,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 468",
+    "dateUtc": "2025-05-02",
+    "payload": "Group 6-75",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 725,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 467",
+    "dateUtc": "2025-04-29",
+    "payload": "Group 12-10",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 704,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 465",
+    "dateUtc": "2025-04-28",
+    "payload": "Group 12-23",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 656,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 466",
+    "dateUtc": "2025-04-28",
+    "payload": "Group 11-9",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 708,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 464",
+    "dateUtc": "2025-04-25",
+    "payload": "Group 6-74",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 463",
+    "dateUtc": "2025-04-22",
+    "payload": "Bandwagon-3",
+    "numberOfStarlinkSatellites": 760,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 462",
+    "dateUtc": "2025-04-21",
+    "payload": "SpaceX CRS-32 (Cargo Dragon C209.5)",
+    "numberOfStarlinkSatellites": 764,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 461",
+    "dateUtc": "2025-04-20",
+    "payload": "NROL-145",
+    "numberOfStarlinkSatellites": 768,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 460",
+    "dateUtc": "2025-04-14",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 459",
+    "dateUtc": "2025-04-13",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 458",
+    "dateUtc": "2025-04-12",
+    "payload": "NROL-192",
+    "numberOfStarlinkSatellites": 777,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 457",
+    "dateUtc": "2025-04-07",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 780,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 456",
+    "dateUtc": "2025-04-06",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 455",
+    "dateUtc": "2025-04-04",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 780,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 454",
+    "dateUtc": "2025-04-01",
+    "payload": "Crew",
+    "numberOfStarlinkSatellites": 790,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 453",
+    "dateUtc": "2025-03-31",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 28,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 793,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 452",
+    "dateUtc": "2025-03-26",
+    "payload": "Starlink",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 451",
+    "dateUtc": "2025-03-24",
+    "payload": "NROL-69",
+    "numberOfStarlinkSatellites": 799,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 450",
+    "dateUtc": "2025-03-21",
+    "payload": "NROL-57",
+    "numberOfStarlinkSatellites": 803,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 449",
+    "dateUtc": "2025-03-18",
+    "payload": "Group 12-25",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 447",
+    "dateUtc": "2025-03-15",
+    "payload": "Transporter-13",
+    "numberOfStarlinkSatellites": 643,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 448",
+    "dateUtc": "2025-03-15",
+    "payload": "Group 12-16",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 813,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 446",
+    "dateUtc": "2025-03-14",
+    "payload": "Crew-10 (Crew Dragon C210.4 Endurance)",
+    "numberOfStarlinkSatellites": 817,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 445",
+    "dateUtc": "2025-03-13",
+    "payload": "Group 12-21",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 444",
+    "dateUtc": "2025-03-12",
+    "payload": "SPHEREx / PUNCH",
+    "numberOfStarlinkSatellites": 824,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 8",
+    "dateUtc": "2025-03-06",
+    "payload": "4 Starlink simulator satellites",
+    "numberOfStarlinkSatellites": 4,
+    "starlinkModel": "830",
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 443",
+    "dateUtc": "2025-03-03",
+    "payload": "Group 12-16",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 441",
+    "dateUtc": "2025-02-27",
+    "payload": "IM-2 undisclosed GEO",
+    "numberOfStarlinkSatellites": 838,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 442",
+    "dateUtc": "2025-02-27",
+    "payload": "Group 12-15",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 440",
+    "dateUtc": "2025-02-23",
+    "payload": "Group 11-3 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 439",
+    "dateUtc": "2025-02-21",
+    "payload": "Group 12-14",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 813,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 438",
+    "dateUtc": "2025-02-18",
+    "payload": "Group 12-13",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 437",
+    "dateUtc": "2025-02-15",
+    "payload": "Group 12-12",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 435",
+    "dateUtc": "2025-02-11",
+    "payload": "Group 11-5",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 436",
+    "dateUtc": "2025-02-11",
+    "payload": "Group 12-11",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 434",
+    "dateUtc": "2025-02-08",
+    "payload": "Group 12-10",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 432",
+    "dateUtc": "2025-02-04",
+    "payload": "Group 12-9",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 433",
+    "dateUtc": "2025-02-04",
+    "payload": "2 earth observation satellites",
+    "numberOfStarlinkSatellites": 869,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 431",
+    "dateUtc": "2025-02-01",
+    "payload": "Group 11-4 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 430",
+    "dateUtc": "2025-01-30",
+    "payload": "Spainsat NG I",
+    "numberOfStarlinkSatellites": 876,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 429",
+    "dateUtc": "2025-01-27",
+    "payload": "Group 12-7 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 428",
+    "dateUtc": "2025-01-24",
+    "payload": "Group 11-6 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 426",
+    "dateUtc": "2025-01-21",
+    "payload": "Group 13-1 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 427",
+    "dateUtc": "2025-01-21",
+    "payload": "Group 11-8 (27 satellites)",
+    "numberOfStarlinkSatellites": 27,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 780,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 7",
+    "dateUtc": "2025-01-16",
+    "payload": "10 Starlink simulator satellites",
+    "numberOfStarlinkSatellites": 10,
+    "starlinkModel": "895",
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 425",
+    "dateUtc": "2025-01-15",
+    "payload": "Blue Ghost Mission 1 &amp; Hakuto-R Mission 2",
+    "numberOfStarlinkSatellites": 900,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 424",
+    "dateUtc": "2025-01-14",
+    "payload": "Transporter-12 (131 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 643,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 423",
+    "dateUtc": "2025-01-13",
+    "payload": "Group 12-4 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 421",
+    "dateUtc": "2025-01-10",
+    "payload": "NROL-153 (22 Starshield satellites)",
+    "numberOfStarlinkSatellites": 910,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 422",
+    "dateUtc": "2025-01-10",
+    "payload": "Group 12-12 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 420",
+    "dateUtc": "2025-01-08",
+    "payload": "Group 12-11 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 773,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 419",
+    "dateUtc": "2025-01-06",
+    "payload": "Group 6-71 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 920,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 418",
+    "dateUtc": "2025-01-04",
+    "payload": "Thuraya 4-NGS",
+    "numberOfStarlinkSatellites": 925,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 417",
+    "dateUtc": "2024-12-31",
+    "payload": "Group 12-6 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 929,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 415",
+    "dateUtc": "2024-12-29",
+    "payload": "Group 11-3 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 12,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 416",
+    "dateUtc": "2024-12-29",
+    "payload": "From One to Many (4 satellites)",
+    "numberOfStarlinkSatellites": 937,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 414",
+    "dateUtc": "2024-12-23",
+    "payload": "Group 12-2 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 941,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 413",
+    "dateUtc": "2024-12-21",
+    "payload": "Bandwagon-2 (30 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 945,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 410",
+    "dateUtc": "2024-12-17",
+    "payload": "GPS III-7",
+    "numberOfStarlinkSatellites": 949,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 411",
+    "dateUtc": "2024-12-17",
+    "payload": "NROL-149 (22 Starshield satellites)",
+    "numberOfStarlinkSatellites": 953,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 412",
+    "dateUtc": "2024-12-17",
+    "payload": "O3b mPOWER 7 &amp; 8",
+    "numberOfStarlinkSatellites": 957,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 409",
+    "dateUtc": "2024-12-13",
+    "payload": "Group 11-2 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 961,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 408",
+    "dateUtc": "2024-12-08",
+    "payload": "Group 12-5 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 813,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 406",
+    "dateUtc": "2024-12-05",
+    "payload": "Group 9-14 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 407",
+    "dateUtc": "2024-12-05",
+    "payload": "SXM-9",
+    "numberOfStarlinkSatellites": 972,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 405",
+    "dateUtc": "2024-12-04",
+    "payload": "Group 6-70 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 976,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 403",
+    "dateUtc": "2024-11-30",
+    "payload": "Group 6-77 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 976,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 404",
+    "dateUtc": "2024-11-30",
+    "payload": "Group 10-13 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 402",
+    "dateUtc": "2024-11-27",
+    "payload": "Group 6-77 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 986,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 401",
+    "dateUtc": "2024-11-25",
+    "payload": "Group 9-10 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 990,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 400",
+    "dateUtc": "2024-11-24",
+    "payload": "Group 9-9 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 994,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 399",
+    "dateUtc": "2024-11-21",
+    "payload": "Group 6-69 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 998,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 6",
+    "dateUtc": "2024-11-19",
+    "payload": "Plush banana",
+    "numberOfStarlinkSatellites": 1004,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 397",
+    "dateUtc": "2024-11-18",
+    "payload": "Group 6-68 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1008,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 398",
+    "dateUtc": "2024-11-18",
+    "payload": "Group 9-11 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 396",
+    "dateUtc": "2024-11-17",
+    "payload": "GSAT-20 (GSAT-N2)",
+    "numberOfStarlinkSatellites": 1016,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 394",
+    "dateUtc": "2024-11-14",
+    "payload": "Group 9-12 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 395",
+    "dateUtc": "2024-11-14",
+    "payload": "Group 9-13 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1023,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 392",
+    "dateUtc": "2024-11-11",
+    "payload": "Koreasat 6A",
+    "numberOfStarlinkSatellites": 1028,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 393",
+    "dateUtc": "2024-11-11",
+    "payload": "Group 6-66 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1032,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 391",
+    "dateUtc": "2024-11-09",
+    "payload": "Group 12-1 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 390",
+    "dateUtc": "2024-11-07",
+    "payload": "Group 6-76 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 389",
+    "dateUtc": "2024-11-05",
+    "payload": "SpaceX CRS-31 (Cargo Dragon C208.5)",
+    "numberOfStarlinkSatellites": 1042,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 387",
+    "dateUtc": "2024-10-30",
+    "payload": "Group 9-9 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 388",
+    "dateUtc": "2024-10-30",
+    "payload": "Group 10-13 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 990,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 386",
+    "dateUtc": "2024-10-26",
+    "payload": "Group 10-8 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1051,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 385",
+    "dateUtc": "2024-10-24",
+    "payload": "NROL-167 (~21 Starshield satellites)",
+    "numberOfStarlinkSatellites": 1055,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 384",
+    "dateUtc": "2024-10-23",
+    "payload": "Starlink Group 6-61 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 383",
+    "dateUtc": "2024-10-20",
+    "payload": "OneWeb #20 (20 satellites)",
+    "numberOfStarlinkSatellites": 1064,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 382",
+    "dateUtc": "2024-10-18",
+    "payload": "Starlink Group 8-19 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 380",
+    "dateUtc": "2024-10-15",
+    "payload": "Starlink Group 10-10 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 381",
+    "dateUtc": "2024-10-15",
+    "payload": "Starlink Group 9-7 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 11",
+    "dateUtc": "2024-10-14",
+    "payload": "Europa Clipper",
+    "numberOfStarlinkSatellites": 1080,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 5",
+    "dateUtc": "2024-10-13",
+    "payload": "1084",
+    "numberOfStarlinkSatellites": 1085,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 379",
+    "dateUtc": "2024-10-07",
+    "payload": "Hera",
+    "numberOfStarlinkSatellites": 1090,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 378",
+    "dateUtc": "2024-09-28",
+    "payload": "Crew-9 (Crew Dragon C212.4 Freedom)",
+    "numberOfStarlinkSatellites": 1094,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 377",
+    "dateUtc": "2024-09-25",
+    "payload": "Starlink Group 9-8 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 376",
+    "dateUtc": "2024-09-20",
+    "payload": "Starlink Group 9-17 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 375",
+    "dateUtc": "2024-09-17",
+    "payload": "Galileo-L13 (FOC FM26 &amp; FM32)",
+    "numberOfStarlinkSatellites": 1105,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 374",
+    "dateUtc": "2024-09-13",
+    "payload": "Starlink Group 9-6 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 373",
+    "dateUtc": "2024-09-12",
+    "payload": "BlueBird Block 1 (5 satellites)",
+    "numberOfStarlinkSatellites": 1113,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 372",
+    "dateUtc": "2024-09-10",
+    "payload": "Polaris Dawn (Crew Dragon C207.3 Resilience)",
+    "numberOfStarlinkSatellites": 1118,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 371",
+    "dateUtc": "2024-09-06",
+    "payload": "NROL-113 (21 Starshield satellites)",
+    "numberOfStarlinkSatellites": 1122,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 370",
+    "dateUtc": "2024-09-05",
+    "payload": "Starlink Group 8-11 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 368",
+    "dateUtc": "2024-08-31",
+    "payload": "Starlink Group 8-10 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 369",
+    "dateUtc": "2024-08-31",
+    "payload": "Starlink Group 9-5 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 367",
+    "dateUtc": "2024-08-28",
+    "payload": "Starlink Group 8-6 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 366",
+    "dateUtc": "2024-08-20",
+    "payload": "Starlink Group 10-5 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 365",
+    "dateUtc": "2024-08-16",
+    "payload": "Transporter-11 (116 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1143,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 364",
+    "dateUtc": "2024-08-15",
+    "payload": "WorldView Legion 3 &amp; 4",
+    "numberOfStarlinkSatellites": 1147,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 362",
+    "dateUtc": "2024-08-12",
+    "payload": "ASBM 1 (GX 10A) &amp; ASBM 2 (GX 10B)",
+    "numberOfStarlinkSatellites": 1153,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 363",
+    "dateUtc": "2024-08-12",
+    "payload": "Starlink Group 10-7 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 990,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 361",
+    "dateUtc": "2024-08-10",
+    "payload": "Starlink Group 8-3 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 359",
+    "dateUtc": "2024-08-04",
+    "payload": "Starlink Group 11-1 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 360",
+    "dateUtc": "2024-08-04",
+    "payload": "CRS NG-21",
+    "numberOfStarlinkSatellites": 1166,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 358",
+    "dateUtc": "2024-08-02",
+    "payload": "Starlink Group 10-6 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 356",
+    "dateUtc": "2024-07-28",
+    "payload": "Starlink Group 10-4 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 357",
+    "dateUtc": "2024-07-28",
+    "payload": "Starlink Group 9-4 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 355",
+    "dateUtc": "2024-07-27",
+    "payload": "Starlink Group 10-9 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 354",
+    "dateUtc": "2024-07-12",
+    "payload": "Starlink Group 9-3 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1182,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 353",
+    "dateUtc": "2024-07-08",
+    "payload": "Turksat 6A",
+    "numberOfStarlinkSatellites": 1187,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 352",
+    "dateUtc": "2024-07-03",
+    "payload": "Starlink Group 8-9 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 351",
+    "dateUtc": "2024-06-29",
+    "payload": "NROL-186 (~20 Starshield satellites)",
+    "numberOfStarlinkSatellites": 1194,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 350",
+    "dateUtc": "2024-06-27",
+    "payload": "Starlink Group 10-3 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1198,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 10",
+    "dateUtc": "2024-06-25",
+    "payload": "GOES-19",
+    "numberOfStarlinkSatellites": 1202,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 349",
+    "dateUtc": "2024-06-24",
+    "payload": "Starlink Group 9-2 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 348",
+    "dateUtc": "2024-06-23",
+    "payload": "Starlink Group 10-2 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 13,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 347",
+    "dateUtc": "2024-06-20",
+    "payload": "Astra 1P",
+    "numberOfStarlinkSatellites": 1213,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 346",
+    "dateUtc": "2024-06-19",
+    "payload": "Starlink Group 9-1 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 344",
+    "dateUtc": "2024-06-08",
+    "payload": "Starlink Group 10-1 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 345",
+    "dateUtc": "2024-06-08",
+    "payload": "Starlink Group 8-8 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 4",
+    "dateUtc": "2024-06-06",
+    "payload": "1084",
+    "numberOfStarlinkSatellites": 1226,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 343",
+    "dateUtc": "2024-06-05",
+    "payload": "Starlink Group 8-5 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 342",
+    "dateUtc": "2024-06-01",
+    "payload": "Starlink Group 6-64 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1233,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 340",
+    "dateUtc": "2024-05-28",
+    "payload": "Starlink Group 6-60 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1237,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 341",
+    "dateUtc": "2024-05-28",
+    "payload": "EarthCARE",
+    "numberOfStarlinkSatellites": 1241,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 339",
+    "dateUtc": "2024-05-24",
+    "payload": "Starlink Group 6-63 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 338",
+    "dateUtc": "2024-05-23",
+    "payload": "Starlink Group 6-62 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1248,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 337",
+    "dateUtc": "2024-05-22",
+    "payload": "NROL-146 (21 Starshield satellites)",
+    "numberOfStarlinkSatellites": 1253,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 336",
+    "dateUtc": "2024-05-18",
+    "payload": "Starlink Group 6-59 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 335",
+    "dateUtc": "2024-05-14",
+    "payload": "Starlink Group 8-7 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 6,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 334",
+    "dateUtc": "2024-05-13",
+    "payload": "Starlink Group 6-58 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 333",
+    "dateUtc": "2024-05-10",
+    "payload": "Starlink Group 8-2 (20 satellites)",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 968,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 332",
+    "dateUtc": "2024-05-08",
+    "payload": "Starlink Group 6-56 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 331",
+    "dateUtc": "2024-05-06",
+    "payload": "Starlink Group 6-57 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1273,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 330",
+    "dateUtc": "2024-05-03",
+    "payload": "Starlink Group 6-55 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1277,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 329",
+    "dateUtc": "2024-05-02",
+    "payload": "WorldView Legion 1 &amp; 2",
+    "numberOfStarlinkSatellites": 1147,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 327",
+    "dateUtc": "2024-04-28",
+    "payload": "Galileo-L12 (FOC FM25 &amp; FM27)",
+    "numberOfStarlinkSatellites": 1105,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 328",
+    "dateUtc": "2024-04-28",
+    "payload": "Starlink Group 6-54 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 326",
+    "dateUtc": "2024-04-23",
+    "payload": "Starlink Group 6-53 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 325",
+    "dateUtc": "2024-04-18",
+    "payload": "Starlink Group 6-52 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 324",
+    "dateUtc": "2024-04-17",
+    "payload": "Starlink Group 6-51 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 323",
+    "dateUtc": "2024-04-13",
+    "payload": "Starlink Group 6-49 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 322",
+    "dateUtc": "2024-04-11",
+    "payload": "USSF-62 (WSF-M 1)",
+    "numberOfStarlinkSatellites": 1302,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 321",
+    "dateUtc": "2024-04-10",
+    "payload": "Starlink Group 6-48 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 319",
+    "dateUtc": "2024-04-07",
+    "payload": "Starlink Group 8-1 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 320",
+    "dateUtc": "2024-04-07",
+    "payload": "Bandwagon-1 (11 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1312,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 318",
+    "dateUtc": "2024-04-05",
+    "payload": "Starlink Group 6-47 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 317",
+    "dateUtc": "2024-04-02",
+    "payload": "Starlink Group 7-18 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 316",
+    "dateUtc": "2024-03-31",
+    "payload": "Starlink Group 6-45 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 315",
+    "dateUtc": "2024-03-30",
+    "payload": "Eutelsat 36D",
+    "numberOfStarlinkSatellites": 1327,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 314",
+    "dateUtc": "2024-03-25",
+    "payload": "Starlink Group 6-46 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 313",
+    "dateUtc": "2024-03-24",
+    "payload": "Starlink Group 6-42 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 312",
+    "dateUtc": "2024-03-21",
+    "payload": "SpaceX CRS-30",
+    "numberOfStarlinkSatellites": 1337,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 311",
+    "dateUtc": "2024-03-19",
+    "payload": "Starlink Group 7-16 (20 satellites) + 2 Starshield satellites",
+    "numberOfStarlinkSatellites": 20,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1341,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 310",
+    "dateUtc": "2024-03-16",
+    "payload": "Starlink Group 6-44 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 3",
+    "dateUtc": "2024-03-14",
+    "payload": "1084",
+    "numberOfStarlinkSatellites": 1348,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 309",
+    "dateUtc": "2024-03-11",
+    "payload": "Starlink Group 7-17 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 308",
+    "dateUtc": "2024-03-10",
+    "payload": "Starlink Group 6-43 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 305",
+    "dateUtc": "2024-03-04",
+    "payload": "Crew-8 (Crew Dragon C206.5 Endeavour)",
+    "numberOfStarlinkSatellites": 1358,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 306",
+    "dateUtc": "2024-03-04",
+    "payload": "Transporter-10 (53 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1362,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 307",
+    "dateUtc": "2024-03-04",
+    "payload": "Starlink Group 6-41 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 304",
+    "dateUtc": "2024-02-29",
+    "payload": "Starlink Group 6-40 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 303",
+    "dateUtc": "2024-02-25",
+    "payload": "Starlink Group 6-39 (24 satellites)",
+    "numberOfStarlinkSatellites": 24,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1023,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 302",
+    "dateUtc": "2024-02-23",
+    "payload": "Starlink Group 7-15 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 6,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 301",
+    "dateUtc": "2024-02-20",
+    "payload": "Telkomsat HTS 113BT",
+    "numberOfStarlinkSatellites": 1380,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 299",
+    "dateUtc": "2024-02-15",
+    "payload": "IM-1 Nova-C Odysseus lander",
+    "numberOfStarlinkSatellites": 1385,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 300",
+    "dateUtc": "2024-02-15",
+    "payload": "Starlink Group 7-14 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 298",
+    "dateUtc": "2024-02-14",
+    "payload": "USSF-124 (6 satellites)",
+    "numberOfStarlinkSatellites": 1392,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 297",
+    "dateUtc": "2024-02-10",
+    "payload": "Starlink Group 7-13 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 296",
+    "dateUtc": "2024-02-08",
+    "payload": "PACE",
+    "numberOfStarlinkSatellites": 1400,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 295",
+    "dateUtc": "2024-01-30",
+    "payload": "CRS NG-20",
+    "numberOfStarlinkSatellites": 1404,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 293",
+    "dateUtc": "2024-01-29",
+    "payload": "Starlink Group 6-38 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 294",
+    "dateUtc": "2024-01-29",
+    "payload": "Starlink Group 7-12 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 292",
+    "dateUtc": "2024-01-24",
+    "payload": "Starlink Group 7-11 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 291",
+    "dateUtc": "2024-01-18",
+    "payload": "Ax-3 (Crew Dragon C212.3 Freedom)",
+    "numberOfStarlinkSatellites": 1417,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 290",
+    "dateUtc": "2024-01-15",
+    "payload": "Starlink Group 6-37 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 289",
+    "dateUtc": "2024-01-14",
+    "payload": "Starlink Group 7-10 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 288",
+    "dateUtc": "2024-01-07",
+    "payload": "Starlink Group 6-35 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 286",
+    "dateUtc": "2024-01-03",
+    "payload": "Starlink Group 7-9 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 287",
+    "dateUtc": "2024-01-03",
+    "payload": "Ovzon-3",
+    "numberOfStarlinkSatellites": 1434,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 285",
+    "dateUtc": "2023-12-29",
+    "payload": "Starlink Group 6-36 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 9",
+    "dateUtc": "2023-12-29",
+    "payload": "USSF-52 (Boeing X-37B OTV-7)",
+    "numberOfStarlinkSatellites": 1442,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 284",
+    "dateUtc": "2023-12-24",
+    "payload": "SARah 2 &amp; 3",
+    "numberOfStarlinkSatellites": 1447,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 283",
+    "dateUtc": "2023-12-23",
+    "payload": "Starlink Group 6-32 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1452,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 282",
+    "dateUtc": "2023-12-19",
+    "payload": "Starlink Group 6-34 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 281",
+    "dateUtc": "2023-12-08",
+    "payload": "Starlink Group 7-8 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 280",
+    "dateUtc": "2023-12-07",
+    "payload": "Starlink Group 6-33 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1462,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 279",
+    "dateUtc": "2023-12-03",
+    "payload": "Starlink Group 6-31 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 278",
+    "dateUtc": "2023-12-01",
+    "payload": "425 Project SAR satellite EIRSAT-1 and others 23 secondary payloads",
+    "numberOfStarlinkSatellites": 1470,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 277",
+    "dateUtc": "2023-11-28",
+    "payload": "Starlink Group 6-30 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 276",
+    "dateUtc": "2023-11-22",
+    "payload": "Starlink Group 6-29 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 275",
+    "dateUtc": "2023-11-20",
+    "payload": "Starlink Group 7-7 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 2",
+    "dateUtc": "2023-11-18",
+    "payload": "520",
+    "numberOfStarlinkSatellites": 1483,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 274",
+    "dateUtc": "2023-11-18",
+    "payload": "Starlink Group 6-28 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1487,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 273",
+    "dateUtc": "2023-11-12",
+    "payload": "O3b mPOWER 5 &amp; 6",
+    "numberOfStarlinkSatellites": 1491,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 272",
+    "dateUtc": "2023-11-11",
+    "payload": "Transporter-9 (113 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1495,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 271",
+    "dateUtc": "2023-11-10",
+    "payload": "SpaceX CRS-29 (Dragon C211.2)",
+    "numberOfStarlinkSatellites": 1499,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 270",
+    "dateUtc": "2023-11-08",
+    "payload": "Starlink Group 6-27 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 269",
+    "dateUtc": "2023-11-04",
+    "payload": "Starlink Group 6-26 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 268",
+    "dateUtc": "2023-10-30",
+    "payload": "Starlink Group 6-25 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 267",
+    "dateUtc": "2023-10-29",
+    "payload": "Starlink Group 7-6 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1319,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 266",
+    "dateUtc": "2023-10-22",
+    "payload": "Starlink Group 6-24 (23 satellites)",
+    "numberOfStarlinkSatellites": 23,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 883,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 265",
+    "dateUtc": "2023-10-21",
+    "payload": "Starlink Group 7-5 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1518,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 264",
+    "dateUtc": "2023-10-18",
+    "payload": "Starlink Group 6-23 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 263",
+    "dateUtc": "2023-10-13",
+    "payload": "Starlink Group 6-22 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 8",
+    "dateUtc": "2023-10-13",
+    "payload": "Psyche",
+    "numberOfStarlinkSatellites": 1528,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 262",
+    "dateUtc": "2023-10-09",
+    "payload": "Starlink Group 7-4 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1518,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 261",
+    "dateUtc": "2023-10-05",
+    "payload": "Starlink Group 6-21 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1535,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 260",
+    "dateUtc": "2023-09-30",
+    "payload": "Starlink Group 6-19 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 259",
+    "dateUtc": "2023-09-25",
+    "payload": "Starlink Group 7-3 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1518,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 258",
+    "dateUtc": "2023-09-24",
+    "payload": "Starlink Group 6-18 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 257",
+    "dateUtc": "2023-09-20",
+    "payload": "Starlink Group 6-17 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 256",
+    "dateUtc": "2023-09-16",
+    "payload": "Starlink Group 6-16 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 255",
+    "dateUtc": "2023-09-12",
+    "payload": "Starlink Group 7-2 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1518,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 254",
+    "dateUtc": "2023-09-09",
+    "payload": "Starlink Group 6-14 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 253",
+    "dateUtc": "2023-09-04",
+    "payload": "Starlink Group 6-12 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 252",
+    "dateUtc": "2023-09-02",
+    "payload": "SDA Tranche 0B (13 satellites)",
+    "numberOfStarlinkSatellites": 1563,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 251",
+    "dateUtc": "2023-09-01",
+    "payload": "Starlink Group 6-13 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 250",
+    "dateUtc": "2023-08-27",
+    "payload": "Starlink Group 6-11 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 249",
+    "dateUtc": "2023-08-26",
+    "payload": "Crew-7 (Crew Dragon C210.3 Endurance)",
+    "numberOfStarlinkSatellites": 1573,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 248",
+    "dateUtc": "2023-08-22",
+    "payload": "Starlink Group 7-1 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1518,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 247",
+    "dateUtc": "2023-08-17",
+    "payload": "Starlink Group 6-10 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 246",
+    "dateUtc": "2023-08-11",
+    "payload": "Starlink Group 6-9 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 245",
+    "dateUtc": "2023-08-08",
+    "payload": "Starlink Group 6-20 (15 satellites)",
+    "numberOfStarlinkSatellites": 15,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1586,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 244",
+    "dateUtc": "2023-08-07",
+    "payload": "Starlink Group 6-8 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 243",
+    "dateUtc": "2023-08-03",
+    "payload": "Galaxy 37",
+    "numberOfStarlinkSatellites": 1594,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 7",
+    "dateUtc": "2023-07-29",
+    "payload": "Jupiter-3 (EchoStar-24)",
+    "numberOfStarlinkSatellites": 1597,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 242",
+    "dateUtc": "2023-07-28",
+    "payload": "Starlink Group 6-7 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 241",
+    "dateUtc": "2023-07-24",
+    "payload": "Starlink Group 6-6 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 240",
+    "dateUtc": "2023-07-20",
+    "payload": "Starlink Group 6-15 (15 satellites)",
+    "numberOfStarlinkSatellites": 15,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 1586,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 239",
+    "dateUtc": "2023-07-16",
+    "payload": "Starlink Group 5-15 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 238",
+    "dateUtc": "2023-07-10",
+    "payload": "Starlink Group 6-5 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 237",
+    "dateUtc": "2023-07-07",
+    "payload": "Starlink Group 5-13 (48 satellites)",
+    "numberOfStarlinkSatellites": 48,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1618,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 236",
+    "dateUtc": "2023-07-01",
+    "payload": "Euclid",
+    "numberOfStarlinkSatellites": 1623,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 235",
+    "dateUtc": "2023-06-23",
+    "payload": "Starlink Group 5-12 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 234",
+    "dateUtc": "2023-06-22",
+    "payload": "Starlink Group 5-7 (47 satellites)",
+    "numberOfStarlinkSatellites": 47,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1631,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 233",
+    "dateUtc": "2023-06-18",
+    "payload": "SATRIA",
+    "numberOfStarlinkSatellites": 1635,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 231",
+    "dateUtc": "2023-06-12",
+    "payload": "Starlink Group 5-11 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 232",
+    "dateUtc": "2023-06-12",
+    "payload": "Transporter-8 (72 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1643,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 230",
+    "dateUtc": "2023-06-05",
+    "payload": "SpaceX CRS-28 (Dragon C208.4)",
+    "numberOfStarlinkSatellites": 1647,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 229",
+    "dateUtc": "2023-06-04",
+    "payload": "Starlink Group 6-4 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 228",
+    "dateUtc": "2023-05-31",
+    "payload": "Starlink Group 2-10 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 227",
+    "dateUtc": "2023-05-27",
+    "payload": "ArabSat 7B (Badr-8)",
+    "numberOfStarlinkSatellites": 1658,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 226",
+    "dateUtc": "2023-05-21",
+    "payload": "Ax-2 (Crew Dragon C212.2 Freedom)",
+    "numberOfStarlinkSatellites": 1662,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 225",
+    "dateUtc": "2023-05-20",
+    "payload": "Iridium-NEXT (5 satellites) OneWeb (15 Gen1 plus a Gen2 test satellite)",
+    "numberOfStarlinkSatellites": 1667,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 224",
+    "dateUtc": "2023-05-19",
+    "payload": "Starlink Group 6-3 (22 satellites)",
+    "numberOfStarlinkSatellites": 22,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 844,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 223",
+    "dateUtc": "2023-05-14",
+    "payload": "Starlink Group 5-9 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 222",
+    "dateUtc": "2023-05-10",
+    "payload": "Starlink Group 2-9 (51 satellites)",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1677,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 221",
+    "dateUtc": "2023-05-04",
+    "payload": "Starlink Group 5-6 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 6",
+    "dateUtc": "2023-05-01",
+    "payload": "ViaSat-3 Americas",
+    "numberOfStarlinkSatellites": 1685,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 220",
+    "dateUtc": "2023-04-28",
+    "payload": "O3b mPOWER 3 &amp; 4",
+    "numberOfStarlinkSatellites": 1491,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 219",
+    "dateUtc": "2023-04-27",
+    "payload": "Starlink Group 3-5 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1692,
+    "launchSite": null
+  },
+  {
+    "flightNo": "SS 1",
+    "dateUtc": "2023-04-20",
+    "payload": "520",
+    "numberOfStarlinkSatellites": 1697,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": "Boca Chica OLP-1"
+  },
+  {
+    "flightNo": "F9 218",
+    "dateUtc": "2023-04-19",
+    "payload": "Starlink Group 6-2 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 217",
+    "dateUtc": "2023-04-15",
+    "payload": "Transporter-7 (51 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1704,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 216",
+    "dateUtc": "2023-04-07",
+    "payload": "Intelsat 40e",
+    "numberOfStarlinkSatellites": 1708,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 215",
+    "dateUtc": "2023-04-02",
+    "payload": "SDA Tranche 0A (10 satellites)",
+    "numberOfStarlinkSatellites": 1712,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 214",
+    "dateUtc": "2023-03-29",
+    "payload": "Starlink Group 5-10 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 213",
+    "dateUtc": "2023-03-24",
+    "payload": "Starlink Group 5-5 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 211",
+    "dateUtc": "2023-03-17",
+    "payload": "Starlink Group 2-8 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 212",
+    "dateUtc": "2023-03-17",
+    "payload": "SES-18 &amp; SES-19",
+    "numberOfStarlinkSatellites": 1725,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 210",
+    "dateUtc": "2023-03-15",
+    "payload": "SpaceX CRS-27 (Dragon C209.3)",
+    "numberOfStarlinkSatellites": 1729,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 209",
+    "dateUtc": "2023-03-09",
+    "payload": "OneWeb 17 (40 satellites)",
+    "numberOfStarlinkSatellites": 1733,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 208",
+    "dateUtc": "2023-03-03",
+    "payload": "Starlink Group 2-7 (51 satellites)",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1677,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 207",
+    "dateUtc": "2023-03-02",
+    "payload": "Crew-6 (Crew Dragon C206.4 Endeavour)",
+    "numberOfStarlinkSatellites": 1740,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 206",
+    "dateUtc": "2023-02-27",
+    "payload": "Starlink Group 6-1 (21 satellites)",
+    "numberOfStarlinkSatellites": 21,
+    "starlinkModel": "v2 mini",
+    "ofWhichDtc": 887,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 205",
+    "dateUtc": "2023-02-18",
+    "payload": "Inmarsat-6 F2",
+    "numberOfStarlinkSatellites": 1748,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 204",
+    "dateUtc": "2023-02-17",
+    "payload": "Starlink Group 2-5 (51 satellites)",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1677,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 203",
+    "dateUtc": "2023-02-12",
+    "payload": "Starlink Group 5-4 (55 satellites)",
+    "numberOfStarlinkSatellites": 55,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1755,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 202",
+    "dateUtc": "2023-02-07",
+    "payload": "Amazonas Nexus",
+    "numberOfStarlinkSatellites": 1760,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 201",
+    "dateUtc": "2023-02-02",
+    "payload": "Starlink Group 5-3 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 200",
+    "dateUtc": "2023-01-31",
+    "payload": "Starlink Group 2-6 (49 satellites)",
+    "numberOfStarlinkSatellites": 49,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1768,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 199",
+    "dateUtc": "2023-01-26",
+    "payload": "Starlink Group 5-2 (56 satellites)",
+    "numberOfStarlinkSatellites": 56,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1627,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 198",
+    "dateUtc": "2023-01-19",
+    "payload": "Starlink Group 2-4 (51 satellites)",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1677,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 197",
+    "dateUtc": "2023-01-18",
+    "payload": "USA-343 (GPS-III SV06)",
+    "numberOfStarlinkSatellites": 1778,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 196",
+    "dateUtc": "2023-01-10",
+    "payload": "OneWeb 16 (40 satellites)",
+    "numberOfStarlinkSatellites": 1782,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 195",
+    "dateUtc": "2023-01-03",
+    "payload": "Transporter-6 (115 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1786,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 194",
+    "dateUtc": "2022-12-30",
+    "payload": "EROS-C3",
+    "numberOfStarlinkSatellites": 1792,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 193",
+    "dateUtc": "2022-12-28",
+    "payload": "Starlink Group 5-1 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 192",
+    "dateUtc": "2022-12-17",
+    "payload": "Starlink Group 4-37 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 190",
+    "dateUtc": "2022-12-16",
+    "payload": "Surface Water and Ocean Topography (SWOT)",
+    "numberOfStarlinkSatellites": 1803,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 191",
+    "dateUtc": "2022-12-16",
+    "payload": "O3b mPOWER 1 &amp; 2",
+    "numberOfStarlinkSatellites": 1491,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 189",
+    "dateUtc": "2022-12-11",
+    "payload": "Hakuto-R Mission 1 Emirates Lunar Mission Lunar Flashlight",
+    "numberOfStarlinkSatellites": 1812,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 188",
+    "dateUtc": "2022-12-08",
+    "payload": "OneWeb Flight #15 / SpaceX Flight 1 (40 satellites)",
+    "numberOfStarlinkSatellites": 1782,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 187",
+    "dateUtc": "2022-11-26",
+    "payload": "SpaceX CRS-26 (Dragon C211.1)",
+    "numberOfStarlinkSatellites": 1819,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 186",
+    "dateUtc": "2022-11-23",
+    "payload": "Eutelsat 10B",
+    "numberOfStarlinkSatellites": 1823,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 185",
+    "dateUtc": "2022-11-12",
+    "payload": "Galaxy 31 and Galaxy 32 (2 satellites)",
+    "numberOfStarlinkSatellites": 1827,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 184",
+    "dateUtc": "2022-11-03",
+    "payload": "Hotbird 13G",
+    "numberOfStarlinkSatellites": 1831,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 4",
+    "dateUtc": "2022-11-01",
+    "payload": "USSF-44 (Shepherd Demonstration &amp; LDPE-2)",
+    "numberOfStarlinkSatellites": 1835,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 183",
+    "dateUtc": "2022-10-28",
+    "payload": "Starlink Group 4-31 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 182",
+    "dateUtc": "2022-10-20",
+    "payload": "Starlink Group 4-36 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 181",
+    "dateUtc": "2022-10-15",
+    "payload": "Hotbird 13F",
+    "numberOfStarlinkSatellites": 1845,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 180",
+    "dateUtc": "2022-10-08",
+    "payload": "Galaxy 33 &amp; 34",
+    "numberOfStarlinkSatellites": 1827,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 178",
+    "dateUtc": "2022-10-05",
+    "payload": "Crew-5 (Crew Dragon C210.2 Endurance)",
+    "numberOfStarlinkSatellites": 1852,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 179",
+    "dateUtc": "2022-10-05",
+    "payload": "Starlink Group 4-29 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 177",
+    "dateUtc": "2022-09-24",
+    "payload": "Starlink Group 4-35 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 176",
+    "dateUtc": "2022-09-19",
+    "payload": "Starlink Group 4-34 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 175",
+    "dateUtc": "2022-09-11",
+    "payload": "Starlink Group 4-2 (34 satellites) BlueWalker-3",
+    "numberOfStarlinkSatellites": 34,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1866,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 174",
+    "dateUtc": "2022-09-05",
+    "payload": "Starlink Group 4-20 (51 satellites) Sherpa-LTC2",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1871,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 173",
+    "dateUtc": "2022-08-31",
+    "payload": "Starlink Group 3-4 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1875,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 172",
+    "dateUtc": "2022-08-28",
+    "payload": "Starlink Group 4-23 (54 satellites)",
+    "numberOfStarlinkSatellites": 54,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1611,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 171",
+    "dateUtc": "2022-08-19",
+    "payload": "Starlink Group 4-27 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 170",
+    "dateUtc": "2022-08-12",
+    "payload": "Starlink Group 3-3 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1875,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 169",
+    "dateUtc": "2022-08-10",
+    "payload": "Starlink Group 4-26 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 168",
+    "dateUtc": "2022-08-04",
+    "payload": "Danuri (Korea Pathfinder Lunar Orbiter)",
+    "numberOfStarlinkSatellites": 1893,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 167",
+    "dateUtc": "2022-07-24",
+    "payload": "Starlink Group 4-25 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 166",
+    "dateUtc": "2022-07-22",
+    "payload": "Starlink Group 3-2 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1875,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 165",
+    "dateUtc": "2022-07-17",
+    "payload": "Starlink Group 4-22 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 164",
+    "dateUtc": "2022-07-15",
+    "payload": "SpaceX CRS-25 (Dragon C208.3)",
+    "numberOfStarlinkSatellites": 1906,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 163",
+    "dateUtc": "2022-07-11",
+    "payload": "Starlink Group 3-1 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1875,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 162",
+    "dateUtc": "2022-07-07",
+    "payload": "Starlink Group 4-21 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 161",
+    "dateUtc": "2022-06-29",
+    "payload": "SES-22",
+    "numberOfStarlinkSatellites": 1916,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 160",
+    "dateUtc": "2022-06-19",
+    "payload": "Globalstar-2 M087 (FM15) USA 328-331",
+    "numberOfStarlinkSatellites": 1921,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 159",
+    "dateUtc": "2022-06-18",
+    "payload": "SARah 1",
+    "numberOfStarlinkSatellites": 1925,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 158",
+    "dateUtc": "2022-06-17",
+    "payload": "Starlink Group 4-19 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 157",
+    "dateUtc": "2022-06-08",
+    "payload": "Nilesat-301",
+    "numberOfStarlinkSatellites": 1933,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 156",
+    "dateUtc": "2022-05-25",
+    "payload": "Transporter-5 (59 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1937,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 155",
+    "dateUtc": "2022-05-18",
+    "payload": "Starlink Group 4-18 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 154",
+    "dateUtc": "2022-05-14",
+    "payload": "Starlink Group 4-15 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 153",
+    "dateUtc": "2022-05-13",
+    "payload": "Starlink Group 4-13 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 152",
+    "dateUtc": "2022-05-06",
+    "payload": "Starlink Group 4-17 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 151",
+    "dateUtc": "2022-04-29",
+    "payload": "Starlink Group 4-16 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 150",
+    "dateUtc": "2022-04-27",
+    "payload": "Crew-4 (Crew Dragon C212.1 Freedom)",
+    "numberOfStarlinkSatellites": 1956,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 149",
+    "dateUtc": "2022-04-21",
+    "payload": "Starlink Group 4-14 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 148",
+    "dateUtc": "2022-04-17",
+    "payload": "NROL-85",
+    "numberOfStarlinkSatellites": 1963,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 147",
+    "dateUtc": "2022-04-08",
+    "payload": "Axiom-1 (Crew Dragon C206.3 Endeavour)",
+    "numberOfStarlinkSatellites": 1967,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 146",
+    "dateUtc": "2022-04-01",
+    "payload": "Transporter-4 (40 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 1971,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 145",
+    "dateUtc": "2022-03-19",
+    "payload": "Starlink Group 4-12 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 144",
+    "dateUtc": "2022-03-09",
+    "payload": "Starlink Group 4-10 (48 satellites)",
+    "numberOfStarlinkSatellites": 48,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1618,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 143",
+    "dateUtc": "2022-03-03",
+    "payload": "Starlink Group 4-9 (47 satellites)",
+    "numberOfStarlinkSatellites": 47,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1631,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 142",
+    "dateUtc": "2022-02-25",
+    "payload": "Starlink Group 4-11 (50 satellites)",
+    "numberOfStarlinkSatellites": 50,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1984,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 141",
+    "dateUtc": "2022-02-21",
+    "payload": "Starlink Group 4-8 (46 satellites)",
+    "numberOfStarlinkSatellites": 46,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1988,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 140",
+    "dateUtc": "2022-02-03",
+    "payload": "Starlink Group 4-7 (49 satellites)",
+    "numberOfStarlinkSatellites": 49,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1768,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 139",
+    "dateUtc": "2022-02-02",
+    "payload": "NROL-87",
+    "numberOfStarlinkSatellites": 1995,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 138",
+    "dateUtc": "2022-01-31",
+    "payload": "CSG-2",
+    "numberOfStarlinkSatellites": 1999,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 137",
+    "dateUtc": "2022-01-19",
+    "payload": "Starlink Group 4-6 (49 satellites)",
+    "numberOfStarlinkSatellites": 49,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1768,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 136",
+    "dateUtc": "2022-01-13",
+    "payload": "Transporter-3 (105 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 2006,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 135",
+    "dateUtc": "2022-01-06",
+    "payload": "Starlink Group 4-5 (49 satellites)",
+    "numberOfStarlinkSatellites": 49,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1768,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 134",
+    "dateUtc": "2021-12-21",
+    "payload": "SpaceX CRS-24 (Dragon C209.2)",
+    "numberOfStarlinkSatellites": 2013,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 133",
+    "dateUtc": "2021-12-19",
+    "payload": "Turksat 5B",
+    "numberOfStarlinkSatellites": 2017,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 132",
+    "dateUtc": "2021-12-18",
+    "payload": "Starlink Group 4-4 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1639,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 131",
+    "dateUtc": "2021-12-09",
+    "payload": "Imaging X-ray Polarimetry Explorer (IXPE)",
+    "numberOfStarlinkSatellites": 2024,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 130",
+    "dateUtc": "2021-12-02",
+    "payload": "Starlink Group 4-3 (48 satellites)",
+    "numberOfStarlinkSatellites": 48,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1618,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 129",
+    "dateUtc": "2021-11-24",
+    "payload": "Double Asteroid Redirection Test (DART)",
+    "numberOfStarlinkSatellites": 2031,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 128",
+    "dateUtc": "2021-11-13",
+    "payload": "Starlink Group 4-1 (53 satellites)",
+    "numberOfStarlinkSatellites": 53,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 1764,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 127",
+    "dateUtc": "2021-11-11",
+    "payload": "Crew-3 (Crew Dragon C210.1 Endurance)",
+    "numberOfStarlinkSatellites": 2038,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 126",
+    "dateUtc": "2021-09-16",
+    "payload": "Inspiration4 (Crew Dragon C207.2 Resilience)",
+    "numberOfStarlinkSatellites": 2043,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 125",
+    "dateUtc": "2021-09-14",
+    "payload": "Starlink Group 2-1 (51 satellites)",
+    "numberOfStarlinkSatellites": 51,
+    "starlinkModel": "v1.5",
+    "ofWhichDtc": 2047,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 124",
+    "dateUtc": "2021-08-29",
+    "payload": "SpaceX CRS-23 (Dragon C208.2)",
+    "numberOfStarlinkSatellites": 2051,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 123",
+    "dateUtc": "2021-06-30",
+    "payload": "Transporter-2 (88 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 2055,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 122",
+    "dateUtc": "2021-06-17",
+    "payload": "USA-319 / GPS III-05 (Neil Armstrong)",
+    "numberOfStarlinkSatellites": 2059,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 121",
+    "dateUtc": "2021-06-06",
+    "payload": "SXM-8",
+    "numberOfStarlinkSatellites": 2063,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 120",
+    "dateUtc": "2021-06-03",
+    "payload": "SpaceX CRS-22 (Dragon C209.1)",
+    "numberOfStarlinkSatellites": 2067,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 119",
+    "dateUtc": "2021-05-26",
+    "payload": "Starlink Launch 28 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 118",
+    "dateUtc": "2021-05-15",
+    "payload": "Starlink Launch 26 (52 satellites)",
+    "numberOfStarlinkSatellites": 52,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2076,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 117",
+    "dateUtc": "2021-05-09",
+    "payload": "Starlink Launch 27 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 116",
+    "dateUtc": "2021-05-04",
+    "payload": "Starlink Launch 25 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 115",
+    "dateUtc": "2021-04-29",
+    "payload": "Starlink Launch 24 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 114",
+    "dateUtc": "2021-04-23",
+    "payload": "Crew-2 (Crew Dragon C206.2 Endeavour)",
+    "numberOfStarlinkSatellites": 2089,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 113",
+    "dateUtc": "2021-04-07",
+    "payload": "Starlink Launch 23 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 112",
+    "dateUtc": "2021-03-24",
+    "payload": "Starlink Launch 22 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 111",
+    "dateUtc": "2021-03-14",
+    "payload": "Starlink Launch 21 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 110",
+    "dateUtc": "2021-03-11",
+    "payload": "Starlink Launch 20 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 109",
+    "dateUtc": "2021-03-04",
+    "payload": "Starlink Launch 17 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 108",
+    "dateUtc": "2021-02-16",
+    "payload": "Starlink Launch 19 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2108,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 107",
+    "dateUtc": "2021-02-04",
+    "payload": "Starlink Launch 18 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 106",
+    "dateUtc": "2021-01-24",
+    "payload": "Transporter-1 (143 payload smallsat rideshare)",
+    "numberOfStarlinkSatellites": 2115,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 105",
+    "dateUtc": "2021-01-20",
+    "payload": "Starlink Launch 16 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 104",
+    "dateUtc": "2021-01-08",
+    "payload": "Turksat 5A",
+    "numberOfStarlinkSatellites": 2122,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 103",
+    "dateUtc": "2020-12-19",
+    "payload": "NROL-108",
+    "numberOfStarlinkSatellites": 2126,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 102",
+    "dateUtc": "2020-12-13",
+    "payload": "SXM-7",
+    "numberOfStarlinkSatellites": 2130,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 101",
+    "dateUtc": "2020-12-06",
+    "payload": "SpaceX CRS-21 (Dragon C208.1)",
+    "numberOfStarlinkSatellites": 2134,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 100",
+    "dateUtc": "2020-11-25",
+    "payload": "Starlink Launch 15 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 99",
+    "dateUtc": "2020-11-21",
+    "payload": "Sentinel-6 Michael Freilich (Jason-CS A)",
+    "numberOfStarlinkSatellites": 2142,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 98",
+    "dateUtc": "2020-11-16",
+    "payload": "Crew-1 (Crew Dragon C207.1 Resilience)",
+    "numberOfStarlinkSatellites": 2146,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 97",
+    "dateUtc": "2020-11-05",
+    "payload": "GPS III-04 (Sacagawea)",
+    "numberOfStarlinkSatellites": 2150,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 96",
+    "dateUtc": "2020-10-24",
+    "payload": "Starlink Launch 14 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 95",
+    "dateUtc": "2020-10-18",
+    "payload": "Starlink Launch 13 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 94",
+    "dateUtc": "2020-10-06",
+    "payload": "Starlink Launch 12 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 93",
+    "dateUtc": "2020-09-03",
+    "payload": "Starlink Launch 11 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2163,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 92",
+    "dateUtc": "2020-08-30",
+    "payload": "SAOCOM 1B GNOMES 1 Tyvak-0172",
+    "numberOfStarlinkSatellites": 2168,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 91",
+    "dateUtc": "2020-08-18",
+    "payload": "Starlink Launch 10 (58 satellites)",
+    "numberOfStarlinkSatellites": 58,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2172,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 90",
+    "dateUtc": "2020-08-07",
+    "payload": "Starlink Launch 9 (57 satellites)",
+    "numberOfStarlinkSatellites": 57,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2176,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 89",
+    "dateUtc": "2020-07-20",
+    "payload": "ANASIS-II",
+    "numberOfStarlinkSatellites": 2181,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 88",
+    "dateUtc": "2020-06-30",
+    "payload": "GPS III-03 (Matthew Henson)",
+    "numberOfStarlinkSatellites": 2186,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 87",
+    "dateUtc": "2020-06-13",
+    "payload": "Starlink Launch 8 (58 satellites)",
+    "numberOfStarlinkSatellites": 58,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2172,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 86",
+    "dateUtc": "2020-06-04",
+    "payload": "Starlink Launch 7 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 85",
+    "dateUtc": "2020-05-30",
+    "payload": "Crew Dragon Demo-2 (Crew Dragon C206.1 Endeavour)",
+    "numberOfStarlinkSatellites": 2197,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 84",
+    "dateUtc": "2020-04-22",
+    "payload": "Starlink Launch 6 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 83",
+    "dateUtc": "2020-03-18",
+    "payload": "Starlink Launch 5 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2108,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 82",
+    "dateUtc": "2020-03-07",
+    "payload": "SpaceX CRS-20 (Dragon C112.3)",
+    "numberOfStarlinkSatellites": 2207,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 81",
+    "dateUtc": "2020-02-17",
+    "payload": "Starlink Launch 4 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2108,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 80",
+    "dateUtc": "2020-01-29",
+    "payload": "Starlink Launch 3 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 79",
+    "dateUtc": "2020-01-19",
+    "payload": "Crew Dragon in-flight abort test (Dragon C205.1)",
+    "numberOfStarlinkSatellites": 2218,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 78",
+    "dateUtc": "2020-01-07",
+    "payload": "Starlink Launch 2 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 77",
+    "dateUtc": "2019-12-17",
+    "payload": "JCSat-18 / Kacific 1",
+    "numberOfStarlinkSatellites": 2226,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 76",
+    "dateUtc": "2019-12-05",
+    "payload": "SpaceX CRS-19 (Dragon C106.3)",
+    "numberOfStarlinkSatellites": 2230,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 75",
+    "dateUtc": "2019-11-11",
+    "payload": "Starlink Launch 1 (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v1",
+    "ofWhichDtc": 2072,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 74",
+    "dateUtc": "2019-08-06",
+    "payload": "AMOS-17",
+    "numberOfStarlinkSatellites": 2238,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 73",
+    "dateUtc": "2019-07-25",
+    "payload": "SpaceX CRS-18 (Dragon C108.3)",
+    "numberOfStarlinkSatellites": 2242,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 3",
+    "dateUtc": "2019-06-25",
+    "payload": "Space Test Program Flight 2 (STP-2)",
+    "numberOfStarlinkSatellites": 2248,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 72",
+    "dateUtc": "2019-06-12",
+    "payload": "RADARSAT Constellation (3 satellites)",
+    "numberOfStarlinkSatellites": 2253,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 71",
+    "dateUtc": "2019-05-24",
+    "payload": "Starlink v0.9 launch (60 satellites)",
+    "numberOfStarlinkSatellites": 60,
+    "starlinkModel": "v0.9",
+    "ofWhichDtc": 2258,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 70",
+    "dateUtc": "2019-05-04",
+    "payload": "SpaceX CRS-17 (Dragon C113.2)",
+    "numberOfStarlinkSatellites": 2262,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 2",
+    "dateUtc": "2019-04-11",
+    "payload": "Arabsat-6A",
+    "numberOfStarlinkSatellites": 2266,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 69",
+    "dateUtc": "2019-03-02",
+    "payload": "Crew Dragon Demo-1 (Dragon C204)",
+    "numberOfStarlinkSatellites": 2271,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 68",
+    "dateUtc": "2019-02-22",
+    "payload": "Nusantara Satu (PSN-6) Beresheet Moon lander S5",
+    "numberOfStarlinkSatellites": 2276,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 67",
+    "dateUtc": "2019-01-11",
+    "payload": "Iridium NEXT-8 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 66",
+    "dateUtc": "2018-12-23",
+    "payload": "GPS III-01 (Vespucci)",
+    "numberOfStarlinkSatellites": 2284,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 65",
+    "dateUtc": "2018-12-03",
+    "payload": "SSO-A (SmallSat Express) (SHERPA)",
+    "numberOfStarlinkSatellites": 643,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 64",
+    "dateUtc": "2018-12-03",
+    "payload": "SpaceX CRS-16 (Dragon C112.2)",
+    "numberOfStarlinkSatellites": 2293,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 63",
+    "dateUtc": "2018-11-15",
+    "payload": "Es'hail 2",
+    "numberOfStarlinkSatellites": 2297,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 62",
+    "dateUtc": "2018-10-08",
+    "payload": "SAOCOM 1A",
+    "numberOfStarlinkSatellites": 2302,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 61",
+    "dateUtc": "2018-09-10",
+    "payload": "Telstar 18V / Apstar-5C",
+    "numberOfStarlinkSatellites": 2307,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 60",
+    "dateUtc": "2018-08-07",
+    "payload": "Merah Putih (formerly Telkom-4)",
+    "numberOfStarlinkSatellites": 2311,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 59",
+    "dateUtc": "2018-07-25",
+    "payload": "Iridium NEXT-7 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 58",
+    "dateUtc": "2018-07-22",
+    "payload": "Telstar 19V",
+    "numberOfStarlinkSatellites": 2318,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 57",
+    "dateUtc": "2018-06-29",
+    "payload": "SpaceX CRS-15 (Dragon C111.2)",
+    "numberOfStarlinkSatellites": 2322,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 56",
+    "dateUtc": "2018-06-04",
+    "payload": "SES-12",
+    "numberOfStarlinkSatellites": 2326,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 55",
+    "dateUtc": "2018-05-22",
+    "payload": "Iridium NEXT-6 (5 satellites) GRACE-FO x 2",
+    "numberOfStarlinkSatellites": 2331,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 54",
+    "dateUtc": "2018-05-11",
+    "payload": "Bangabandhu-1",
+    "numberOfStarlinkSatellites": 2336,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 53",
+    "dateUtc": "2018-04-18",
+    "payload": "Transiting Exoplanet Survey Satellite (TESS)",
+    "numberOfStarlinkSatellites": 2341,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 52",
+    "dateUtc": "2018-04-02",
+    "payload": "SpaceX CRS-14 (Dragon C110.2)",
+    "numberOfStarlinkSatellites": 2345,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 51",
+    "dateUtc": "2018-03-30",
+    "payload": "Iridium NEXT-5 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 50",
+    "dateUtc": "2018-03-06",
+    "payload": "Hispasat 30W-6 PODSat",
+    "numberOfStarlinkSatellites": 2354,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 49",
+    "dateUtc": "2018-02-22",
+    "payload": "Paz",
+    "numberOfStarlinkSatellites": 2359,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "FH 1",
+    "dateUtc": "2018-02-06",
+    "payload": "Elon Musk's Tesla Roadster",
+    "numberOfStarlinkSatellites": 2364,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 48",
+    "dateUtc": "2018-01-31",
+    "payload": "GovSat-1 (SES-16)",
+    "numberOfStarlinkSatellites": 2368,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 47",
+    "dateUtc": "2018-01-08",
+    "payload": "Zuma",
+    "numberOfStarlinkSatellites": 2373,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 46",
+    "dateUtc": "2017-12-23",
+    "payload": "Iridium NEXT-4 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 45",
+    "dateUtc": "2017-12-15",
+    "payload": "SpaceX CRS-13 (Dragon C108.2)",
+    "numberOfStarlinkSatellites": 2380,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 44",
+    "dateUtc": "2017-10-30",
+    "payload": "Koreasat 5A",
+    "numberOfStarlinkSatellites": 2385,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 43",
+    "dateUtc": "2017-10-11",
+    "payload": "SES-11 / EchoStar 105",
+    "numberOfStarlinkSatellites": 2390,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 42",
+    "dateUtc": "2017-10-09",
+    "payload": "Iridium NEXT-3 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 41",
+    "dateUtc": "2017-09-07",
+    "payload": "Boeing X-37B OTV-5",
+    "numberOfStarlinkSatellites": 2397,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 40",
+    "dateUtc": "2017-08-24",
+    "payload": "Formosat-5",
+    "numberOfStarlinkSatellites": 2402,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 39",
+    "dateUtc": "2017-08-14",
+    "payload": "SpaceX CRS-12 (Dragon C113.1)",
+    "numberOfStarlinkSatellites": 2406,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 38",
+    "dateUtc": "2017-07-05",
+    "payload": "Intelsat 35e",
+    "numberOfStarlinkSatellites": 2410,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 37",
+    "dateUtc": "2017-06-25",
+    "payload": "Iridium NEXT-2 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 36",
+    "dateUtc": "2017-06-23",
+    "payload": "BulgariaSat-1",
+    "numberOfStarlinkSatellites": 2418,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 35",
+    "dateUtc": "2017-06-03",
+    "payload": "SpaceX CRS-11 (Dragon C106.2)",
+    "numberOfStarlinkSatellites": 2422,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 34",
+    "dateUtc": "2017-05-15",
+    "payload": "Inmarsat-5 F4",
+    "numberOfStarlinkSatellites": 2426,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 33",
+    "dateUtc": "2017-05-01",
+    "payload": "NROL-76",
+    "numberOfStarlinkSatellites": 2430,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 32",
+    "dateUtc": "2017-03-30",
+    "payload": "SES-10",
+    "numberOfStarlinkSatellites": 2434,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 31",
+    "dateUtc": "2017-03-16",
+    "payload": "EchoStar 23",
+    "numberOfStarlinkSatellites": 2438,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 30",
+    "dateUtc": "2017-02-19",
+    "payload": "SpaceX CRS-10 (Dragon C112.1)",
+    "numberOfStarlinkSatellites": 2442,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 29",
+    "dateUtc": "2017-01-14",
+    "payload": "Iridium NEXT-1 (10 satellites)",
+    "numberOfStarlinkSatellites": 2280,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 28",
+    "dateUtc": "2016-08-14",
+    "payload": "JCSAT-16",
+    "numberOfStarlinkSatellites": 2450,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 27",
+    "dateUtc": "2016-07-18",
+    "payload": "SpaceX CRS-9 (Dragon C111.1)",
+    "numberOfStarlinkSatellites": 2454,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 26",
+    "dateUtc": "2016-06-15",
+    "payload": "ABS-2A Eutelsat 117 West B",
+    "numberOfStarlinkSatellites": 2459,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 25",
+    "dateUtc": "2016-05-27",
+    "payload": "Thaicom 8",
+    "numberOfStarlinkSatellites": 2464,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 24",
+    "dateUtc": "2016-05-06",
+    "payload": "JCSAT-14",
+    "numberOfStarlinkSatellites": 2468,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 23",
+    "dateUtc": "2016-04-08",
+    "payload": "SpaceX CRS-8 (Dragon C110.1)",
+    "numberOfStarlinkSatellites": 2472,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 22",
+    "dateUtc": "2016-03-04",
+    "payload": "SES-9",
+    "numberOfStarlinkSatellites": 2476,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 21",
+    "dateUtc": "2016-01-17",
+    "payload": "Jason-3",
+    "numberOfStarlinkSatellites": 2482,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 20",
+    "dateUtc": "2015-12-22",
+    "payload": "Orbcomm-OG2-2 (11 satellites)",
+    "numberOfStarlinkSatellites": 2487,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 19",
+    "dateUtc": "2015-06-28",
+    "payload": "SpaceX CRS-7 (Dragon C109)",
+    "numberOfStarlinkSatellites": 2492,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 18",
+    "dateUtc": "2015-04-27",
+    "payload": "TurkmenAlem 52E / MonacoSAT",
+    "numberOfStarlinkSatellites": 2497,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 17",
+    "dateUtc": "2015-04-14",
+    "payload": "SpaceX CRS-6 (Dragon C108.1)",
+    "numberOfStarlinkSatellites": 2501,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 16",
+    "dateUtc": "2015-03-02",
+    "payload": "ABS-3A Eutelsat 115 West B",
+    "numberOfStarlinkSatellites": 2505,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 15",
+    "dateUtc": "2015-02-11",
+    "payload": "DSCOVR",
+    "numberOfStarlinkSatellites": 2511,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 14",
+    "dateUtc": "2015-01-10",
+    "payload": "SpaceX CRS-5 (Dragon C107)",
+    "numberOfStarlinkSatellites": 2515,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 13",
+    "dateUtc": "2014-09-21",
+    "payload": "SpaceX CRS-4 (Dragon C106.1)",
+    "numberOfStarlinkSatellites": 2520,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 12",
+    "dateUtc": "2014-09-07",
+    "payload": "AsiaSat 6",
+    "numberOfStarlinkSatellites": 2525,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 11",
+    "dateUtc": "2014-08-05",
+    "payload": "AsiaSat 8",
+    "numberOfStarlinkSatellites": 2529,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 10",
+    "dateUtc": "2014-07-14",
+    "payload": "Orbcomm-OG2-1 (6 satellites)",
+    "numberOfStarlinkSatellites": 2533,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 9",
+    "dateUtc": "2014-04-18",
+    "payload": "SpaceX CRS-3 (Dragon C105)",
+    "numberOfStarlinkSatellites": 2537,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 8",
+    "dateUtc": "2014-01-06",
+    "payload": "Thaicom 6",
+    "numberOfStarlinkSatellites": 2541,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 7",
+    "dateUtc": "2013-12-03",
+    "payload": "SES-8",
+    "numberOfStarlinkSatellites": 2545,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 6",
+    "dateUtc": "2013-09-29",
+    "payload": "CASSIOPE",
+    "numberOfStarlinkSatellites": 2550,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 5",
+    "dateUtc": "2013-03-01",
+    "payload": "SpaceX CRS-2 (Dragon C104)",
+    "numberOfStarlinkSatellites": 2554,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 4",
+    "dateUtc": "2012-10-08",
+    "payload": "SpaceX CRS-1 (Dragon C103)",
+    "numberOfStarlinkSatellites": 2558,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 3",
+    "dateUtc": "2012-05-22",
+    "payload": "SpaceX COTS Demo Flight 2 (Dragon C102)",
+    "numberOfStarlinkSatellites": 2563,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 2",
+    "dateUtc": "2010-12-08",
+    "payload": "SpaceX COTS Demo Flight 1 (Dragon C101)",
+    "numberOfStarlinkSatellites": 2568,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  },
+  {
+    "flightNo": "F9 1",
+    "dateUtc": "2010-06-04",
+    "payload": "Dragon Spacecraft Qualification Unit",
+    "numberOfStarlinkSatellites": 2572,
+    "starlinkModel": null,
+    "ofWhichDtc": 0,
+    "launchSite": null
+  }
+]
