@@ -1,6 +1,6 @@
 import type { StarlinkCatalogPayload, StarlinkIntelPayload, StarlinkMeshMode } from '../../types/orbital';
 import { shellHex } from './starlinkCatalog';
-import { VISUAL_SHELL_SPECS } from '../../data/starlinkVisualShells';
+import { ORBITAL_SHELL_FILTER_SPECS } from '../../data/orbitalShellClassification';
 import { StarlinkFleetGrowthChart } from './StarlinkFleetGrowthChart';
 import { StarlinkLaunchProductivityChart } from './StarlinkLaunchProductivityChart';
 
@@ -278,10 +278,10 @@ export function StarlinkFleetPanel({
           </div>
 
           <div className="mesh-overlay-label">
-            {isLiveView ? 'Mission Shells · live catalog' : 'Shell Distribution'}
+            {isLiveView ? 'Orbital Shells · live catalog' : 'Shell Distribution'}
           </div>
           {(isLiveView ? liveCatalog.shells : intel.shells).map((sh) => {
-            const shellDef = VISUAL_SHELL_SPECS.find((s) => s.name === sh.name);
+            const shellDef = ORBITAL_SHELL_FILTER_SPECS.find((s) => s.name === sh.name);
             const hex = shellDef ? shellHex(shellDef.color) : '#3de8ff';
             const intelSh = intelShellByName.get(sh.name);
             const raisingCount = intelSh?.raising ?? 0;

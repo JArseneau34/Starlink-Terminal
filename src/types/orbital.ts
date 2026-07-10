@@ -96,6 +96,8 @@ export interface StarlinkCatalogPayload {
   ommElementSetNo?: number[];
   shells: StarlinkCatalogShell[];
   tleSource: StarlinkTleSource;
+  /** True when upstream fetch failed and stale cache is being served. */
+  tleOffline?: boolean;
   fetchedAt: string;
 }
 
@@ -143,6 +145,7 @@ export interface StarlinkFleetReconciliation {
 }
 
 export interface StarlinkFleetAuthoritative {
+  totalInOrbit: number;
   totalWorking: number;
   totalDown: number;
   snapshotDate: string;

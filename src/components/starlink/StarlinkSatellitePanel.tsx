@@ -15,9 +15,6 @@ interface StarlinkSatellitePanelProps {
   selectedNoradId: number | null;
   launchOptions: StarlinkLaunchOption[];
   onSelect: (noradId: number | null) => void;
-  onClearTopology: () => void;
-  meshMode: 'topology' | 'live';
-  topologyIndex?: number | null;
 }
 
 function lifecycleLabel(lifecycle: StarlinkSatelliteDetail['lifecycle']): string {
@@ -39,45 +36,11 @@ function formatCoord(value: number, posSuffix: string, negSuffix: string): strin
   return `${abs}°${value >= 0 ? posSuffix : negSuffix}`;
 }
 
-function TopologyDetail({
-  index,
-  launchOptions,
-  onClear,
-}: {
-  index: number;
-  launchOptions: StarlinkLaunchOption[];
-  onClear: () => void;
-}) {
-  const dep = launchOptions.find((o) => o.indices.has(index));
-
-  return (
-    <>
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="text-bbg-white text-[11px] font-semibold tracking-wide">
-          SAT-{String(index).padStart(4, '0')}
-        </div>
-        <button type="button" className="starlink-sat-clear" onClick={onClear}>
-          clear
-        </button>
-      </div>
-      <div className="text-bbg-muted text-[9px] mb-2">
-        Walker ISL grid · SGP4 Walker elements · clock synced to live catalog
-      </div>
-      {dep && (
-        <div className="text-bbg-amber text-[10px] mb-2 leading-relaxed">◈ {dep.launch.name}</div>
-      )}
-    </>
-  );
-}
-
 export function StarlinkSatellitePanel({
   catalog,
   selectedNoradId,
   launchOptions,
   onSelect,
-  onClearTopology,
-  meshMode,
-  topologyIndex = null,
 }: StarlinkSatellitePanelProps) {
   const [query, setQuery] = useState('');
   const [detail, setDetail] = useState<StarlinkSatelliteDetail | null>(null);
@@ -130,7 +93,7 @@ export function StarlinkSatellitePanel({
     const q = query.trim();
     if (!q) return;
 
-    if (catalog && meshMode === 'live') {
+    if (catalog) {
       const idx = findCatalogIndex(catalog, q);
       if (idx != null) {
         const sat = catalog.satellites[idx]!;
@@ -156,8 +119,6 @@ export function StarlinkSatellitePanel({
     }
   };
 
-  const showTopology = meshMode === 'topology' && topologyIndex != null;
-
   return (
     <div className="mesh-side-panel starlink-sat-panel">
       <div className="mesh-overlay-label">Satellite Lookup</div>
@@ -177,7 +138,7 @@ export function StarlinkSatellitePanel({
         </button>
       </div>
       <div className="text-bbg-muted text-[8px] tracking-wide mb-2">
-        click a node on the mesh · or search by NORAD / name
+        click a live TLE node · ghost grid is non-interactive
       </div>
 
       {searchOpen && searchResults.length > 0 && (
@@ -202,19 +163,11 @@ export function StarlinkSatellitePanel({
         </ul>
       )}
 
-      {loading && !detail && !showTopology && (
+      {loading && !detail && (
         <div className="text-bbg-muted text-[10px] py-2">Loading satellite…</div>
       )}
 
-      {showTopology && (
-        <TopologyDetail
-          index={topologyIndex}
-          launchOptions={launchOptions}
-          onClear={onClearTopology}
-        />
-      )}
-
-      {!showTopology && detail && (
+      {detail && (
         <>
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="text-bbg-white text-[11px] font-semibold tracking-wide leading-snug min-w-0 truncate">
@@ -300,7 +253,7 @@ export function StarlinkSatellitePanel({
         </>
       )}
 
-      {!showTopology && !detail && !loading && selectedNoradId == null && (
+      {!detail && !loading && selectedNoradId == null && (
         <div className="text-bbg-muted text-[10px] py-1">No satellite selected</div>
       )}
     </div>

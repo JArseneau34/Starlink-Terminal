@@ -7,8 +7,10 @@ import {
   meanMotionRevPerDay,
   type StarlinkSatellite,
 } from '../components/starlink/starlinkCatalog';
+import { STARLINK_FLEET_SNAPSHOT } from '../data/starlinkFleetSnapshot';
 
-export const TOPOLOGY_REFERENCE_EPOCH = '2024-01-01T00:00:00.000Z';
+/** Default ghost-grid epoch — aligned to McDowell fleet snapshot date. */
+export const TOPOLOGY_REFERENCE_EPOCH = `${STARLINK_FLEET_SNAPSHOT.snapshotDate}T12:00:00.000Z`;
 
 export interface GeodeticPosition {
   lat: number;

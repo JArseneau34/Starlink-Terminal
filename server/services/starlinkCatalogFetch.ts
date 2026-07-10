@@ -12,7 +12,12 @@ import {
   buildCatalogShells,
   type StarlinkCatalogShell,
 } from '../../src/data/starlinkShellBands.ts';
-import { classifyVisualShell, type StarlinkModelHint } from '../../src/data/starlinkVisualShells.ts';
+import {
+  classifyStarlinkLifecycle,
+  orbitSnapshotFromOmm,
+} from '../../src/data/starlinkOrbitOmm.ts';
+import { classifyOrbitalShell } from '../../src/data/orbitalShellClassification.ts';
+import { inferModelHint, type StarlinkModelHint } from '../../src/data/starlinkVisualShells.ts';
 import type { StarlinkLifecycle } from '../../src/data/starlinkOrbitOmm.ts';
 import {
   isTleCacheFresh,
@@ -33,6 +38,14 @@ const CELESTRAK_URLS: { url: string; source: Exclude<StarlinkTleSource, 'cache'>
   },
   {
     url: 'https://celestrak.org/NORAD/elements/gp.php?NAME=STARLINK&FORMAT=JSON',
+    source: 'name',
+  },
+  {
+    url: 'http://www.celestrak.com/NORAD/elements/gp.php?GROUP=starlink&FORMAT=JSON',
+    source: 'group',
+  },
+  {
+    url: 'http://www.celestrak.com/NORAD/elements/gp.php?NAME=STARLINK&FORMAT=JSON',
     source: 'name',
   },
 ];
@@ -74,17 +87,24 @@ export function clearStarlinkCatalogRuntimeCache(): void {
   memoryCatalog = null;
 }
 
-/** Classify each OMM row into a visual shell (not Walker topology). */
+/** Classify each OMM row into an orbital shell (not hardware model). */
 export function bucketOmmRecords(records: readonly StarlinkOmmRecord[]): BucketedStarlinkSat[] {
   const sats: BucketedStarlinkSat[] = [];
   for (const omm of records) {
     if (!omm.NORAD_CAT_ID || !omm.EPOCH) continue;
-    const assignment = classifyVisualShell(omm);
+    const orbit = orbitSnapshotFromOmm(omm);
+    const lifecycle = classifyStarlinkLifecycle(orbit);
+    const modelHint = inferModelHint(omm, orbit);
+    const assignment = classifyOrbitalShell(orbit, lifecycle, {
+      raanDeg: Number(omm.RA_OF_ASC_NODE ?? 0),
+      argPerDeg: Number(omm.ARG_OF_PERICENTER ?? 0),
+      meanAnomalyDeg: Number(omm.MEAN_ANOMALY ?? 0),
+    });
     sats.push({
       omm,
-      shell: assignment.shellIndex,
-      lifecycle: assignment.lifecycle,
-      modelHint: assignment.modelHint,
+      shell: assignment.structuralIndex,
+      lifecycle,
+      modelHint,
     });
   }
   return sats;
@@ -116,12 +136,19 @@ function toStoredSats(sats: BucketedStarlinkSat[]): StoredTleSat[] {
 
 function fromStoredSats(stored: StoredTleSat[]): BucketedStarlinkSat[] {
   return stored.map(({ omm }) => {
-    const assignment = classifyVisualShell(omm);
+    const orbit = orbitSnapshotFromOmm(omm);
+    const lifecycle = classifyStarlinkLifecycle(orbit);
+    const modelHint = inferModelHint(omm, orbit);
+    const assignment = classifyOrbitalShell(orbit, lifecycle, {
+      raanDeg: Number(omm.RA_OF_ASC_NODE ?? 0),
+      argPerDeg: Number(omm.ARG_OF_PERICENTER ?? 0),
+      meanAnomalyDeg: Number(omm.MEAN_ANOMALY ?? 0),
+    });
     return {
       omm,
-      shell: assignment.shellIndex,
-      lifecycle: assignment.lifecycle,
-      modelHint: assignment.modelHint,
+      shell: assignment.structuralIndex,
+      lifecycle,
+      modelHint,
     };
   });
 }
@@ -286,9 +313,15 @@ export async function resolveStarlinkCatalog(options?: {
 }
 
 /** Proactive CelesTrak refresh before TLE cache expires. */
-export async function refreshStarlinkCatalog(): Promise<StarlinkCatalogBucketResult | null> {
+export async function refreshStarlinkCatalog(options?: {
+  force?: boolean;
+}): Promise<StarlinkCatalogBucketResult | null> {
   try {
-    if (memoryCatalog && isTleCacheFresh(memoryCatalog, STARLINK_TLE_CACHE_TTL_MS * 0.95)) {
+    if (
+      !options?.force &&
+      memoryCatalog &&
+      isTleCacheFresh(memoryCatalog, STARLINK_TLE_CACHE_TTL_MS * 0.95)
+    ) {
       return toBucketResult(memoryCatalog, false);
     }
     const { records, source } = await fetchStarlinkOmmFromCelesTrak();

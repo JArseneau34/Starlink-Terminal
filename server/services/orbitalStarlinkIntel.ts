@@ -1,7 +1,7 @@
 import { getCached, setCache } from '../cache.js';
 import type { StarlinkFleetSnapshot } from '../../src/data/starlinkFleetSnapshot.ts';
 import { buildShellSummary } from '../../src/data/starlinkShellBands.ts';
-import { VISUAL_SHELL_SPECS } from '../../src/data/starlinkVisualShells.ts';
+import { orbitalShellName } from '../../src/data/orbitalShellClassification.ts';
 import {
   resolveFleetSnapshot,
   type PipelineFleetMeta,
@@ -120,7 +120,7 @@ function buildRecentLaunches(sats: TrackedStarlinkSat[]): StarlinkRecentLaunch[]
 
     const entry = groups.get(key) ?? { count: 0, shells: new Map() };
     entry.count++;
-    const shellName = VISUAL_SHELL_SPECS[sat.shell]?.name ?? '—';
+    const shellName = orbitalShellName(sat.shell);
     entry.shells.set(shellName, (entry.shells.get(shellName) ?? 0) + 1);
     groups.set(key, entry);
   }
@@ -166,12 +166,16 @@ function buildAuthoritativeBlock(
   } else if (delta < 0) {
     note = `McDowell reports ${Math.abs(delta).toLocaleString()} more working sats than NORAD TLE set (snapshot ahead of TLE refresh).`;
   }
-  if (meta.source === 'pipeline') {
+  if (meta.source === 'sat-stats') {
+    const id = meta.snapshotId != null ? ` #${meta.snapshotId}` : '';
+    note = `sat-stats snapshot${id}. ${note}`;
+  } else if (meta.source === 'pipeline') {
     const id = meta.snapshotId != null ? ` #${meta.snapshotId}` : '';
     note = `Pipeline live snapshot${id}. ${note}`;
   }
 
   return {
+    totalInOrbit: snap.totalInOrbit,
     totalWorking: snap.totalWorking,
     totalDown: snap.totalDown,
     snapshotDate: snap.snapshotDate,
@@ -194,7 +198,7 @@ export async function buildStarlinkIntelPayload(): Promise<StarlinkIntelPayload>
   // instead of throwing so the authoritative McDowell/pipeline fleet data still renders.
   const [catalog, ephemerisPublished, fleetResolved] = await Promise.all([
     getTrackedStarlinkCatalog().then(
-      (result) => ({ ...result, liveTleAvailable: true }),
+      (result) => ({ ...result, liveTleAvailable: !result.offline }),
       () => ({ sats: [] as TrackedStarlinkSat[], fetchedAt: 0, liveTleAvailable: false })
     ),
     fetchEphemerisCount().catch(() => 0),

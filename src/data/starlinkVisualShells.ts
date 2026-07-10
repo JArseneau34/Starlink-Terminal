@@ -1,9 +1,11 @@
 /**
  * Visual shell categories for live CelesTrak catalog display and filtering.
  *
+ * @deprecated classifyVisualShell — use orbitalShellClassification.classifyOrbitalShell
+ * for structural shell assignment. This module retains hardware model hints only.
+ *
  * Distinct from Walker topology shells in starlinkShells.ts — those drive ISL grid
- * geometry only. Visual shells classify real TLEs by generation, orbit family,
- * lifecycle, and optional hardware hints.
+ * geometry only. Visual shells classified real TLEs by generation (legacy).
  */
 
 import {

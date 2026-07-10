@@ -5,6 +5,7 @@ import {
   EARTH_R,
   latLonAltToScene,
   STARLINK_SHELLS,
+  TOPOLOGY_FLEET_TARGET,
 } from './starlinkCatalog';
 import { applyNightSky } from './nightSky';
 import { createEarthGlobe, DEFAULT_EARTH_VISUAL, type EarthVisualOptions } from './earthGlobe';
@@ -16,9 +17,10 @@ import {
 import type { SatRec } from 'satellite.js';
 import type {
   StarlinkCatalogPayload,
-  StarlinkMeshMode,
+  StarlinkLifecycle,
 } from '../../types/orbital';
-import { TOPOLOGY_FLEET_TARGET } from '../../data/starlinkShells';
+import { TRANSIT_SHELL_INDEX } from '../../data/orbitalShellClassification';
+import type { WalkerFitPayload } from '../../walkerFit/types';
 
 export interface StarlinkHoverInfoTopology {
   mode: 'topology';
@@ -48,7 +50,7 @@ export type StarlinkHoverInfo = StarlinkHoverInfoTopology | StarlinkHoverInfoLiv
 
 export interface StarlinkTopologyDebugInfo {
   modeledNodes: number;
-  fleetTarget: number;
+  walkerReferenceTotal: number;
   visibleNodes: number;
   generatedEdges: number;
   generatedRingEdges: number;
@@ -59,24 +61,28 @@ export interface StarlinkTopologyDebugInfo {
 }
 
 export interface StarlinkMeshCanvasProps {
-  meshMode?: StarlinkMeshMode;
   speedMul: number;
   nodeScale: number;
   altExag: number;
-  showLinks: boolean;
   autoSpin: boolean;
   resetViewToken: number;
   onHover: (info: StarlinkHoverInfo | null) => void;
   onSelect?: (info: StarlinkHoverInfo | null) => void;
   onTopologyDebug?: (info: StarlinkTopologyDebugInfo) => void;
   selectedNoradId?: number | null;
-  selectedTopologyIndex?: number | null;
-  highlightedIndices?: ReadonlySet<number> | null;
   highlightedNoradIds?: ReadonlySet<number> | null;
   deploymentFilterKey?: string | null;
   visibleShells?: ReadonlySet<number> | null;
   shellSlotCount?: number;
   liveCatalog?: StarlinkCatalogPayload | null;
+  /** McDowell total_working — scales Walker ghost grid to match fleet snapshot. */
+  walkerFleetTarget?: number;
+  /** Walker ISL reference grid — always on; full node + link count. */
+  showGhostGrid?: boolean;
+  displayEpochIso?: string;
+  focusShellIndex?: number | null;
+  walkerFit?: WalkerFitPayload | null;
+  liveAvailable?: boolean;
   earthVisual?: EarthVisualOptions;
   className?: string;
 }
@@ -85,14 +91,81 @@ const HL_MAX = 24;
 const DEPLOY_HL_MAX = 96;
 const BASE_SIZE = 13;
 const TOPOLOGY_NODE_ALPHA = 0.62;
-const TOPOLOGY_EDGE_OPACITY = 0.2;
+const TOPOLOGY_EDGE_OPACITY = 0.15;
+const TOPOLOGY_EDGE_MUTED_RGB = [0.42, 0.48, 0.58] as const;
+const TOPOLOGY_EDGE_DIM_SHELL = 0.2;
 const TOPOLOGY_EDGE_COLOR_BOOST = 0.06;
 const TOPOLOGY_CROSS_EDGE_DIM = 0.55;
 const TOPOLOGY_HL_EDGE_OPACITY = 0.42;
+const GHOST_EDGE_OPACITY = 0.1;
+const GHOST_NODE_ALPHA = 0.24;
+const GHOST_NODE_ALPHA_SOLO = 0.62;
 const GRATICULE_OPACITY = 0.018;
 const CAM_RAD_DEFAULT = 3.4;
 const CAM_RAD_MIN = 1.45;
 const CAM_RAD_MAX = 9;
+const FLY_TO_DURATION_SEC = 1.0;
+const FLY_TO_RAD = 2.2;
+
+const LIFECYCLE_AMBER: [number, number, number] = [1, 0.76, 0.29];
+const LIFECYCLE_RED: [number, number, number] = [1, 0.3, 0.35];
+const LIFECYCLE_MUTED: [number, number, number] = [0.48, 0.48, 0.56];
+
+function blendRgb(
+  sr: number,
+  sg: number,
+  sb: number,
+  tr: number,
+  tg: number,
+  tb: number,
+  mix: number
+): [number, number, number] {
+  const m = Math.max(0, Math.min(1, mix));
+  return [sr * (1 - m) + tr * m, sg * (1 - m) + tg * m, sb * (1 - m) + tb * m];
+}
+
+function transitAppearance(): [number, number, number, number] {
+  return [0.72, 0.58, 0.38, 0.82];
+}
+
+function lifecycleAppearance(
+  shellR: number,
+  shellG: number,
+  shellB: number,
+  lifecycle: StarlinkLifecycle
+): [number, number, number, number] {
+  if (lifecycle === 'operational') {
+    return [shellR, shellG, shellB, 0.88];
+  }
+  if (lifecycle === 'raising') {
+    const [r, g, b] = blendRgb(shellR, shellG, shellB, ...LIFECYCLE_AMBER, 0.48);
+    return [r, g, b, 0.9];
+  }
+  if (lifecycle === 'deorbiting') {
+    const [r, g, b] = blendRgb(shellR, shellG, shellB, ...LIFECYCLE_RED, 0.58);
+    return [r * 0.72, g * 0.55, b * 0.55, 0.52];
+  }
+  const [r, g, b] = blendRgb(shellR, shellG, shellB, ...LIFECYCLE_MUTED, 0.72);
+  return [r, g, b, 0.4];
+}
+
+function sphericalFromScenePosition(x: number, y: number, z: number): { theta: number; phi: number } {
+  const len = Math.hypot(x, y, z) || 1;
+  const ox = -x / len;
+  const oy = -y / len;
+  const oz = -z / len;
+  return {
+    phi: Math.acos(Math.max(-1, Math.min(1, oy))),
+    theta: Math.atan2(oz, ox),
+  };
+}
+
+function shortestAngleDelta(from: number, to: number): number {
+  let d = to - from;
+  while (d > Math.PI) d -= 2 * Math.PI;
+  while (d < -Math.PI) d += 2 * Math.PI;
+  return d;
+}
 
 /** 0 = zoomed in (full detail), 1 = default zoom, up to ~1.35 when pulled back. */
 function zoomLod(rad: number): number {
@@ -118,10 +191,27 @@ function enhanceLinkColor(
   ];
 }
 
-function hoverLinkBudget(lod: number): number {
-  if (lod <= 0.05) return HL_MAX;
-  if (lod <= 0.75) return 12;
-  return 8;
+function resolveGhostEdgeColor(
+  focusShell: number | null | undefined,
+  shellIndex: number,
+  r: number,
+  g: number,
+  b: number,
+  cross: boolean
+): [number, number, number] {
+  if (focusShell == null) {
+    const dim = cross ? TOPOLOGY_CROSS_EDGE_DIM : 1;
+    return [
+      TOPOLOGY_EDGE_MUTED_RGB[0]! * dim,
+      TOPOLOGY_EDGE_MUTED_RGB[1]! * dim,
+      TOPOLOGY_EDGE_MUTED_RGB[2]! * dim,
+    ];
+  }
+  if (shellIndex !== focusShell) {
+    const d = TOPOLOGY_EDGE_DIM_SHELL;
+    return [r * d, g * d, b * d];
+  }
+  return enhanceLinkColor(r, g, b, cross);
 }
 
 const NODE_VERTEX_SHADER = `attribute vec3 aColor; attribute float aAlpha; attribute float aSize;
@@ -175,24 +265,26 @@ function createSpriteTexture(): THREE.CanvasTexture {
 }
 
 export function StarlinkMeshCanvas({
-  meshMode = 'topology',
   speedMul,
   nodeScale,
   altExag,
-  showLinks,
   autoSpin,
   resetViewToken,
   onHover,
   onSelect,
   onTopologyDebug,
   selectedNoradId = null,
-  selectedTopologyIndex = null,
-  highlightedIndices = null,
   highlightedNoradIds = null,
   deploymentFilterKey = null,
   visibleShells = null,
   shellSlotCount = STARLINK_SHELLS.length,
   liveCatalog = null,
+  walkerFleetTarget = TOPOLOGY_FLEET_TARGET,
+  showGhostGrid = true,
+  displayEpochIso,
+  focusShellIndex = null,
+  walkerFit = null,
+  liveAvailable = true,
   earthVisual = DEFAULT_EARTH_VISUAL,
   className = '',
 }: StarlinkMeshCanvasProps) {
@@ -201,19 +293,20 @@ export function StarlinkMeshCanvas({
   const onSelectRef = useRef(onSelect);
   const onTopologyDebugRef = useRef(onTopologyDebug);
   const selectedNoradRef = useRef(selectedNoradId);
-  const selectedTopologyRef = useRef(selectedTopologyIndex);
-  const highlightRef = useRef(highlightedIndices);
   const highlightNoradRef = useRef(highlightedNoradIds);
   const deploymentKeyRef = useRef(deploymentFilterKey);
   const visibleShellsRef = useRef(visibleShells);
   const shellSlotCountRef = useRef(shellSlotCount);
-  const meshModeRef = useRef(meshMode);
+  const showGhostGridRef = useRef(showGhostGrid);
+  const focusShellRef = useRef(focusShellIndex);
+  const walkerFitRef = useRef(walkerFit);
+  const liveAvailableRef = useRef(liveAvailable);
+  const displayEpochRef = useRef(displayEpochIso);
   const liveCatalogRef = useRef(liveCatalog);
   const controlsRef = useRef({
     speedMul,
     nodeScale,
     altExag,
-    showLinks,
     autoSpin,
     resetViewToken,
     earthVisual,
@@ -223,19 +316,20 @@ export function StarlinkMeshCanvas({
   onSelectRef.current = onSelect;
   onTopologyDebugRef.current = onTopologyDebug;
   selectedNoradRef.current = selectedNoradId;
-  selectedTopologyRef.current = selectedTopologyIndex;
-  highlightRef.current = highlightedIndices;
   highlightNoradRef.current = highlightedNoradIds;
   deploymentKeyRef.current = deploymentFilterKey;
   visibleShellsRef.current = visibleShells;
   shellSlotCountRef.current = shellSlotCount;
-  meshModeRef.current = meshMode;
+  showGhostGridRef.current = showGhostGrid;
+  focusShellRef.current = focusShellIndex;
+  walkerFitRef.current = walkerFit;
+  liveAvailableRef.current = liveAvailable;
+  displayEpochRef.current = displayEpochIso;
   liveCatalogRef.current = liveCatalog;
   controlsRef.current = {
     speedMul,
     nodeScale,
     altExag,
-    showLinks,
     autoSpin,
     resetViewToken,
     earthVisual,
@@ -245,7 +339,8 @@ export function StarlinkMeshCanvas({
     const container = containerRef.current;
     if (!container) return;
 
-    const { satellites, edgeA, edgeB, edgeCross, adjacency } = buildStarlinkCatalog();
+    const { satellites, edgeA, edgeB, edgeCross, walkerReferenceTotal } =
+      buildStarlinkCatalog(walkerFleetTarget);
     const N = satellites.length;
     const E = edgeA.length;
 
@@ -281,7 +376,7 @@ export function StarlinkMeshCanvas({
     const graticule = new THREE.Mesh(
       new THREE.SphereGeometry(EARTH_R * 1.002, 48, 24),
       new THREE.MeshBasicMaterial({
-        color: 0xa78bfa,
+        color: 0xe0115f,
         wireframe: true,
         transparent: true,
         opacity: GRATICULE_OPACITY,
@@ -401,7 +496,6 @@ export function StarlinkMeshCanvas({
     let liveHovered = -1;
     let liveDeploymentActive = false;
     let lastLiveDeploySig = '';
-    let wasLiveMode = false;
 
     function rebuildLiveMesh(): boolean {
       const catalog = liveCatalogRef.current;
@@ -434,10 +528,14 @@ export function StarlinkMeshCanvas({
 
       for (let i = 0; i < liveCount; i++) {
         const meta = catalog.satellites[i]!;
-        lbc[i * 3] = lc[i * 3] = meta.r;
-        lbc[i * 3 + 1] = lc[i * 3 + 1] = meta.g;
-        lbc[i * 3 + 2] = lc[i * 3 + 2] = meta.b;
-        lba[i] = la[i] = 0.88;
+        const isTransit = meta.shell === TRANSIT_SHELL_INDEX;
+        const [lr, lg, lb, lalpha] = isTransit
+          ? transitAppearance()
+          : lifecycleAppearance(meta.r, meta.g, meta.b, meta.lifecycle);
+        lbc[i * 3] = lc[i * 3] = lr;
+        lbc[i * 3 + 1] = lc[i * 3 + 1] = lg;
+        lbc[i * 3 + 2] = lc[i * 3 + 2] = lb;
+        lba[i] = la[i] = lalpha;
         ls[i] = BASE_SIZE * 0.85;
         const [x, y, z] = toScene(catalog.lat[i]!, catalog.lon[i]!, catalog.altKm[i]!);
         lp[i * 3] = x;
@@ -521,8 +619,29 @@ export function StarlinkMeshCanvas({
       return v.has(shell);
     }
 
-    function shouldShowPerShellLinks(): boolean {
-      return controlsRef.current.showLinks;
+    function restoreGhostAppearance(hasLive: boolean): void {
+      const alpha = hasLive ? GHOST_NODE_ALPHA : GHOST_NODE_ALPHA_SOLO;
+      const size = hasLive ? BASE_SIZE * 0.72 : BASE_SIZE;
+      for (let i = 0; i < N; i++) {
+        aAlpha[i] = alpha;
+        aSize[i] = size;
+        aCol[i * 3] = baseCol[i * 3]!;
+        aCol[i * 3 + 1] = baseCol[i * 3 + 1]!;
+        aCol[i * 3 + 2] = baseCol[i * 3 + 2]!;
+      }
+      satGeo.attributes.aAlpha!.needsUpdate = true;
+      satGeo.attributes.aSize!.needsUpdate = true;
+      satGeo.attributes.aColor!.needsUpdate = true;
+    }
+
+    function countAllTopologyEdges(): { total: number; ring: number; cross: number } {
+      let ring = 0;
+      let cross = 0;
+      for (let i = 0; i < E; i++) {
+        if (edgeCross[i]) cross++;
+        else ring++;
+      }
+      return { total: E, ring, cross };
     }
 
     function liveShellIndex(i: number): number {
@@ -543,20 +662,17 @@ export function StarlinkMeshCanvas({
       }
     }
 
-    function refreshTopologyVisualState(): void {
-      const indices = highlightRef.current;
-      if (effectiveTopologyHighlight() >= 0) {
-        setHighlight(hovered);
-      } else if (indices && indices.size > 0) {
-        lastDeploySig = '';
-        applyDeploymentFilter(indices);
-      } else {
-        restoreDefaultAppearance();
-      }
-    }
-
     function restoreLiveAppearance(): void {
       if (liveCount === 0) return;
+      if (!liveAvailableRef.current) {
+        for (let i = 0; i < liveCount; i++) {
+          liveAlpha[i] = 0;
+          liveSize[i] = 0;
+        }
+        (liveGeo.attributes.aAlpha as THREE.BufferAttribute).needsUpdate = true;
+        (liveGeo.attributes.aSize as THREE.BufferAttribute).needsUpdate = true;
+        return;
+      }
       for (let i = 0; i < liveCount; i++) {
         if (!isShellVisible(liveShellIndex(i))) {
           liveAlpha[i] = 0;
@@ -630,16 +746,6 @@ export function StarlinkMeshCanvas({
       return liveSelectedIndex();
     }
 
-    function topologySelectedIndex(): number {
-      const idx = selectedTopologyRef.current;
-      return idx == null ? -1 : idx;
-    }
-
-    function effectiveTopologyHighlight(): number {
-      if (hovered >= 0) return hovered;
-      return topologySelectedIndex();
-    }
-
     function setLiveHighlight(h: number): void {
       liveHovered = h;
       const highlightIdx = effectiveLiveHighlight();
@@ -691,9 +797,6 @@ export function StarlinkMeshCanvas({
       (liveGeo.attributes.aColor as THREE.BufferAttribute).needsUpdate = true;
     }
 
-    let hovered = -1;
-    let deploymentActive = false;
-    let lastDeploySig = '';
     let prevFrame = performance.now();
     let frameId = 0;
 
@@ -703,194 +806,52 @@ export function StarlinkMeshCanvas({
     let lastY = 0;
     let idle = 0;
     let lastResetToken = resetViewToken;
+    let flyTo: {
+      startSec: number;
+      startTheta: number;
+      startPhi: number;
+      startRad: number;
+      targetTheta: number;
+      targetPhi: number;
+      targetRad: number;
+    } | null = null;
+
+    function startFlyTo(x: number, y: number, z: number): void {
+      const { theta, phi } = sphericalFromScenePosition(x, y, z);
+      flyTo = {
+        startSec: performance.now() / 1000,
+        startTheta: ctr.tT,
+        startPhi: ctr.tP,
+        startRad: ctr.tR,
+        targetTheta: theta,
+        targetPhi: phi,
+        targetRad: Math.max(CAM_RAD_MIN, Math.min(FLY_TO_RAD, ctr.tR)),
+      };
+      idle = 0;
+    }
+
+    function updateFlyTo(nowSec: number): boolean {
+      if (!flyTo) return false;
+      const t = Math.min(1, (nowSec - flyTo.startSec) / FLY_TO_DURATION_SEC);
+      const ease = t * t * (3 - 2 * t);
+      const dTheta = shortestAngleDelta(flyTo.startTheta, flyTo.targetTheta);
+      ctr.tT = flyTo.startTheta + dTheta * ease;
+      ctr.tP = flyTo.startPhi + (flyTo.targetPhi - flyTo.startPhi) * ease;
+      ctr.tR = flyTo.startRad + (flyTo.targetRad - flyTo.startRad) * ease;
+      if (t >= 1) flyTo = null;
+      return t < 1;
+    }
 
     const ray = new THREE.Raycaster();
     ray.params.Points = { threshold: 0.05 };
     const ndc = new THREE.Vector2();
-
-    function restoreDefaultAppearance(): void {
-      for (let i = 0; i < N; i++) {
-        if (!isShellVisible(satellites[i]!.shell)) {
-          aAlpha[i] = 0;
-          aSize[i] = 0;
-          continue;
-        }
-        aAlpha[i] = baseAlpha[i]!;
-        aSize[i] = BASE_SIZE;
-        aCol[i * 3] = baseCol[i * 3]!;
-        aCol[i * 3 + 1] = baseCol[i * 3 + 1]!;
-        aCol[i * 3 + 2] = baseCol[i * 3 + 2]!;
-      }
-      satGeo.attributes.aAlpha!.needsUpdate = true;
-      satGeo.attributes.aSize!.needsUpdate = true;
-      satGeo.attributes.aColor!.needsUpdate = true;
-      deployHlGeo.setDrawRange(0, 0);
-      deploymentActive = false;
-    }
-
-    function applyDeploymentFilter(indices: ReadonlySet<number> | null | undefined): void {
-      const key = deploymentKeyRef.current ?? '';
-      const sig = indices && indices.size > 0 ? `${key}:${indices.size}` : '';
-      if (sig === lastDeploySig) return;
-      lastDeploySig = sig;
-
-      if (!indices || indices.size === 0) {
-        if (hovered < 0) restoreDefaultAppearance();
-        else setHighlight(hovered);
-        return;
-      }
-
-      deploymentActive = true;
-      let edgeCount = 0;
-
-      for (let i = 0; i < N; i++) {
-        if (!isShellVisible(satellites[i]!.shell)) {
-          aAlpha[i] = 0;
-          aSize[i] = 0;
-          continue;
-        }
-        if (indices.has(i)) {
-          aAlpha[i] = 1.0;
-          aSize[i] = BASE_SIZE * 1.7;
-          aCol[i * 3] = Math.min(1, baseCol[i * 3]! * 0.35 + 0.65);
-          aCol[i * 3 + 1] = Math.min(1, baseCol[i * 3 + 1]! * 0.35 + 0.52);
-          aCol[i * 3 + 2] = Math.min(1, baseCol[i * 3 + 2]! * 0.2 + 0.15);
-        } else {
-          aAlpha[i] = 0.05;
-          aSize[i] = BASE_SIZE * 0.65;
-          aCol[i * 3] = baseCol[i * 3]! * 0.45;
-          aCol[i * 3 + 1] = baseCol[i * 3 + 1]! * 0.45;
-          aCol[i * 3 + 2] = baseCol[i * 3 + 2]! * 0.45;
-        }
-      }
-
-      for (let i = 0; i < E && edgeCount < DEPLOY_HL_MAX; i++) {
-        const a = edgeA[i]!;
-        const b = edgeB[i]!;
-        if (!indices.has(a) || !indices.has(b)) continue;
-        const o = edgeCount * 6;
-        deployHlPos[o] = satPos[a * 3]!;
-        deployHlPos[o + 1] = satPos[a * 3 + 1]!;
-        deployHlPos[o + 2] = satPos[a * 3 + 2]!;
-        deployHlPos[o + 3] = satPos[b * 3]!;
-        deployHlPos[o + 4] = satPos[b * 3 + 1]!;
-        deployHlPos[o + 5] = satPos[b * 3 + 2]!;
-        edgeCount++;
-      }
-
-      deployHlGeo.setDrawRange(0, edgeCount * 2);
-      deployHlGeo.attributes.position!.needsUpdate = true;
-      satGeo.attributes.aAlpha!.needsUpdate = true;
-      satGeo.attributes.aSize!.needsUpdate = true;
-      satGeo.attributes.aColor!.needsUpdate = true;
-    }
-
-    function setHighlight(h: number): void {
-      hovered = h;
-      const highlightIdx = effectiveTopologyHighlight();
-
-      if (highlightIdx < 0) {
-        const indices = highlightRef.current;
-        if (indices && indices.size > 0) {
-          applyDeploymentFilter(indices);
-          hlGeo.setDrawRange(0, 0);
-        } else {
-          restoreDefaultAppearance();
-          hlGeo.setDrawRange(0, 0);
-        }
-        if (h < 0) onHoverRef.current(null);
-        return;
-      }
-
-      const indices = highlightRef.current;
-      const neighbors = adjacency[highlightIdx]!;
-      const keep = new Set(neighbors);
-      keep.add(highlightIdx);
-
-      for (let i = 0; i < N; i++) {
-        if (!isShellVisible(satellites[i]!.shell)) {
-          aAlpha[i] = 0;
-          aSize[i] = 0;
-          continue;
-        }
-        if (indices && indices.size > 0 && !indices.has(i)) {
-          aAlpha[i] = 0.04;
-          aSize[i] = BASE_SIZE * 0.6;
-          continue;
-        }
-        if (i === highlightIdx) {
-          aAlpha[i] = 1.0;
-          aSize[i] = BASE_SIZE * 2.2;
-          aCol[i * 3] = 1;
-          aCol[i * 3 + 1] = 0.95;
-          aCol[i * 3 + 2] = 0.75;
-        } else if (keep.has(i)) {
-          aAlpha[i] = 1.0;
-          aSize[i] = BASE_SIZE * 1.5;
-          if (!indices || !indices.has(i)) {
-            aCol[i * 3] = baseCol[i * 3]!;
-            aCol[i * 3 + 1] = baseCol[i * 3 + 1]!;
-            aCol[i * 3 + 2] = baseCol[i * 3 + 2]!;
-          }
-        } else {
-          aAlpha[i] = indices && indices.size > 0 ? 0.04 : 0.07;
-          aSize[i] = BASE_SIZE * 0.8;
-        }
-      }
-
-      satGeo.attributes.aAlpha!.needsUpdate = true;
-      satGeo.attributes.aSize!.needsUpdate = true;
-      satGeo.attributes.aColor!.needsUpdate = true;
-
-      let e = 0;
-      const hlBudget = hoverLinkBudget(zoomLod(ctr.rad));
-      for (let k = 0; k < neighbors.length && e < hlBudget; k++) {
-        const b = neighbors[k]!;
-        const o = e * 6;
-        hlPos[o] = satPos[highlightIdx * 3]!;
-        hlPos[o + 1] = satPos[highlightIdx * 3 + 1]!;
-        hlPos[o + 2] = satPos[highlightIdx * 3 + 2]!;
-        hlPos[o + 3] = satPos[b * 3]!;
-        hlPos[o + 4] = satPos[b * 3 + 1]!;
-        hlPos[o + 5] = satPos[b * 3 + 2]!;
-        e++;
-      }
-      hlGeo.setDrawRange(0, e * 2);
-      hlGeo.attributes.position!.needsUpdate = true;
-    }
-
-    function countVisibleTopologyEdges(): {
-      total: number;
-      ring: number;
-      cross: number;
-      visibleNodes: number;
-    } {
-      let total = 0;
-      let ring = 0;
-      let cross = 0;
-      let visibleNodes = 0;
-      for (let i = 0; i < N; i++) {
-        if (isShellVisible(satellites[i]!.shell)) visibleNodes++;
-      }
-      for (let i = 0; i < E; i++) {
-        const aIdx = edgeA[i]!;
-        const bIdx = edgeB[i]!;
-        if (!isShellVisible(satellites[aIdx]!.shell) || !isShellVisible(satellites[bIdx]!.shell)) {
-          continue;
-        }
-        total++;
-        if (edgeCross[i]) cross++;
-        else ring++;
-      }
-      return { total, ring, cross, visibleNodes };
-    }
 
     let lastDebugSig = '';
 
     function emitTopologyDebug(info: StarlinkTopologyDebugInfo): void {
       const sig = [
         info.modeledNodes,
-        info.fleetTarget,
+        info.walkerReferenceTotal,
         info.visibleNodes,
         info.generatedEdges,
         info.generatedRingEdges,
@@ -904,19 +865,14 @@ export function StarlinkMeshCanvas({
       onTopologyDebugRef.current?.(info);
     }
 
-    function updateShellEdgeLines(_lod: number): void {
-      const generated = countVisibleTopologyEdges();
+    function updateGhostEdgeLines(): void {
       let e = 0;
       let drawnRing = 0;
       let drawnCross = 0;
-
       for (let i = 0; i < E; i++) {
+        const cross = edgeCross[i]!;
         const aIdx = edgeA[i]!;
         const bIdx = edgeB[i]!;
-        const shellA = satellites[aIdx]!.shell;
-        const shellB = satellites[bIdx]!.shell;
-        if (!isShellVisible(shellA) || !isShellVisible(shellB)) continue;
-        const cross = edgeCross[i]!;
         const ap = aIdx * 3;
         const bp = bIdx * 3;
         const o = e * 6;
@@ -927,7 +883,14 @@ export function StarlinkMeshCanvas({
         edgePos[o + 4] = satPos[bp + 1]!;
         edgePos[o + 5] = satPos[bp + 2]!;
         const sat = satellites[aIdx]!;
-        const [lr, lg, lb] = enhanceLinkColor(sat.r, sat.g, sat.b, cross);
+        const [lr, lg, lb] = resolveGhostEdgeColor(
+          focusShellRef.current,
+          sat.shell,
+          sat.r,
+          sat.g,
+          sat.b,
+          cross
+        );
         edgeCol[o] = lr;
         edgeCol[o + 1] = lg;
         edgeCol[o + 2] = lb;
@@ -938,22 +901,26 @@ export function StarlinkMeshCanvas({
         if (cross) drawnCross++;
         else drawnRing++;
       }
-
       edgeGeo.setDrawRange(0, e * 2);
       edgeGeo.attributes.position!.needsUpdate = true;
       edgeGeo.attributes.color!.needsUpdate = true;
 
+      const all = countAllTopologyEdges();
       emitTopologyDebug({
         modeledNodes: N,
-        fleetTarget: TOPOLOGY_FLEET_TARGET,
-        visibleNodes: generated.visibleNodes,
-        generatedEdges: generated.total,
-        generatedRingEdges: generated.ring,
-        generatedCrossEdges: generated.cross,
+        walkerReferenceTotal,
+        visibleNodes: N,
+        generatedEdges: all.total,
+        generatedRingEdges: all.ring,
+        generatedCrossEdges: all.cross,
         drawnEdges: e,
         drawnRingEdges: drawnRing,
         drawnCrossEdges: drawnCross,
       });
+    }
+
+    function ghostActive(): boolean {
+      return showGhostGridRef.current;
     }
 
     function pickAt(clientX: number, clientY: number): StarlinkHoverInfo | null {
@@ -962,9 +929,10 @@ export function StarlinkMeshCanvas({
       ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       ray.setFromCamera(ndc, camera);
 
-      if (meshModeRef.current === 'live') {
-        ray.params.Points = { threshold: 0.08 };
-        const hits = ray.intersectObject(livePoints);
+      if (liveCount === 0) return null;
+
+      ray.params.Points = { threshold: 0.08 };
+      const hits = ray.intersectObject(livePoints);
         for (const hit of hits) {
           if (hit.index == null) continue;
           const idx = hit.index;
@@ -994,48 +962,17 @@ export function StarlinkMeshCanvas({
             };
           }
         }
-        return null;
-      }
-
-      ray.params.Points = { threshold: 0.05 };
-      const hits = ray.intersectObject(points);
-      for (const hit of hits) {
-        if (hit.index == null) continue;
-        const idx = hit.index;
-        const s = satellites[idx]!;
-        if (!isShellVisible(s.shell)) continue;
-        return {
-          mode: 'topology',
-          index: idx,
-          shellName: STARLINK_SHELLS[s.shell]!.name,
-          plane: s.plane,
-          slot: s.idx,
-          linkCount: adjacency[idx]!.length,
-          x: clientX,
-          y: clientY,
-        };
-      }
       return null;
     }
 
     function doPick(clientX: number, clientY: number): void {
       const info = pickAt(clientX, clientY);
 
-      if (meshModeRef.current === 'live') {
-        if (info?.mode === 'live') {
-          if (info.index !== liveHovered) setLiveHighlight(info.index);
-          onHoverRef.current(info);
-        } else if (liveHovered >= 0) {
-          setLiveHighlight(-1);
-        }
-        return;
-      }
-
-      if (info?.mode === 'topology') {
-        if (info.index !== hovered) setHighlight(info.index);
+      if (info?.mode === 'live') {
+        if (info.index !== liveHovered) setLiveHighlight(info.index);
         onHoverRef.current(info);
-      } else if (hovered >= 0) {
-        setHighlight(-1);
+      } else if (liveHovered >= 0) {
+        setLiveHighlight(-1);
       }
     }
 
@@ -1048,6 +985,7 @@ export function StarlinkMeshCanvas({
     const onPointerDown = (e: PointerEvent) => {
       dragging = true;
       dragMoved = false;
+      flyTo = null;
       dragStartX = e.clientX;
       dragStartY = e.clientY;
       lastX = e.clientX;
@@ -1108,7 +1046,7 @@ export function StarlinkMeshCanvas({
     rebuildTopologyCatalog();
 
     let lastKnownSelectedNorad: number | null = null;
-    let lastKnownSelectedTopology: number | null = null;
+    let pendingFlyTo: 'live' | null = null;
 
     function frame(now: number): void {
       const ctrl = controlsRef.current;
@@ -1117,24 +1055,26 @@ export function StarlinkMeshCanvas({
         ctr.tT = 0.6;
         ctr.tP = 1.15;
         ctr.tR = 3.4;
+        flyTo = null;
+        pendingFlyTo = null;
       }
 
-      const isLive = meshModeRef.current === 'live';
+      const ghost = ghostActive();
+      const hasLive = liveCount > 0;
       const selNorad = selectedNoradRef.current;
-      const selTopo = selectedTopologyRef.current;
-      if (isLive && selNorad !== lastKnownSelectedNorad) {
+      if (selNorad !== lastKnownSelectedNorad) {
         lastKnownSelectedNorad = selNorad;
+        pendingFlyTo = selNorad != null ? 'live' : null;
         setLiveHighlight(liveHovered);
-      } else if (!isLive && selTopo !== lastKnownSelectedTopology) {
-        lastKnownSelectedTopology = selTopo;
-        setHighlight(hovered);
       }
 
       const dt = Math.min((now - prevFrame) / 1000, 0.05);
       prevFrame = now;
-      idle += dt;
+      const nowSec = now / 1000;
+      const flying = updateFlyTo(nowSec);
+      if (!flying) idle += dt;
 
-      if (ctrl.autoSpin && !dragging && idle > 0.4) ctr.tT += dt * 0.06;
+      if (ctrl.autoSpin && !dragging && !flying && idle > 0.4) ctr.tT += dt * 0.06;
 
       ctr.theta += (ctr.tT - ctr.theta) * 0.12;
       ctr.phi += (ctr.tP - ctr.phi) * 0.12;
@@ -1158,102 +1098,79 @@ export function StarlinkMeshCanvas({
 
       const lod = zoomLod(ctr.rad);
 
-      topologyGroup.visible = !isLive;
+      topologyGroup.visible = ghost;
+      points.visible = ghost;
+      hlLines.visible = false;
+      deployHlLines.visible = false;
 
       const shellSig = visibleShellsRef.current
         ? [...visibleShellsRef.current].sort((a, b) => a - b).join(',')
         : 'all';
       if (shellSig !== lastVisibleShellSig) {
         lastVisibleShellSig = shellSig;
-        if (isLive && liveCount > 0) refreshLiveVisualState();
-        else if (!isLive) refreshTopologyVisualState();
+        if (hasLive) refreshLiveVisualState();
       }
 
-      if (isLive) {
-        if (!wasLiveMode) {
-          liveCatalogSig = '';
-        }
-        wasLiveMode = true;
-        rebuildLiveMesh();
-        livePoints.visible = liveCount > 0;
-        if (liveCount > 0) {
-          if (ctrl.speedMul <= 0) {
-            simTimeLive = (Date.now() - liveRefMs) / 1000;
-          } else {
-            simTimeLive += dt * ctrl.speedMul;
-          }
-          updateLivePositions(simTimeLive);
+      rebuildLiveMesh();
+      livePoints.visible = hasLive;
 
-          const deployNorads = highlightNoradRef.current;
-          const deployKey = deploymentKeyRef.current ?? '';
-          if (deployNorads && deployNorads.size > 0 && liveHovered < 0) {
-            const sig = `${deployKey}:${deployNorads.size}`;
-            if (sig !== lastLiveDeploySig) applyLiveDeploymentFilter(deployNorads);
-          } else if (
-            (!deployNorads || deployNorads.size === 0) &&
-            liveDeploymentActive &&
-            liveHovered < 0
-          ) {
-            restoreLiveAppearance();
-            lastLiveDeploySig = '';
-          }
+      let ghostSimTime = simTime;
+      if (hasLive) {
+        if (ctrl.speedMul <= 0) {
+          simTimeLive = (Date.now() - liveRefMs) / 1000;
+        } else {
+          simTimeLive += dt * ctrl.speedMul;
         }
-      } else {
-        wasLiveMode = false;
-        livePoints.visible = false;
+        updateLivePositions(simTimeLive);
+        ghostSimTime = simTimeLive;
+
+        const deployNorads = highlightNoradRef.current;
+        const deployKey = deploymentKeyRef.current ?? '';
+        if (deployNorads && deployNorads.size > 0 && liveHovered < 0) {
+          const sig = `${deployKey}:${deployNorads.size}`;
+          if (sig !== lastLiveDeploySig) applyLiveDeploymentFilter(deployNorads);
+        } else if (
+          (!deployNorads || deployNorads.size === 0) &&
+          liveDeploymentActive &&
+          liveHovered < 0
+        ) {
+          restoreLiveAppearance();
+          lastLiveDeploySig = '';
+        }
+      } else if (ghost) {
+        if (ctrl.speedMul <= 0) {
+          ghostSimTime = (Date.now() - topologyRefMs) / 1000;
+        } else {
+          simTime += dt * ctrl.speedMul;
+          ghostSimTime = simTime;
+        }
+      }
+
+      if (ghost) {
         const live = liveCatalogRef.current;
         const liveSig = live
           ? `${live.fetchedAt}:${live.referenceTime}:${live.count}`
-          : '';
-        if (liveSig && liveSig !== lastTopologyLiveSig) {
+          : 'offline';
+        if (liveSig !== lastTopologyLiveSig) {
           lastTopologyLiveSig = liveSig;
           rebuildTopologyCatalog();
         }
-
-        if (ctrl.speedMul <= 0) {
-          simTime = (Date.now() - topologyRefMs) / 1000;
-        } else {
-          simTime += dt * ctrl.speedMul;
-        }
-        updateTopologyPositions(simTime);
+        updateTopologyPositions(ghostSimTime);
+        restoreGhostAppearance(hasLive);
       }
 
-      const deployIndices = highlightRef.current;
-      const deployKey = deploymentKeyRef.current ?? '';
-      if (!isLive && deployIndices && deployIndices.size > 0 && hovered < 0) {
-        const sig = `${deployKey}:${deployIndices.size}`;
-        if (sig !== lastDeploySig) applyDeploymentFilter(deployIndices);
-      } else if ((!deployIndices || deployIndices.size === 0) && deploymentActive && hovered < 0 && !isLive) {
-        restoreDefaultAppearance();
-        lastDeploySig = '';
-      }
-
-      if (
-        !isLive &&
-        effectiveTopologyHighlight() < 0 &&
-        (!deployIndices || deployIndices.size === 0)
-      ) {
-        for (let i = 0; i < N; i++) {
-          if (!isShellVisible(satellites[i]!.shell)) {
-            aAlpha[i] = 0;
-            aSize[i] = 0;
-            continue;
-          }
-          aAlpha[i] = baseAlpha[i]!;
-          aSize[i] = BASE_SIZE;
-          aCol[i * 3] = baseCol[i * 3]!;
-          aCol[i * 3 + 1] = baseCol[i * 3 + 1]!;
-          aCol[i * 3 + 2] = baseCol[i * 3 + 2]!;
+      if (pendingFlyTo === 'live' && hasLive) {
+        const idx = liveSelectedIndex();
+        if (idx >= 0) {
+          const pos = livePositionsBuffer();
+          startFlyTo(pos[idx * 3]!, pos[idx * 3 + 1]!, pos[idx * 3 + 2]!);
         }
-        satGeo.attributes.aAlpha!.needsUpdate = true;
-        satGeo.attributes.aSize!.needsUpdate = true;
-        satGeo.attributes.aColor!.needsUpdate = true;
+        pendingFlyTo = null;
       }
 
       const deployNorads = highlightNoradRef.current;
       if (
-        isLive &&
-        liveCount > 0 &&
+        hasLive &&
         effectiveLiveHighlight() < 0 &&
         (!deployNorads || deployNorads.size === 0) &&
         !liveDeploymentActive
@@ -1261,77 +1178,17 @@ export function StarlinkMeshCanvas({
         restoreLiveAppearance();
       }
 
-      const showPerShellLinks =
-        !isLive &&
-        shouldShowPerShellLinks() &&
-        (!deployIndices || deployIndices.size === 0);
-      edgeLines.visible = showPerShellLinks;
-      if (showPerShellLinks) updateShellEdgeLines(lod);
-      else {
-        edgeGeo.setDrawRange(0, 0);
-        const generated = countVisibleTopologyEdges();
-        emitTopologyDebug({
-          modeledNodes: N,
-          fleetTarget: TOPOLOGY_FLEET_TARGET,
-          visibleNodes: generated.visibleNodes,
-          generatedEdges: generated.total,
-          generatedRingEdges: generated.ring,
-          generatedCrossEdges: generated.cross,
-          drawnEdges: 0,
-          drawnRingEdges: 0,
-          drawnCrossEdges: 0,
-        });
-      }
-
+      edgeLines.visible = ghost;
       const edgeMat = edgeLines.material as THREE.LineBasicMaterial;
-      edgeMat.opacity = TOPOLOGY_EDGE_OPACITY * (1 - lod * 0.06);
-
-      satMat.uniforms.uScale!.value = ctrl.nodeScale;
-      if (isLive) {
-        satMat.uniforms.uScale!.value = ctrl.nodeScale * 0.9;
+      if (ghost) {
+        updateGhostEdgeLines();
+        edgeMat.opacity = (hasLive ? GHOST_EDGE_OPACITY : TOPOLOGY_EDGE_OPACITY) * (1 - lod * 0.06);
+      } else {
+        edgeGeo.setDrawRange(0, 0);
       }
 
-      if (!isLive && deploymentActive && deployIndices && deployIndices.size > 0) {
-        let e = 0;
-        for (let i = 0; i < E && e < DEPLOY_HL_MAX; i++) {
-          const a = edgeA[i]!;
-          const b = edgeB[i]!;
-          if (!deployIndices.has(a) || !deployIndices.has(b)) continue;
-          const o = e * 6;
-          deployHlPos[o] = satPos[a * 3]!;
-          deployHlPos[o + 1] = satPos[a * 3 + 1]!;
-          deployHlPos[o + 2] = satPos[a * 3 + 2]!;
-          deployHlPos[o + 3] = satPos[b * 3]!;
-          deployHlPos[o + 4] = satPos[b * 3 + 1]!;
-          deployHlPos[o + 5] = satPos[b * 3 + 2]!;
-          e++;
-        }
-        deployHlGeo.attributes.position!.needsUpdate = true;
-        (deployHlLines.material as THREE.LineBasicMaterial).opacity =
-          0.45 + 0.15 * Math.sin(now * 0.003);
-      }
-
-      const topologyHighlightIdx = effectiveTopologyHighlight();
-      if (!isLive && topologyHighlightIdx >= 0) {
-        const neighbors = adjacency[topologyHighlightIdx]!;
-        const hlBudget = hoverLinkBudget(lod);
-        let e = 0;
-        for (let k = 0; k < neighbors.length && e < hlBudget; k++) {
-          const b = neighbors[k]!;
-          const o = e * 6;
-          hlPos[o] = satPos[topologyHighlightIdx * 3]!;
-          hlPos[o + 1] = satPos[topologyHighlightIdx * 3 + 1]!;
-          hlPos[o + 2] = satPos[topologyHighlightIdx * 3 + 2]!;
-          hlPos[o + 3] = satPos[b * 3]!;
-          hlPos[o + 4] = satPos[b * 3 + 1]!;
-          hlPos[o + 5] = satPos[b * 3 + 2]!;
-          e++;
-        }
-        hlGeo.setDrawRange(0, e * 2);
-        hlGeo.attributes.position!.needsUpdate = true;
-        (hlLines.material as THREE.LineBasicMaterial).opacity =
-          TOPOLOGY_HL_EDGE_OPACITY * (1 - lod * 0.15);
-      }
+      satMat.uniforms.uScale!.value = hasLive ? ctrl.nodeScale * 0.9 : ctrl.nodeScale;
+      hlGeo.setDrawRange(0, 0);
 
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(frame);
@@ -1368,7 +1225,7 @@ export function StarlinkMeshCanvas({
       (graticule.material as THREE.Material).dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [walkerFleetTarget]);
 
   return <div ref={containerRef} className={`absolute inset-0 ${className}`} />;
 }

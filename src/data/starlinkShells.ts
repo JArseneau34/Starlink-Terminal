@@ -1,11 +1,41 @@
 /**
- * Walker topology shell grids — ISL plane×slot geometry only.
- * Live CelesTrak visual grouping uses starlinkVisualShells.ts (multi-factor classifier).
+ * Walker topology shell grids — derived from shellReference.ts (FCC authorizations).
+ * Live TLE classification uses orbitalShellClassification.ts.
  */
 
+import {
+  deriveWalkerGrid,
+  formatShellLabel,
+  GRANTED_SHELL_REFERENCE,
+  GRANTED_TOPOLOGY_TOTAL,
+  resolveShellPlanes,
+  resolveShellSatsPerPlane,
+  SHELL_REFERENCE,
+  type ShellReferenceRow,
+  type ShellStatus,
+} from './shellReference';
 import { STARLINK_FLEET_SNAPSHOT } from './starlinkFleetSnapshot';
 
+export type { ConstellationGen, ShellReferenceRow, ShellStatus } from './shellReference';
+export {
+  GEN1_GRANTED_TOTAL,
+  GEN2_GRANTED_TOTAL,
+  GRANTED_SHELL_REFERENCE,
+  GRANTED_SHELL_COUNT,
+  GRANTED_TOPOLOGY_TOTAL,
+  isGrantedShellIndex,
+  PENDING_SHELL_REFERENCE,
+  PENDING_TOPOLOGY_TOTAL,
+  SHELL_REFERENCE,
+  shellReferenceByIndex,
+  grantedShellTotal,
+} from './shellReference';
+
 export interface StarlinkShellSpec {
+  key: string;
+  structuralIndex: number;
+  constellationGen: 'gen1' | 'gen2';
+  shellId: number;
   name: string;
   inc: number;
   planes: number;
@@ -15,76 +45,72 @@ export interface StarlinkShellSpec {
   color: number;
   walkerF?: number;
   planeSats?: number[];
-  generation: 'gen1' | 'gen2';
+  status: ShellStatus;
+  totalSats: number;
+  phasingSource: 'fcc' | 'fitted';
 }
 
-/** Topology fleet target — McDowell snapshot total_working (synthetic Walker model only; live mode uses NORAD TLE counts). */
+export function shellReferenceToSpec(
+  row: ShellReferenceRow,
+  fittedPhasing?: number | null
+): StarlinkShellSpec {
+  const planes = resolveShellPlanes(row);
+  const uniformSats = resolveShellSatsPerPlane(row, planes);
+  const phasingF = fittedPhasing ?? row.phasingF ?? 1;
+
+  let planeSats: number[] | undefined;
+  if (row.planes != null && row.satsPerPlane != null) {
+    planeSats = distributeSatsAcrossPlanes(planes, row.totalSats);
+  } else if (row.planes == null && row.satsPerPlane == null) {
+    const derived = deriveWalkerGrid(row.totalSats);
+    planeSats = distributeSatsAcrossPlanes(derived.planes, row.totalSats);
+  }
+
+  const uniform = !planeSats || planeSats.every((n) => n === planeSats![0]);
+
+  return {
+    key: row.key,
+    structuralIndex: row.structuralIndex,
+    constellationGen: row.constellationGen,
+    shellId: row.shellId,
+    name: formatShellLabel(row),
+    inc: row.incDeg,
+    planes: planeSats ? planeSats.length : planes,
+    sats: uniform ? (planeSats?.[0] ?? uniformSats) : uniformSats,
+    altKm: row.altKm,
+    color: row.color,
+    walkerF: phasingF,
+    planeSats: uniform ? undefined : planeSats,
+    status: row.status,
+    totalSats: row.totalSats,
+    phasingSource: fittedPhasing != null ? 'fitted' : row.source === 'fitted' ? 'fitted' : 'fcc',
+  };
+}
+
+/** All FCC shells (granted + pending) for ghost lattice rendering. */
+export function resolveTopologyShells(fittedPhasing?: Map<string, number>): StarlinkShellSpec[] {
+  return SHELL_REFERENCE.map((row) =>
+    shellReferenceToSpec(row, fittedPhasing?.get(row.key) ?? null)
+  );
+}
+
+/** Granted shells only — Walker fit + modeled−live Δ. */
+export function resolveGrantedTopologyShells(
+  fittedPhasing?: Map<string, number>
+): StarlinkShellSpec[] {
+  return GRANTED_SHELL_REFERENCE.map((row) =>
+    shellReferenceToSpec(row, fittedPhasing?.get(row.key) ?? null)
+  );
+}
+
+export const STARLINK_SHELL_SPECS = resolveGrantedTopologyShells();
+export const STARLINK_SHELL_SPECS_ALL = resolveTopologyShells();
+
+/** McDowell total_working — Walker reference scales to this by default. */
 export const TOPOLOGY_FLEET_TARGET = STARLINK_FLEET_SNAPSHOT.totalWorking;
 
-/** Representative Walker grid before proportional scaling to TOPOLOGY_FLEET_TARGET. */
-export const STARLINK_SHELL_SPECS_BASE: StarlinkShellSpec[] = [
-  {
-    name: '53.0°',
-    inc: 53.0,
-    planes: 108,
-    sats: 38,
-    altKm: 525,
-    color: 0x3de8ff,
-    walkerF: 1,
-    generation: 'gen2',
-  },
-  {
-    name: '53.2°',
-    inc: 53.2,
-    planes: 72,
-    sats: 26,
-    altKm: 530,
-    color: 0x2ee86a,
-    walkerF: 1,
-    generation: 'gen2',
-  },
-  {
-    name: '43.0°',
-    inc: 43.0,
-    planes: 18,
-    sats: 14,
-    altKm: 555,
-    color: 0xffb84b,
-    walkerF: 1,
-    generation: 'gen2',
-  },
-  {
-    name: '33.0°',
-    inc: 33.0,
-    planes: 12,
-    sats: 12,
-    altKm: 550,
-    color: 0xff9a3d,
-    walkerF: 1,
-    generation: 'gen2',
-  },
-  {
-    name: '70.0°',
-    inc: 70.0,
-    planes: 36,
-    sats: 17,
-    altKm: 570,
-    color: 0xa78bfa,
-    walkerF: 1,
-    generation: 'gen1',
-  },
-  {
-    name: '97.6°',
-    inc: 97.6,
-    planes: 10,
-    sats: 52,
-    altKm: 600,
-    color: 0xff6bd6,
-    walkerF: 1,
-    generation: 'gen1',
-    planeSats: [58, 58, 58, 58, 58, 58, 43, 43, 43, 43],
-  },
-];
+/** @deprecated Use GRANTED_TOPOLOGY_TOTAL for FCC slot capacity. */
+export const TOPOLOGY_MODELED_TOTAL = GRANTED_TOPOLOGY_TOTAL;
 
 export function shellSatCountFromSpec(sh: StarlinkShellSpec): number {
   if (sh.planeSats?.length === sh.planes) {
@@ -93,22 +119,16 @@ export function shellSatCountFromSpec(sh: StarlinkShellSpec): number {
   return sh.planes * sh.sats;
 }
 
-export function distributeSatsAcrossPlanes(planes: number, total: number): number[] {
-  const base = Math.floor(total / planes);
-  const rem = total % planes;
-  return Array.from({ length: planes }, (_, p) => base + (p < rem ? 1 : 0));
-}
-
 function scaleShellSpecToCount(sh: StarlinkShellSpec, targetCount: number): StarlinkShellSpec {
   const planeSats = distributeSatsAcrossPlanes(sh.planes, targetCount);
   const uniform = planeSats.every((n) => n === planeSats[0]);
   if (uniform) {
-    return { ...sh, sats: planeSats[0]!, planeSats: undefined };
+    return { ...sh, sats: planeSats[0]!, planeSats: undefined, totalSats: targetCount };
   }
-  return { ...sh, planeSats, sats: planeSats[0]! };
+  return { ...sh, planeSats, sats: planeSats[0]!, totalSats: targetCount };
 }
 
-/** Proportionally scale representative shell grids to an exact fleet total. */
+/** Proportionally scale shell grids to an exact fleet total (McDowell working). */
 export function scaleShellSpecsToFleetTarget(
   specs: readonly StarlinkShellSpec[],
   targetTotal: number
@@ -132,29 +152,33 @@ export function scaleShellSpecsToFleetTarget(
   return specs.map((sh, i) => scaleShellSpecToCount(sh, allocated[i]!));
 }
 
-/** Walker topology shells scaled to McDowell total_working. */
-export const STARLINK_SHELL_SPECS = scaleShellSpecsToFleetTarget(
-  STARLINK_SHELL_SPECS_BASE,
-  TOPOLOGY_FLEET_TARGET
-);
+/** Granted shells scaled to McDowell working — Walker fit + ghost reference count. */
+export function resolveGrantedTopologyShellsScaled(
+  fleetTarget: number = TOPOLOGY_FLEET_TARGET,
+  fittedPhasing?: Map<string, number>
+): StarlinkShellSpec[] {
+  return scaleShellSpecsToFleetTarget(resolveGrantedTopologyShells(fittedPhasing), fleetTarget);
+}
 
-/** Sum of representative (pre-scale) Walker grid counts. */
-export const TOPOLOGY_BASE_TOTAL = STARLINK_SHELL_SPECS_BASE.reduce(
-  (sum, sh) => sum + shellSatCountFromSpec(sh),
-  0
-);
+/** Granted shells at McDowell scale — pending FCC shells omitted until activated. */
+export function resolveWalkerGhostShells(
+  fleetTarget: number = TOPOLOGY_FLEET_TARGET,
+  fittedPhasing?: Map<string, number>
+): StarlinkShellSpec[] {
+  return resolveGrantedTopologyShellsScaled(fleetTarget, fittedPhasing);
+}
 
-export const TOPOLOGY_MODELED_TOTAL = STARLINK_SHELL_SPECS.reduce(
-  (sum, sh) => sum + shellSatCountFromSpec(sh),
-  0
-);
+export function distributeSatsAcrossPlanes(planes: number, total: number): number[] {
+  const base = Math.floor(total / planes);
+  const rem = total % planes;
+  return Array.from({ length: planes }, (_, p) => base + (p < rem ? 1 : 0));
+}
 
-/** Nearest Walker topology shell by inclination (not live visual categories). */
-export function walkerShellIndexForInclination(inc: number): number {
+export function walkerShellIndexForInclination(inc: number, shells: readonly StarlinkShellSpec[] = STARLINK_SHELL_SPECS): number {
   let best = 0;
   let bestDiff = Infinity;
-  for (let i = 0; i < STARLINK_SHELL_SPECS.length; i++) {
-    const diff = Math.abs(STARLINK_SHELL_SPECS[i]!.inc - inc);
+  for (let i = 0; i < shells.length; i++) {
+    const diff = Math.abs(shells[i]!.inc - inc);
     if (diff < bestDiff) {
       bestDiff = diff;
       best = i;

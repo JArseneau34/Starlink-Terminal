@@ -19,10 +19,9 @@ import {
   meanAltitudeKmFromOmm,
   type StarlinkLifecycle,
 } from '../src/data/starlinkOrbitOmm.ts';
-import { VISUAL_SHELL_SPECS } from '../src/data/starlinkVisualShells.ts';
+import { VISUAL_SHELL_SPECS, classifyVisualShell } from '../src/data/starlinkVisualShells.ts';
 import {
   assertShellCountInvariant,
-  bucketOmmRecords,
   resolveStarlinkCatalog,
   shellsFromBucketed,
 } from '../server/services/starlinkCatalogFetch.ts';
@@ -30,6 +29,7 @@ import {
   GENERATION_MIX_REFERENCE,
   IMAGE_NORAD_TOTAL,
   MCDOWELL_WORKING_TOTAL,
+  resolveNoradReferenceTotal,
 } from '../src/data/starlinkLiveShellReference.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -198,12 +198,15 @@ async function main(): Promise<void> {
   console.log(`  source:     ${catalog.source}${catalog.offline ? ' (stale cache)' : ''}`);
   console.log(`  count:      ${catalog.count.toLocaleString()}`);
   console.log(`  fetchedAt:  ${new Date(catalog.fetchedAt).toISOString()}`);
+  const noradReference = resolveNoradReferenceTotal(catalog.count);
   console.log(
     `  McDowell:   ${MCDOWELL_WORKING_TOTAL.toLocaleString()} working (primary fleet target)`
   );
-  console.log(`  Image NORAD: ${IMAGE_NORAD_TOTAL.toLocaleString()} (reference image raw TLE total)`);
+  console.log(
+    `  NORAD ref:  ${noradReference.toLocaleString()} (${catalog.count > 0 ? 'live catalog' : 'static fallback'})`
+  );
   console.log(`  Δ vs McDowell: ${(catalog.count - MCDOWELL_WORKING_TOTAL).toLocaleString()}`);
-  console.log(`  Δ vs image:   ${(catalog.count - IMAGE_NORAD_TOTAL).toLocaleString()}`);
+  console.log(`  Δ vs NORAD ref: ${(catalog.count - noradReference).toLocaleString()}`);
 
   const inclinationBins = new Map<string, number>();
   const altitudeBins = new Map<string, number>();
@@ -241,7 +244,7 @@ async function main(): Promise<void> {
     const lifecycle = classifyStarlinkLifecycleFromOmm(omm);
     lifecycleCounts[lifecycle]++;
 
-    const shellName = VISUAL_SHELL_SPECS[row.shell]?.name ?? 'Other';
+    const shellName = classifyVisualShell(omm).shellName;
     categoryCounts[shellName] = (categoryCounts[shellName] ?? 0) + 1;
     categoryLifecycle.get(shellName)![lifecycle]++;
 

@@ -1,5 +1,10 @@
 import type { StarlinkSatMeta } from '../types/orbital';
-import { catalogIndex, planeSatCounts, STARLINK_SHELLS } from '../components/starlink/starlinkCatalog';
+import {
+  catalogIndex,
+  planeSatCounts,
+  STARLINK_SHELLS,
+  type StarlinkShell,
+} from '../components/starlink/starlinkCatalog';
 import {
   extractStarlinkGroupKey,
   lookupLaunchArchiveByDate,
@@ -32,8 +37,11 @@ export interface StarlinkDeploymentSpec {
   archiveMatched?: boolean;
 }
 
-export function indicesForDeployment(spec: StarlinkDeploymentSpec): number[] {
-  const sh = STARLINK_SHELLS[spec.shell]!;
+export function indicesForDeployment(
+  spec: StarlinkDeploymentSpec,
+  shells: readonly StarlinkShell[] = STARLINK_SHELLS
+): number[] {
+  const sh = shells[spec.shell]!;
   const counts = planeSatCounts(sh);
   const indices: number[] = [];
   let remaining = spec.count;
@@ -45,7 +53,7 @@ export function indicesForDeployment(spec: StarlinkDeploymentSpec): number[] {
     const slotsLeft = planeSats - slot;
     const take = Math.min(remaining, slotsLeft);
     for (let s = slot; s < slot + take; s++) {
-      indices.push(catalogIndex(spec.shell, plane, s));
+      indices.push(catalogIndex(spec.shell, plane, s, shells));
     }
     remaining -= take;
     plane = (plane + 1) % sh.planes;
@@ -55,8 +63,11 @@ export function indicesForDeployment(spec: StarlinkDeploymentSpec): number[] {
   return indices;
 }
 
-export function buildDeploymentIndexSet(spec: StarlinkDeploymentSpec): ReadonlySet<number> {
-  return new Set(indicesForDeployment(spec));
+export function buildDeploymentIndexSet(
+  spec: StarlinkDeploymentSpec,
+  shells: readonly StarlinkShell[] = STARLINK_SHELLS
+): ReadonlySet<number> {
+  return new Set(indicesForDeployment(spec, shells));
 }
 
 /** Curated mesh slots for known Starlink missions (synthetic catalog mapping). */
@@ -326,11 +337,16 @@ export function deploymentForNoradId(
   return null;
 }
 
-export function buildDefaultStarlinkLaunchOptions(): StarlinkLaunchOption[] {
-  return buildStarlinkLaunchOptions([]);
+export function buildDefaultStarlinkLaunchOptions(
+  shells: readonly StarlinkShell[] = STARLINK_SHELLS
+): StarlinkLaunchOption[] {
+  return buildStarlinkLaunchOptions([], shells);
 }
 
-export function buildStarlinkLaunchOptions(launches: StarlinkLaunch[]): StarlinkLaunchOption[] {
+export function buildStarlinkLaunchOptions(
+  launches: StarlinkLaunch[],
+  shells: readonly StarlinkShell[] = STARLINK_SHELLS
+): StarlinkLaunchOption[] {
   const seen = new Set<string>();
   const options: StarlinkLaunchOption[] = [];
 
@@ -344,9 +360,9 @@ export function buildStarlinkLaunchOptions(launches: StarlinkLaunch[]): Starlink
     options.push({
       launch,
       spec: { ...spec, launchName: launch.name },
-      indices: buildDeploymentIndexSet(spec),
+      indices: buildDeploymentIndexSet(spec, shells),
       noradIds: new Set<number>(),
-      shellLabel: STARLINK_SHELLS[spec.shell]?.name ?? '—',
+      shellLabel: shells[spec.shell]?.name ?? '—',
     });
   }
 
@@ -366,9 +382,9 @@ export function buildStarlinkLaunchOptions(launches: StarlinkLaunch[]): Starlink
         mission: spec.note,
       },
       spec,
-      indices: buildDeploymentIndexSet(spec),
+      indices: buildDeploymentIndexSet(spec, shells),
       noradIds: new Set<number>(),
-      shellLabel: STARLINK_SHELLS[spec.shell]?.name ?? '—',
+      shellLabel: shells[spec.shell]?.name ?? '—',
     });
   }
 

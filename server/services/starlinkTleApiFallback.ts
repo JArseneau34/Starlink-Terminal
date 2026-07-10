@@ -15,21 +15,20 @@
 
 import type { StarlinkOmmRecord } from './starlinkTleStore.js';
 
-// Use HTTP here intentionally: the mirror redirects to HTTPS, but this avoids
-// Node's bundled CA store rejecting the mirror certificate in local dev when
-// tsx spawns a child process without --use-system-ca.
-const TLE_API_BASE = 'http://tle.ivanstanojevic.me/api/tle/';
+const TLE_API_BASE = 'https://tle.ivanstanojevic.me/api/tle/';
 const TLE_API_PAGE_SIZE = 100;
 const TLE_API_MAX_PAGES = 250;
 /** Low concurrency + spacing keeps us under the mirror's rate limit. */
-const TLE_API_CONCURRENCY = 2;
-const TLE_API_BATCH_DELAY_MS = 300;
+const TLE_API_CONCURRENCY = 1;
+const TLE_API_BATCH_DELAY_MS = 650;
 const TLE_API_MAX_RETRIES = 5;
 /**
  * Reject obviously truncated mirror fetches. The mirror's search total includes
  * non-Starlink names, so the Starlink-only subset is normally well below 90%.
  */
 const TLE_API_MIN_COMPLETENESS = 0.6;
+/** Reject mirror fetches materially short of the live Starlink fleet (~10.5k NORAD). */
+const TLE_API_MIN_ABSOLUTE_COUNT = 7_200;
 const TLE_API_HEADERS = { 'User-Agent': 'SPCX-Terminal/1.0', Accept: 'application/json' };
 
 interface TleApiMember {
@@ -47,16 +46,19 @@ interface TleApiPage {
 
 /** Thrown when the mirror returns fewer Starlink records than it reports as available. */
 export class TleApiIncompleteError extends Error {
-  constructor(
-    readonly collected: number,
-    readonly expected: number,
-    readonly failedPages: number
-  ) {
+  collected: number;
+  expected: number;
+  failedPages: number;
+
+  constructor(collected: number, expected: number, failedPages: number) {
     super(
       `TLE API catalog incomplete: collected ${collected} of ${expected} ` +
         `(${failedPages} page(s) failed after retries) — refusing to cache a truncated catalog`
     );
     this.name = 'TleApiIncompleteError';
+    this.collected = collected;
+    this.expected = expected;
+    this.failedPages = failedPages;
   }
 }
 
@@ -232,6 +234,10 @@ export async function fetchStarlinkOmmFromTleApi(): Promise<StarlinkOmmRecord[]>
   // Guard against silently caching a rate-limited / truncated catalog. The mirror
   // search includes non-Starlink names, so totalItems is an upper bound — only the
   // completeness ratio (and any hard page failures) gate acceptance.
+  if (records.length < TLE_API_MIN_ABSOLUTE_COUNT) {
+    throw new TleApiIncompleteError(records.length, TLE_API_MIN_ABSOLUTE_COUNT, failedPages);
+  }
+
   if (total > 0) {
     const completeness = records.length / total;
     if (failedPages > 0 || completeness < TLE_API_MIN_COMPLETENESS) {

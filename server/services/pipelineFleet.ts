@@ -1,13 +1,19 @@
 import { coalesceAsync, getCached, setCache } from '../cache.js';
 import { PIPELINE_API_URL, PIPELINE_CACHE_TTL_MS } from '../config.js';
+import { getDb } from '../satStats/db.js';
+import { getLatestSnapshot } from '../satStats/snapshot.js';
 import {
   STARLINK_FLEET_SNAPSHOT,
   type StarlinkFleetSnapshot,
 } from '../../src/data/starlinkFleetSnapshot.ts';
+import {
+  pickLatestPlausibleMonthEnd,
+  sanitizeFleetSnapshotDate,
+} from '../../src/utils/fleetSnapshotDate.ts';
 
 const PIPELINE_FETCH_TIMEOUT_MS = 8_000;
 
-export type PipelineFleetSource = 'pipeline' | 'static';
+export type PipelineFleetSource = 'sat-stats' | 'pipeline' | 'static';
 
 export interface PipelineFleetMeta {
   source: PipelineFleetSource;
@@ -51,10 +57,7 @@ function toFloat(value: unknown): number {
 }
 
 function latestFeedRow(rows: PipelineFeedRow[] | undefined): PipelineFeedRow | null {
-  if (!rows?.length) return null;
-  return [...rows].sort((a, b) =>
-    String(a.month_end ?? '').localeCompare(String(b.month_end ?? ''))
-  ).at(-1) ?? null;
+  return pickLatestPlausibleMonthEnd(rows);
 }
 
 export function parsePipelineSnapshotToFleet(
@@ -69,6 +72,7 @@ export function parsePipelineSnapshotToFleet(
     if (!dash) return null;
     return {
       snapshotDate: snap.created_at?.slice(0, 10) ?? STARLINK_FLEET_SNAPSHOT.snapshotDate,
+      totalInOrbit: toInt(dash.active_satellites),
       totalWorking: toInt(dash.active_satellites),
       totalDown: toInt(dash.deorbited_satellites),
       models: { ...STARLINK_FLEET_SNAPSHOT.models },
@@ -79,7 +83,8 @@ export function parsePipelineSnapshotToFleet(
   if (!modelRow || !bwRow) return null;
 
   return {
-    snapshotDate: String(activeRow.month_end),
+    snapshotDate: sanitizeFleetSnapshotDate(String(activeRow.month_end)),
+    totalInOrbit: toInt(activeRow.total_in_orbit) || toInt(activeRow.active_satellites),
     totalWorking: toInt(activeRow.active_satellites),
     totalDown: toInt(activeRow.deorbited_satellites),
     models: {
@@ -91,6 +96,21 @@ export function parsePipelineSnapshotToFleet(
     },
     totalBandwidthInOrbitTbps: toFloat(bwRow.total_bandwidth_tbps),
   };
+}
+
+function fetchLocalSatStatsSnapshot(): PipelineSnapshotResponse | null {
+  try {
+    const snap = getLatestSnapshot(getDb());
+    if (!snap) return null;
+    return {
+      snapshot_id: snap.snapshot_id,
+      created_at: snap.created_at,
+      feeds: snap.feeds as PipelineSnapshotResponse['feeds'],
+      dashboard: snap.dashboard as PipelineSnapshotResponse['dashboard'],
+    };
+  } catch {
+    return null;
+  }
 }
 
 async function fetchPipelineSnapshot(): Promise<PipelineSnapshotResponse | null> {
@@ -114,6 +134,23 @@ export async function resolveFleetSnapshot(): Promise<ResolvedFleetSnapshot> {
   return coalesceAsync(`${cacheKey}:fetch`, async () => {
     const again = getCached<ResolvedFleetSnapshot>(cacheKey);
     if (again) return again;
+
+    const localSnap = fetchLocalSatStatsSnapshot();
+    if (localSnap) {
+      const fleet = parsePipelineSnapshotToFleet(localSnap);
+      if (fleet) {
+        const resolved: ResolvedFleetSnapshot = {
+          fleet,
+          meta: {
+            source: 'sat-stats',
+            snapshotId: localSnap.snapshot_id,
+            pipelineFetchedAt: localSnap.created_at,
+          },
+        };
+        setCache(cacheKey, resolved, PIPELINE_CACHE_TTL_MS);
+        return resolved;
+      }
+    }
 
     const snap = await fetchPipelineSnapshot();
     if (snap) {

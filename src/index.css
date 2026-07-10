@@ -18,9 +18,23 @@
   --color-bbg-cyan-dim: rgba(61, 232, 255, 0.12);
   --color-bbg-green: #2ee86a;
   --color-bbg-green-dim: rgba(46, 232, 106, 0.12);
+  --color-fleet-emerald: #10b981;
+  --color-fleet-emerald-dim: #059669;
+  --color-fleet-emerald-glow: rgba(16, 185, 129, 0.4);
+  --gradient-fleet-accent-text: linear-gradient(120deg, #6ee7b7 0%, #10b981 50%, #34d399 100%);
+  --color-global-sapphire: #0f52ba;
+  --color-global-sapphire-dim: #0c408f;
+  --color-global-sapphire-glow: rgba(15, 82, 186, 0.4);
+  --gradient-global-accent-text: linear-gradient(120deg, #60a5fa 0%, #0f52ba 50%, #3b82f6 100%);
+  --color-ops-ruby: #e0115f;
+  --color-ops-ruby-dim: #b80e4c;
+  --color-ops-ruby-glow: rgba(224, 17, 95, 0.4);
+  --gradient-ops-ruby-accent-text: linear-gradient(120deg, #fb7185 0%, #e0115f 50%, #f43f5e 100%);
   --color-bbg-red: #ff4d5a;
   --color-bbg-red-dim: rgba(255, 77, 90, 0.12);
   --color-bbg-white: #ececf4;
+  --color-bbg-cream: #ececf4;
+  --color-bbg-text-soft: #c4c4d0;
   --color-bbg-gray: #7a7a90;
   --color-bbg-muted: #4a4a5c;
 }
@@ -36,6 +50,30 @@
 
   .text-bbg-amber-dim {
     background-image: var(--gradient-bbg-accent-text-dim);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-fleet-emerald {
+    background-image: var(--gradient-fleet-accent-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-global-sapphire {
+    background-image: var(--gradient-global-accent-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-ops-ruby {
+    background-image: var(--gradient-ops-ruby-accent-text);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1021,6 +1059,39 @@ body {
   isolation: isolate;
 }
 
+.orbital-ops-shell--ops .text-bbg-amber,
+.orbital-ops-shell--ops .text-bbg-cyan,
+.orbital-ops-shell .text-bbg-amber,
+.orbital-ops-shell .text-bbg-cyan,
+.orbital-ops-shell .text-bbg-amber-dim,
+.orbital-ops-shell .text-ops-ruby,
+.starlink-investor-view .text-bbg-amber,
+.starlink-investor-view .text-bbg-cyan,
+.starlink-investor-view .text-bbg-amber-dim,
+.starlink-investor-view .text-fleet-emerald,
+.starlink-investor-view .text-global-sapphire {
+  background-image: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--color-bbg-cream);
+  color: var(--color-bbg-cream);
+}
+
+.orbital-ops-left .mesh-toggle:hover:not(.mesh-toggle-on):not(:disabled),
+.orbital-ops-stats-mobile .mesh-toggle:hover:not(.mesh-toggle-on):not(:disabled) {
+  border-color: rgba(224, 17, 95, 0.35);
+}
+
+.orbital-ops-shell--ops .starlink-sat-search-btn,
+.orbital-ops-shell--ops .starlink-sat-clear {
+  background: rgba(224, 17, 95, 0.12);
+}
+
+.orbital-ops-shell--ops .starlink-sat-search-btn:hover,
+.orbital-ops-shell--ops .starlink-sat-clear:hover {
+  border-color: rgba(224, 17, 95, 0.35);
+}
+
 .orbital-ops-topbar {
   flex-shrink: 0;
   display: flex;
@@ -1035,6 +1106,25 @@ body {
 
 .orbital-ops-brand {
   min-width: 0;
+}
+
+.orbital-ops-brand-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.orbital-ops-shell--ops .orbital-ops-brand-title {
+  color: var(--color-ops-ruby);
+}
+
+.orbital-ops-shell--fleet .orbital-ops-brand-title {
+  color: var(--color-fleet-emerald);
+}
+
+.orbital-ops-shell--global .orbital-ops-brand-title {
+  color: var(--color-global-sapphire);
 }
 
 .orbital-ops-tabs {
@@ -1056,14 +1146,44 @@ body {
   transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
-.orbital-ops-tab:hover:not(.subtab-btn-active) {
-  color: var(--color-bbg-white);
-  border-color: rgba(167, 139, 250, 0.4);
+.orbital-ops-tab--ops:hover:not(.subtab-btn-active) {
+  color: var(--color-ops-ruby);
+  border-color: var(--color-ops-ruby-glow);
+  background: rgba(224, 17, 95, 0.06);
+}
+
+.orbital-ops-tab--fleet:hover:not(.subtab-btn-active) {
+  color: var(--color-fleet-emerald);
+  border-color: var(--color-fleet-emerald-glow);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.orbital-ops-tab--global:hover:not(.subtab-btn-active) {
+  color: var(--color-global-sapphire);
+  border-color: var(--color-global-sapphire-glow);
+  background: rgba(15, 82, 186, 0.06);
 }
 
 .orbital-ops-tab.subtab-btn-active {
-  border-color: rgba(61, 232, 255, 0.4);
-  background: rgba(61, 232, 255, 0.05);
+  background: rgba(8, 8, 14, 0.22);
+  background-image: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--color-bbg-cyan);
+  color: var(--color-bbg-cyan);
+  border-color: rgba(61, 232, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(61, 232, 255, 0.4);
+}
+
+.orbital-ops-tab.orbital-ops-tab--ops.subtab-btn-active {
+  -webkit-text-fill-color: var(--color-ops-ruby);
+  color: var(--color-ops-ruby);
+  border-color: rgba(224, 17, 95, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(224, 17, 95, 0.4);
+}
+
+.orbital-ops-tab.subtab-btn-active::after {
+  display: none;
 }
 
 .orbital-ops-body {
@@ -1075,11 +1195,107 @@ body {
   inset: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: minmax(0, 248px) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   gap: 10px;
   padding: 10px;
   pointer-events: none;
+}
+
+.orbital-ops-globe-strip {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  pointer-events: none;
+  max-width: min(100%, 320px);
+}
+
+.orbital-ops-globe-strip-inner {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 6, 12, 0.52);
+  backdrop-filter: blur(8px);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--color-bbg-text-soft);
+  line-height: 1.45;
+}
+
+.orbital-ops-globe-strip-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.orbital-ops-globe-strip-row + .orbital-ops-globe-strip-row {
+  margin-top: 4px;
+}
+
+.orbital-ops-globe-strip-row--counts {
+  font-size: 10px;
+  color: var(--color-bbg-cream);
+}
+
+.orbital-ops-globe-strip-row--meta {
+  font-size: 8px;
+  color: var(--color-bbg-text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.orbital-ops-globe-strip-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.orbital-ops-globe-strip-value {
+  color: rgba(255, 255, 255, 0.82);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.orbital-ops-globe-strip-sep {
+  opacity: 0.35;
+}
+
+.orbital-ops-globe-strip-badge {
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.orbital-ops-globe-strip-badge--live {
+  border-color: rgba(46, 232, 106, 0.35);
+  color: #2ee86a;
+  background: rgba(46, 232, 106, 0.08);
+}
+
+.orbital-ops-globe-strip-badge--stale {
+  border-color: rgba(255, 194, 75, 0.35);
+  color: #ffc24b;
+  background: rgba(255, 194, 75, 0.08);
+}
+
+.orbital-ops-globe-strip-badge--offline {
+  border-color: rgba(255, 77, 90, 0.35);
+  color: #ff4d5a;
+  background: rgba(255, 77, 90, 0.08);
+}
+
+.orbital-ops-globe-strip--mobile {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 11;
+  max-width: calc(100% - 20px);
 }
 
 .orbital-ops-kpi-strip {
@@ -1117,29 +1333,349 @@ body {
   scrollbar-width: thin;
 }
 
-.orbital-ops-left,
-.orbital-ops-right {
+.orbital-ops-left {
   grid-row: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-height: 0;
-  overflow: hidden;
   pointer-events: none;
 }
 
 .orbital-ops-left {
   grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  pointer-events: auto;
+  scrollbar-width: thin;
+  padding-right: 4px;
+}
+
+/* Transparent side panel — let the globe show through */
+.orbital-ops-left .mesh-overlay,
+.orbital-ops-stats-mobile > .mesh-overlay,
+.orbital-ops-stats-mobile > select.mesh-overlay {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0;
+}
+
+.orbital-ops-left > * {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.orbital-ops-satellite {
+  flex-shrink: 0;
+  max-height: min(34vh, 280px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.orbital-ops-sat-counts {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) minmax(0, min(34vh, 260px));
+  grid-template-columns: 1fr;
+  gap: 6px;
 }
 
-.orbital-ops-right {
-  grid-column: 2;
+.orbital-ops-sat-count-card--walker {
+  grid-column: 1 / -1;
 }
 
-.orbital-ops-left > *,
-.orbital-ops-right > * {
+.orbital-ops-tier-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  grid-column: 1 / -1;
+}
+
+.orbital-ops-tier-card {
+  min-width: 0;
+}
+
+.orbital-ops-tier-exclusions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 4px;
+  font-size: 7px;
+  letter-spacing: 0.04em;
+  color: var(--color-bbg-muted);
+  line-height: 1.3;
+}
+
+.orbital-ops-tier-exclusions span {
+  white-space: nowrap;
+}
+
+.orbital-ops-sat-count-card {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.orbital-ops-sat-count-card--active {
+  border-color: rgba(61, 232, 255, 0.35);
+  background: rgba(61, 232, 255, 0.05);
+}
+
+.orbital-ops-sat-count-label {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bbg-text-soft);
+}
+
+.orbital-ops-sat-count-value {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2px;
+  color: var(--color-bbg-white);
+}
+
+.orbital-ops-sat-count-card--active .orbital-ops-sat-count-value {
+  color: var(--color-bbg-cream);
+}
+
+.orbital-ops-sat-count-sub {
+  font-size: 8px;
+  color: var(--color-bbg-muted);
+  margin-top: 2px;
+}
+
+.orbital-ops-sat-count-active {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid rgba(61, 232, 255, 0.18);
+  border-radius: 2px;
+  background: rgba(61, 232, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.orbital-ops-panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.orbital-ops-left .orbital-ops-dock-section--shells {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+.orbital-ops-tier-kpis--offline .orbital-ops-tier-card .orbital-ops-sat-count-value {
+  opacity: 0.45;
+}
+
+.mesh-shell-toggle--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.orbital-ops-panel-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.orbital-ops-panel-section .starlink-shell-filter {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.orbital-ops-panel-section .mesh-control-label {
+  margin: 2px 0 0;
+}
+
+.orbital-ops-panel-section .mesh-range {
+  margin-bottom: 4px;
+}
+
+/* Left panel: stacked controls with breathing room */
+.orbital-ops-left .mesh-toggles,
+.orbital-ops-stats-mobile .mesh-toggles {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.orbital-ops-left .mesh-toggles:not(.mesh-earth-toggles):not(.mesh-shell-toggles) .mesh-toggle,
+.orbital-ops-stats-mobile .mesh-toggles:not(.mesh-earth-toggles):not(.mesh-shell-toggles) .mesh-toggle {
+  flex: 1 1 calc(50% - 4px);
+  min-width: 0;
+  min-height: 26px;
+  padding: 4px 8px;
+  font-size: 9px;
+}
+
+.orbital-ops-left .mesh-shell-toggles,
+.orbital-ops-stats-mobile .mesh-shell-toggles {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.orbital-ops-left .mesh-shell-toggle,
+.orbital-ops-left .mesh-shell-toggle-all,
+.orbital-ops-stats-mobile .mesh-shell-toggle,
+.orbital-ops-stats-mobile .mesh-shell-toggle-all {
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 9px;
+  padding: 4px 8px;
+  min-height: 26px;
+  margin: 0;
+}
+
+.orbital-ops-left .mesh-shell-toggle-name,
+.orbital-ops-stats-mobile .mesh-shell-toggle-name {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.orbital-ops-left .mesh-shell-toggle-count,
+.orbital-ops-stats-mobile .mesh-shell-toggle-count {
+  font-size: 8px;
+}
+
+.orbital-ops-left .mesh-earth-toggles .mesh-toggle,
+.orbital-ops-stats-mobile .mesh-earth-toggles .mesh-toggle {
+  flex: 1 1 calc(50% - 4px);
+  font-size: 8px;
+  letter-spacing: 0.03em;
+  padding: 4px 5px;
+  min-height: 24px;
+}
+
+.orbital-ops-left .starlink-shell-filter p,
+.orbital-ops-stats-mobile .starlink-shell-filter p {
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.orbital-ops-left .mesh-deploy-select,
+.orbital-ops-stats-mobile .mesh-deploy-select {
+  width: 100%;
+}
+
+.orbital-ops-left .mesh-overlay-label,
+.orbital-ops-left .orbital-ops-dock-label,
+.orbital-ops-left .mesh-control-label,
+.orbital-ops-left .mesh-stat-row,
+.orbital-ops-left .orbital-ops-dock-hint,
+.orbital-ops-left .orbital-ops-sat-count-label,
+.orbital-ops-stats-mobile .mesh-overlay-label,
+.orbital-ops-stats-mobile .orbital-ops-dock-label {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+.orbital-ops-left .mesh-toggle,
+.orbital-ops-stats-mobile .mesh-toggle,
+.starlink-investor-view .mesh-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 8, 14, 0.22);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Selected = colored border only, background unchanged */
+.orbital-ops-left .mesh-toggle.mesh-toggle-on:not(.mesh-shell-toggle),
+.orbital-ops-stats-mobile .mesh-toggle.mesh-toggle-on:not(.mesh-shell-toggle) {
+  background: rgba(8, 8, 14, 0.22);
+  border-color: var(--color-ops-ruby);
+  color: var(--color-bbg-white);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--color-ops-ruby);
+}
+
+.orbital-ops-left .mesh-shell-toggle:not(.mesh-toggle-on),
+.orbital-ops-stats-mobile .mesh-shell-toggle:not(.mesh-toggle-on) {
+  background: rgba(8, 8, 14, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-bbg-muted);
+  box-shadow: none;
+}
+
+.orbital-ops-left .mesh-shell-toggle.mesh-toggle-on,
+.orbital-ops-stats-mobile .mesh-shell-toggle.mesh-toggle-on {
+  background: rgba(8, 8, 14, 0.22);
+  border-color: var(--shell-accent, var(--color-bbg-cyan));
+  color: var(--color-bbg-white);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--shell-accent, var(--color-bbg-cyan));
+}
+
+.orbital-ops-left .mesh-range,
+.orbital-ops-stats-mobile .mesh-range {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+.mesh-toggle-count {
+  margin-left: auto;
+  font-size: 9px;
+  color: var(--color-bbg-text-soft);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.mesh-toggle:has(.mesh-toggle-count) {
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.mesh-toggle-on .mesh-toggle-count {
+  color: var(--color-bbg-white);
+}
+
+.mesh-toggle--ghost {
+  width: 100%;
+}
+
+.mesh-toggle:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.mesh-toggle:disabled:hover {
+  color: var(--color-bbg-muted);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.orbital-ops-left .mesh-toggle.mesh-toggle-on:not(.mesh-shell-toggle) .mesh-toggle-count,
+.orbital-ops-stats-mobile .mesh-toggle.mesh-toggle-on:not(.mesh-shell-toggle) .mesh-toggle-count {
+  color: var(--color-ops-ruby);
+}
+
+.orbital-ops-left > * {
   pointer-events: auto;
 }
 
@@ -1199,13 +1735,13 @@ body {
   font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
 }
 
 .orbital-ops-dock-hint {
   font-size: 8px;
   line-height: 1.3;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   letter-spacing: 0.03em;
 }
 
@@ -1507,7 +2043,7 @@ body {
 
 .orbital-ops-stats {
   flex: none;
-  padding: 9px 12px;
+  padding: 0;
   font-size: 10px;
 }
 
@@ -1529,7 +2065,7 @@ body {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 10px 12px;
+  padding: 0 2px 4px;
   scrollbar-width: thin;
 }
 
@@ -1671,7 +2207,7 @@ body {
   font-size: 26px;
   font-weight: 600;
   line-height: 1;
-  color: var(--color-bbg-green);
+  color: var(--color-bbg-cream);
   letter-spacing: -0.01em;
 }
 
@@ -1683,14 +2219,14 @@ body {
   line-height: 1.25;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-bbg-gray);
+  color: var(--color-bbg-text-soft);
 }
 
 .starlink-fleet-headline-src {
   font-size: 8px;
   letter-spacing: 0.04em;
   text-transform: none;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
 }
 
 .starlink-fleet-cards {
@@ -1710,13 +2246,14 @@ body {
   font-size: 15px;
   font-weight: 600;
   line-height: 1.1;
+  color: var(--color-bbg-cream);
 }
 
 .starlink-fleet-card-label {
   font-size: 8px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   margin-top: 2px;
 }
 
@@ -1829,7 +2366,7 @@ body {
   gap: 6px;
   font-size: 10px;
   padding: 1px 0;
-  color: var(--color-bbg-gray);
+  color: var(--color-bbg-text-soft);
 }
 
 .starlink-fleet-model-dot {
@@ -1839,7 +2376,7 @@ body {
 }
 
 .starlink-fleet-model-name {
-  color: var(--color-bbg-gray);
+  color: var(--color-bbg-text-soft);
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1847,12 +2384,12 @@ body {
 }
 
 .starlink-fleet-model-count {
-  color: var(--color-bbg-white);
+  color: var(--color-bbg-cream);
   text-align: right;
 }
 
 .starlink-fleet-model-pct {
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   font-size: 9px;
   text-align: right;
 }
@@ -1925,17 +2462,29 @@ body {
   outline-offset: 1px;
 }
 
-.orbital-ops-stats-mobile {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  max-width: 280px;
-  max-height: min(42vh, 320px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  pointer-events: auto;
-  scrollbar-width: thin;
+@media (max-width: 767px) {
+  .orbital-ops-stats-mobile {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    right: auto;
+    width: min(300px, calc(100vw - 20px));
+    max-height: none;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    pointer-events: auto;
+    scrollbar-width: thin;
+    padding-right: 2px;
+  }
+}
+
+@media (min-width: 768px) {
+  .orbital-ops-stats-mobile {
+    display: none;
+  }
 }
 
 .orbital-ops-controls {
@@ -1984,6 +2533,10 @@ body {
   border-radius: 2px;
 }
 
+.orbital-ops-title-sub {
+  color: var(--color-bbg-text-soft);
+}
+
 @media (max-height: 820px) {
   .orbital-ops-title-sub {
     display: none;
@@ -1996,7 +2549,7 @@ body {
 
 @media (max-width: 1280px) {
   .orbital-ops-chrome {
-    grid-template-columns: minmax(0, 236px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
   }
 }
 
@@ -2031,7 +2584,7 @@ body {
   font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   margin-bottom: 8px;
 }
 
@@ -2074,17 +2627,17 @@ body {
   align-items: baseline;
   gap: 8px;
   padding: 2px 0;
-  color: var(--color-bbg-gray);
+  color: var(--color-bbg-text-soft);
   font-size: 10px;
 }
 
 .mesh-stat-row span:first-child {
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   flex-shrink: 0;
 }
 
 .mesh-stat-row b {
-  color: var(--color-bbg-cyan);
+  color: var(--color-bbg-cream);
   font-weight: 500;
   text-align: right;
   min-width: 0;
@@ -2098,7 +2651,7 @@ body {
   font-size: 9px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   margin: 8px 0 4px;
 }
 
@@ -2107,7 +2660,7 @@ body {
 }
 
 .mesh-control-label b {
-  color: var(--color-bbg-white);
+  color: var(--color-bbg-cream);
   letter-spacing: 0.04em;
   text-transform: none;
 }
@@ -2166,6 +2719,10 @@ body {
 
 .mesh-toggle {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   font-size: 9px;
   letter-spacing: 0.04em;
   text-align: center;
@@ -2227,8 +2784,8 @@ body {
 
 .mesh-shell-toggle-on {
   color: var(--color-bbg-white);
-  background: color-mix(in srgb, var(--shell-accent, var(--color-bbg-cyan)) 18%, transparent);
-  border-color: color-mix(in srgb, var(--shell-accent, var(--color-bbg-cyan)) 55%, transparent);
+  background: transparent;
+  border-color: var(--shell-accent, var(--color-bbg-cyan));
   font-weight: 600;
 }
 
@@ -2375,7 +2932,7 @@ body {
 .starlink-inv-block-desc {
   font-size: 9px;
   line-height: 1.35;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   margin: -2px 0 2px;
 }
 
@@ -2431,13 +2988,13 @@ body {
   font-size: 8px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
 }
 
 .starlink-rev-runrate b {
   display: block;
   font-size: 18px;
-  color: var(--color-bbg-cyan);
+  color: var(--color-bbg-cream);
   line-height: 1.1;
   margin-top: 2px;
 }
@@ -2745,14 +3302,14 @@ body {
   font-size: 8px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   line-height: 1.3;
 }
 
 .starlink-inv-kpi-value {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-bbg-white);
+  color: var(--color-bbg-cream);
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
   margin-top: 3px;
@@ -2872,7 +3429,7 @@ body {
   font-size: 8px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   margin-bottom: 4px;
 }
 
@@ -2898,12 +3455,12 @@ body {
 }
 
 .starlink-inv-list-primary {
-  color: var(--color-bbg-white);
+  color: var(--color-bbg-cream);
   min-width: 0;
 }
 
 .starlink-inv-list-meta {
-  color: var(--color-bbg-muted);
+  color: var(--color-bbg-text-soft);
   flex-shrink: 0;
   font-size: 9px;
 }
@@ -3090,7 +3647,313 @@ body {
   }
 }
 
+/* ── Investor data pipeline (sat-stats dashboard) ─────── */
+
+.starlink-investor-subtabs {
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+.starlink-investor-subtab--fleet.subtab-btn-active {
+  background-image:
+    linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.03) 100%),
+    var(--gradient-fleet-accent-text);
+  background-clip: border-box, text;
+  -webkit-background-clip: border-box, text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.starlink-investor-subtab--fleet.subtab-btn-active::after {
+  background: linear-gradient(90deg, transparent, var(--color-fleet-emerald), transparent);
+  box-shadow: 0 0 8px var(--color-fleet-emerald-glow);
+}
+
+.starlink-investor-subtab--global.subtab-btn-active {
+  background-image:
+    linear-gradient(180deg, rgba(15, 82, 186, 0.12) 0%, rgba(15, 82, 186, 0.03) 100%),
+    var(--gradient-global-accent-text);
+  background-clip: border-box, text;
+  -webkit-background-clip: border-box, text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.starlink-investor-subtab--global.subtab-btn-active::after {
+  background: linear-gradient(90deg, transparent, var(--color-global-sapphire), transparent);
+  box-shadow: 0 0 8px var(--color-global-sapphire-glow);
+}
+
+.fleet-data-dashboard .mesh-toggle.mesh-toggle-on {
+  background: rgba(8, 8, 14, 0.22);
+  border-color: var(--color-fleet-emerald);
+  color: var(--color-bbg-white);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--color-fleet-emerald);
+}
+
+.fleet-data-dashboard .mesh-toggle:hover:not(.mesh-toggle-on):not(:disabled) {
+  color: var(--color-bbg-gray);
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.global-catalog-dashboard .mesh-toggle.mesh-toggle-on {
+  background: rgba(8, 8, 14, 0.22);
+  border-color: var(--color-global-sapphire);
+  color: var(--color-bbg-white);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--color-global-sapphire);
+}
+
+.global-catalog-dashboard .mesh-toggle:hover:not(.mesh-toggle-on):not(:disabled) {
+  color: var(--color-bbg-gray);
+  border-color: rgba(15, 82, 186, 0.45);
+}
+
+.starlink-investor-view .starlink-inv-badge {
+  color: var(--color-bbg-cream);
+}
+
+.fleet-data-dashboard .starlink-inv-badge--live {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.fleet-data-dashboard .sat-stats-input:focus,
+.fleet-data-dashboard .sat-stats-field select:focus {
+  outline: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.global-catalog-dashboard .sat-stats-input:focus,
+.global-catalog-dashboard .sat-stats-field select:focus {
+  outline: 1px solid rgba(15, 82, 186, 0.35);
+}
+
 /* ── Launch manifest tab ──────────────────────────────── */
+
+.starlink-investor-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sat-stats-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sat-stats-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.starlink-investor-view .mesh-toggle {
+  flex: 0 1 auto;
+  min-height: 26px;
+  padding: 4px 10px;
+  font-size: 9px;
+}
+
+.starlink-investor-view .mesh-toggle:hover:not(.mesh-toggle-on):not(:disabled) {
+  color: var(--color-bbg-gray);
+}
+
+.starlink-investor-view .mesh-toggle:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.sat-stats-table-actions .mesh-toggle {
+  min-height: 24px;
+  padding: 3px 8px;
+  font-size: 8px;
+}
+
+.sat-stats-assumption-form .mesh-toggle.mesh-toggle-on {
+  min-width: 96px;
+}
+
+.sat-stats-status {
+  margin-top: 8px;
+  font-size: 9px;
+  color: var(--color-bbg-text-soft);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.sat-stats-kpi-strip .starlink-inv-kpi-row {
+  margin-top: 4px;
+}
+
+.sat-stats-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 1100px) {
+  .sat-stats-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sat-stats-chart-card {
+  min-height: 220px;
+}
+
+.sat-stats-chart-wrap {
+  position: relative;
+  height: 180px;
+  margin-top: 4px;
+}
+
+.sat-stats-charts-empty,
+.sat-stats-error {
+  padding: 14px;
+}
+
+.sat-stats-ops-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+  gap: 10px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .sat-stats-ops-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sat-stats-table-wrap {
+  overflow: auto;
+  max-height: 280px;
+  margin-top: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.sat-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9px;
+}
+
+.sat-stats-table th,
+.sat-stats-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.sat-stats-table th {
+  color: var(--color-bbg-text-soft);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 8px;
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.sat-stats-table td {
+  color: var(--color-bbg-cream);
+}
+
+.sat-stats-table-empty {
+  color: var(--color-bbg-muted);
+  text-align: center;
+  padding: 18px 8px !important;
+}
+
+.sat-stats-table-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+
+.sat-stats-assumption-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sat-stats-assumption-form .mesh-toggle {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.global-catalog-toggles {
+  margin-top: 2px;
+}
+
+.global-catalog-toggles .mesh-toggles {
+  flex: 1 1 auto;
+  min-width: min(100%, 220px);
+}
+
+.global-catalog-composition {
+  min-height: 0;
+}
+
+.global-catalog-kind-total td {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  color: var(--color-bbg-cream);
+}
+
+.global-catalog-info .global-catalog-source-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 10px;
+  color: var(--color-bbg-text-soft);
+  line-height: 1.5;
+}
+
+.global-catalog-info code {
+  color: var(--color-bbg-cyan);
+  font-size: 9px;
+}
+
+.global-catalog-ops {
+  align-items: stretch;
+}
+
+.sat-stats-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-bbg-muted);
+}
+
+.sat-stats-field select,
+.sat-stats-input {
+  width: 100%;
+  background: #0a0a12;
+  border: 1px solid var(--color-bbg-border-subtle);
+  color: var(--color-bbg-white);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 6px 8px;
+  border-radius: 2px;
+}
+
+.sat-stats-input:focus,
+.sat-stats-field select:focus {
+  outline: 1px solid rgba(61, 232, 255, 0.35);
+}
 
 .departures-board-head {
   background: linear-gradient(180deg, rgba(14, 14, 20, 0.98) 0%, rgba(10, 10, 16, 0.95) 100%);

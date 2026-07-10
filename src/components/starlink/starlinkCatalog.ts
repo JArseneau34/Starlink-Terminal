@@ -1,6 +1,10 @@
 import * as THREE from 'three';
-import { STARLINK_SHELL_SPECS, type StarlinkShellSpec } from '../../data/starlinkShells';
-import { shellIndexForInclination } from '../../data/starlinkShellBands';
+import {
+  GRANTED_TOPOLOGY_TOTAL,
+  resolveWalkerGhostShells,
+  TOPOLOGY_FLEET_TARGET,
+  type StarlinkShellSpec,
+} from '../../data/starlinkShells';
 
 const TAU = Math.PI * 2;
 const D2R = Math.PI / 180;
@@ -12,10 +16,8 @@ const EARTH_RADIUS_KM = 6371;
 
 export type StarlinkShell = StarlinkShellSpec;
 
-/**
- * Gen1 + Gen2 shells — topology totals scaled to McDowell total_working (see starlinkShells).
- */
-export const STARLINK_SHELLS: StarlinkShell[] = STARLINK_SHELL_SPECS;
+/** Walker ghost shells at default McDowell fleet target. */
+export const STARLINK_SHELLS: StarlinkShell[] = resolveWalkerGhostShells();
 
 export function planeSatCounts(sh: StarlinkShell): number[] {
   if (sh.planeSats?.length === sh.planes) return sh.planeSats;
@@ -23,8 +25,7 @@ export function planeSatCounts(sh: StarlinkShell): number[] {
 }
 
 export function shellSatCount(sh: StarlinkShell): number {
-  const counts = planeSatCounts(sh);
-  return counts.reduce((sum, n) => sum + n, 0);
+  return sh.totalSats;
 }
 
 export function shellTopologyLabel(sh: StarlinkShell): string {
@@ -51,19 +52,25 @@ export interface StarlinkSatellite {
   r: number;
   g: number;
   b: number;
+  status: 'granted';
 }
 
-function shellBaseIndex(shell: number): number {
+function shellBaseIndex(shell: number, shells: readonly StarlinkShell[]): number {
   let base = 0;
   for (let i = 0; i < shell; i++) {
-    base += shellSatCount(STARLINK_SHELLS[i]!);
+    base += shellSatCount(shells[i]!);
   }
   return base;
 }
 
-function planeBaseIndex(sh: StarlinkShell, shell: number, plane: number): number {
+function planeBaseIndex(
+  sh: StarlinkShell,
+  shell: number,
+  plane: number,
+  shells: readonly StarlinkShell[]
+): number {
   const counts = planeSatCounts(sh);
-  let base = shellBaseIndex(shell);
+  let base = shellBaseIndex(shell, shells);
   const p = ((plane % sh.planes) + sh.planes) % sh.planes;
   for (let i = 0; i < p; i++) {
     base += counts[i]!;
@@ -71,13 +78,20 @@ function planeBaseIndex(sh: StarlinkShell, shell: number, plane: number): number
   return base;
 }
 
-export function catalogIndex(shell: number, plane: number, slot: number): number {
-  const sh = STARLINK_SHELLS[shell]!;
+export function catalogIndex(
+  shell: number,
+  plane: number,
+  slot: number,
+  shells: readonly StarlinkShell[] = STARLINK_SHELLS
+): number {
+  const sh = shells[shell]!;
   const counts = planeSatCounts(sh);
   const p = ((plane % sh.planes) + sh.planes) % sh.planes;
   const s = ((slot % counts[p]!) + counts[p]!) % counts[p]!;
-  return planeBaseIndex(sh, shell, p) + s;
+  return planeBaseIndex(sh, shell, p, shells) + s;
 }
+
+export { resolveWalkerGhostShells, GRANTED_TOPOLOGY_TOTAL, TOPOLOGY_FLEET_TARGET };
 
 function sceneRadiusForAltKm(altKm: number, exag: number): number {
   const trueLift = (altKm / EARTH_RADIUS_KM) * EARTH_R;
@@ -123,6 +137,7 @@ function addEdge(
 function buildShellEdges(
   sh: StarlinkShell,
   shellIndex: number,
+  shells: readonly StarlinkShell[],
   edgeA: number[],
   edgeB: number[],
   edgeCross: boolean[],
@@ -133,7 +148,7 @@ function buildShellEdges(
 
   for (let p = 0; p < sh.planes; p++) {
     const satsInPlane = counts[p]!;
-    const base = planeBaseIndex(sh, shellIndex, p);
+    const base = planeBaseIndex(sh, shellIndex, p, shells);
 
     for (let s = 0; s < satsInPlane; s++) {
       const a = base + s;
@@ -146,22 +161,37 @@ function buildShellEdges(
         const nextPlane = (p + 1) % sh.planes;
         const nextSats = counts[nextPlane]!;
         const partnerSlot = (s + F) % nextSats;
-        addEdge(a, planeBaseIndex(sh, shellIndex, nextPlane) + partnerSlot, edgeA, edgeB, edgeCross, true, adjacency);
+        addEdge(
+          a,
+          planeBaseIndex(sh, shellIndex, nextPlane, shells) + partnerSlot,
+          edgeA,
+          edgeB,
+          edgeCross,
+          true,
+          adjacency
+        );
       }
     }
   }
 }
 
-export function buildStarlinkCatalog(): {
+export function buildStarlinkCatalog(fleetTarget: number = TOPOLOGY_FLEET_TARGET): {
   satellites: StarlinkSatellite[];
   edgeA: number[];
   edgeB: number[];
   edgeCross: boolean[];
   adjacency: number[][];
+  /** McDowell-scaled granted ghost nodes. */
+  walkerReferenceTotal: number;
+  /** All ghost nodes drawn when ghost grid is on (granted only). */
+  totalGhostNodes: number;
+  fleetTarget: number;
+  fccGrantedSlots: number;
 } {
+  const shells = resolveWalkerGhostShells(fleetTarget);
   const satellites: StarlinkSatellite[] = [];
 
-  STARLINK_SHELLS.forEach((sh, si) => {
+  shells.forEach((sh, si) => {
     const c = new THREE.Color(sh.color);
     const counts = planeSatCounts(sh);
     const F = sh.walkerF ?? 1;
@@ -182,6 +212,7 @@ export function buildStarlinkCatalog(): {
           r: c.r,
           g: c.g,
           b: c.b,
+          status: 'granted',
         });
       }
     }
@@ -193,14 +224,24 @@ export function buildStarlinkCatalog(): {
   const edgeCross: boolean[] = [];
   const adjacency: number[][] = Array.from({ length: N }, () => []);
 
-  STARLINK_SHELLS.forEach((sh, si) => {
-    buildShellEdges(sh, si, edgeA, edgeB, edgeCross, adjacency);
+  shells.forEach((sh, si) => {
+    buildShellEdges(sh, si, shells, edgeA, edgeB, edgeCross, adjacency);
   });
 
-  return { satellites, edgeA, edgeB, edgeCross, adjacency };
-}
+  const walkerReferenceTotal = satellites.length;
 
-export { shellIndexForInclination };
+  return {
+    satellites,
+    edgeA,
+    edgeB,
+    edgeCross,
+    adjacency,
+    walkerReferenceTotal,
+    totalGhostNodes: satellites.length,
+    fleetTarget,
+    fccGrantedSlots: GRANTED_TOPOLOGY_TOTAL,
+  };
+}
 
 export function shellHex(color: number): string {
   return `#${color.toString(16).padStart(6, '0')}`;

@@ -1,8 +1,8 @@
 /**
- * McDowell fleet snapshot — static export from Space-Industry-Data-Pipeline.
- * Sources: exports/active_vs_deorbited_sats.csv, exports/sat_model_segmentation.csv,
- * exports/bandwidth_vs_customers.csv (latest month_end row: 2026-05-31).
- * Regenerate: npm run sync:pipeline
+ * McDowell fleet snapshot — static export from sat-stats.
+ * Sources: active_vs_deorbited_sats, sat_model_segmentation,
+ * bandwidth_vs_customers (latest month_end row: 2026-07-31).
+ * Regenerate: npm run sync:fleet-snapshot
  */
 
 export interface StarlinkFleetModelCounts {
@@ -15,6 +15,7 @@ export interface StarlinkFleetModelCounts {
 
 export interface StarlinkFleetSnapshot {
   snapshotDate: string;
+  totalInOrbit: number;
   totalWorking: number;
   totalDown: number;
   models: StarlinkFleetModelCounts;
@@ -22,15 +23,16 @@ export interface StarlinkFleetSnapshot {
 }
 
 export const STARLINK_FLEET_SNAPSHOT: StarlinkFleetSnapshot = {
-  snapshotDate: '2026-05-31',
-  totalWorking: 10397,
-  totalDown: 1619,
+  snapshotDate: '2026-07-31',
+  totalInOrbit: 10777,
+  totalWorking: 10761,
+  totalDown: 1695,
   models: {
-    v1: 749,
-    v15: 2574,
-    v2Mini: 2574,
-    v2MiniD2c: 644,
-    v2MiniOpt: 3856,
+    v1: 739,
+    v15: 2515,
+    v2Mini: 2572,
+    v2MiniD2c: 640,
+    v2MiniOpt: 4295,
   },
-  totalBandwidthInOrbitTbps: 688.044,
+  totalBandwidthInOrbitTbps: 728.46,
 };

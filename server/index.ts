@@ -10,13 +10,22 @@ import {
   getTrackedStarlinkCatalog,
   refreshStarlinkTle,
 } from './services/orbitalStarlink.js';
-import { clearStarlinkCatalogRuntimeCache } from './services/starlinkCatalogFetch.js';
+import { clearStarlinkCatalogRuntimeCache, resolveStarlinkCatalog } from './services/starlinkCatalogFetch.js';
 import { STARLINK_TLE_CACHE_TTL_MS } from './config.js';
 import { buildStarlinkIntelPayload } from './services/orbitalStarlinkIntel.js';
+import { satStatsRouter } from './satStats/routes.js';
+import { globalCatalogRouter } from './globalCatalog/routes.js';
+import { getDb } from './satStats/db.js';
+import { seedStarlinkHistoryIfEmpty } from './satStats/seed.js';
+import { computeAndSnapshot, getLatestSnapshot } from './satStats/snapshot.js';
 import {
   getStarlinkSatelliteByNorad,
   searchStarlinkSatellites,
 } from './services/orbitalStarlinkSatellite.js';
+import {
+  getWalkerFitPayload,
+  updateAndPublishWalkerFit,
+} from './walkerFit/orchestrator.js';
 
 const app = express();
 
@@ -115,10 +124,55 @@ app.get('/api/orbital/starlink/search', async (req, res) => {
   }
 });
 
+app.get('/api/orbital/starlink/walker-fit', async (_req, res) => {
+  try {
+    const payload = await getWalkerFitPayload();
+    res.json(payload);
+  } catch (err) {
+    res.status(500).json({
+      error: 'Failed to build Walker fit feed',
+      message: err instanceof Error ? err.message : 'Unknown error',
+    });
+  }
+});
+
+app.post('/api/orbital/starlink/walker-fit/refresh', async (_req, res) => {
+  try {
+    const payload = await updateAndPublishWalkerFit();
+    res.json({
+      ok: true,
+      walkerReferenceTotal: payload.walkerReferenceTotal,
+      grantedSlotTotal: payload.grantedSlotTotal,
+      transitCount: payload.transitCount,
+      shells: payload.shells.length,
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: 'Failed to refresh Walker fit feed',
+      message: err instanceof Error ? err.message : 'Unknown error',
+    });
+  }
+});
+
+app.use('/api/sat-stats', satStatsRouter);
+app.use('/api/global-catalog', globalCatalogRouter);
+
 app.post('/api/refresh', (_req, res) => {
   clearCache();
   clearStarlinkCatalogRuntimeCache();
-  res.json({ ok: true, message: 'Cache cleared' });
+  void resolveStarlinkCatalog({ forceRefresh: true })
+    .then((catalog) => {
+      console.log(
+        `[starlink] async catalog refresh complete (${catalog.source}, ${catalog.count} sats, offline=${catalog.offline})`
+      );
+    })
+    .catch((err) => {
+      console.warn(
+        '[starlink] async catalog refresh failed:',
+        err instanceof Error ? err.message : err
+      );
+    });
+  res.json({ ok: true, message: 'Cache cleared — catalog refresh started in background' });
 });
 
 const server = http.createServer(app);
@@ -135,8 +189,27 @@ server.on('error', (err: NodeJS.ErrnoException) => {
 
 server.listen(PORT, () => {
   console.log(`Starlink orbital API on http://localhost:${PORT}`);
-  void refreshStarlinkTle();
+  try {
+    const conn = getDb();
+    const seeded = seedStarlinkHistoryIfEmpty(conn);
+    if (seeded) console.log(`[sat-stats] Seeded ${seeded} historical fleet rows`);
+    if (!getLatestSnapshot(conn)) {
+      const snapshotId = computeAndSnapshot(conn);
+      console.log(`[sat-stats] Initial compute snapshot #${snapshotId}`);
+    }
+  } catch (err) {
+    console.warn('[sat-stats] Startup init skipped:', err instanceof Error ? err.message : err);
+  }
+  void refreshStarlinkTle().then(() => {
+    void updateAndPublishWalkerFit().catch((err) => {
+      console.warn('[walker-fit] Initial publish failed:', err instanceof Error ? err.message : err);
+    });
+  });
   setInterval(() => {
-    void refreshStarlinkTle();
+    void refreshStarlinkTle().then(() => {
+      void updateAndPublishWalkerFit().catch((err) => {
+        console.warn('[walker-fit] Publish failed:', err instanceof Error ? err.message : err);
+      });
+    });
   }, STARLINK_TLE_CACHE_TTL_MS * 0.9);
 });

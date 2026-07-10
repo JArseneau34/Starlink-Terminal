@@ -1,8 +1,8 @@
 /**
- * Monthly working-fleet growth — static export from Space-Industry-Data-Pipeline.
- * Joins exports/active_vs_deorbited_sats.csv with exports/bandwidth_vs_customers.csv on month_end
- * (21 rows with a non-zero working fleet).
- * Regenerate: npm run sync:pipeline
+ * Monthly working-fleet growth — static export from sat-stats (McDowell).
+ * Joins active_vs_deorbited_sats with bandwidth_vs_customers on month_end
+ * (22 rows with a non-zero working fleet).
+ * Regenerate: npm run sync:fleet-snapshot
  */
 
 export interface StarlinkFleetGrowthMonth {
@@ -138,5 +138,11 @@ export const STARLINK_FLEET_GROWTH_SERIES: StarlinkFleetGrowthMonth[] = [
     "activeSatellites": 10397,
     "deorbitedSatellites": 1619,
     "totalBandwidthTbps": 688.044
+  },
+  {
+    "monthEnd": "2026-07-31",
+    "activeSatellites": 10761,
+    "deorbitedSatellites": 1695,
+    "totalBandwidthTbps": 728.46
   }
 ];
