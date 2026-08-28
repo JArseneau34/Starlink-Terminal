@@ -243,6 +243,14 @@ html, body, #root {
   overflow: hidden;
 }
 
+html.orion-embed .orbital-ops-brand {
+  display: none;
+}
+
+html.orion-embed .app-login-art {
+  display: none;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--color-bbg-void);

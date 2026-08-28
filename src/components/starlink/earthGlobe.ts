@@ -2,11 +2,12 @@ import * as THREE from 'three';
 import { BLOOM_LAYER } from './selectiveBloom';
 import { sunDirectionScene } from '../../utils/solarEphemeris';
 import { WGS84_B_OVER_A, sceneToSphereSpace, geodeticNormalScene } from '../../utils/wgs84';
+import { withBase } from '../../utils/satStatsBase';
 
-const EARTH_DAY_URL = '/textures/earth-day.jpg';
-const EARTH_NIGHT_URL = '/textures/earth-night.png';
-const EARTH_NORMAL_URL = '/textures/earth-normal.jpg';
-const EARTH_SPEC_URL = '/textures/earth-specular.jpg';
+const EARTH_DAY_URL = withBase('/textures/earth-day.jpg');
+const EARTH_NIGHT_URL = withBase('/textures/earth-night.png');
+const EARTH_NORMAL_URL = withBase('/textures/earth-normal.jpg');
+const EARTH_SPEC_URL = withBase('/textures/earth-specular.jpg');
 
 const OCEAN_FALLBACK = new THREE.Color(0x0a1e38);
 /** Day texture gain + shadow lift (shader is unlit; scene lights do not affect Earth). */
