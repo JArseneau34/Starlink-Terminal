@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 const SKY_COLOR = 0x020408;
-const HORIZON_COLOR = 0x0a1428;
+const HORIZON_COLOR = 0x0c121c;
 
 export interface NightSkyOptions {
   fullSphere?: boolean;
