@@ -36,6 +36,7 @@ describe('orionFrame isolation', () => {
     assert.equal(embed['Cross-Origin-Embedder-Policy'], undefined);
     assert.match(embed['Content-Security-Policy'] || '', /frame-ancestors/);
     assert.match(embed['Content-Security-Policy'] || '', /localhost:3047/);
+    assert.match(embed['Content-Security-Policy'] || '', /33fg\.ai/);
 
     const standalone = documentIsolationHeaders({ url: '/mesh/' });
     assert.deepEqual(standalone, coopCoepHeaders());

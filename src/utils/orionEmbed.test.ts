@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import {
+  DEFAULT_PUBLIC_ORIGIN,
   isOrionEmbed,
   isOrionEmbedPath,
   isOrionEmbedSearch,
+  orionEmbedSrc,
 } from './orionEmbed.ts';
 
 describe('orionEmbed', () => {
@@ -27,5 +29,23 @@ describe('orionEmbed', () => {
     assert.equal(isOrionEmbed('?tab=ops', '/mesh/'), false);
     assert.equal(isOrionEmbed('?embed=1&tab=ops', '/mesh/'), true);
     assert.equal(isOrionEmbed('', '/embed/ops'), true);
+  });
+
+  it('Orion iframe src is the live host at /?embed=1, not /constellation/', () => {
+    assert.equal(
+      orionEmbedSrc(),
+      'https://app.sat-stats.33fg.com/?embed=1&tab=ops'
+    );
+    assert.equal(
+      orionEmbedSrc('https://uat.sat-stats.example/?constellation'),
+      'https://uat.sat-stats.example/?embed=1&tab=ops'
+    );
+    assert.equal(
+      orionEmbedSrc('https://app.sat-stats.33fg.com/constellation'),
+      'https://app.sat-stats.33fg.com/?embed=1&tab=ops'
+    );
+    assert.equal(DEFAULT_PUBLIC_ORIGIN.includes('33fg.com'), true);
+    assert.equal(orionEmbedSrc().includes('/constellation'), false);
+    assert.equal(orionEmbedSrc().includes('/mesh/'), false);
   });
 });

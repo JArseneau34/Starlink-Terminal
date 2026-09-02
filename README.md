@@ -26,6 +26,17 @@ This starts both:
 
 Open the Vite URL in your browser.
 
+### Orion iframe (Space UI)
+
+Sat Stats is a **separate host**. Orion stores the URL (e.g. `SAT_STATS_BASE_URL`); it does not vendor `constellation/`.
+
+| Env | iframe `src` |
+|-----|----------------|
+| Prod (`orion.33fg.ai`) | `https://app.sat-stats.33fg.com/?embed=1&tab=ops` |
+| UAT (`uat.orion.33fg.ai`) | UAT Sat Stats origin + `/?embed=1&tab=ops` |
+
+`?embed=1` (or `/embed/ops`) drops COOP/COEP so `https://*.33fg.ai` can frame it (`server/embed/orionFrame.ts`). Production `vite build` uses `base: '/'`, not `/mesh/` or `/constellation/`. Push this repo → that URL updates → Orion refresh shows it.
+
 ### API keys (recommended)
 
 | Key | Source | Purpose |

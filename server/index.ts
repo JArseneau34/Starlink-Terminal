@@ -1,8 +1,11 @@
 import http from 'http';
+import path from 'path';
+import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import { clearCache } from './cache.js';
 import { PORT } from './config.js';
+import { documentIsolationHeaders } from './embed/orionFrame.js';
 import { buildOrbitalPayload } from './services/orbital.js';
 import {
   buildStarlinkPayload,
@@ -31,6 +34,20 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+/** COOP/COEP on standalone docs; skip for Orion iframe (`?embed=1` / Sec-Fetch-Dest). */
+app.use((req, res, next) => {
+  res.removeHeader('Cross-Origin-Opener-Policy');
+  res.removeHeader('Cross-Origin-Embedder-Policy');
+  const headers = documentIsolationHeaders({
+    url: req.originalUrl || req.url,
+    headers: req.headers as { [key: string]: unknown },
+  });
+  for (const [key, value] of Object.entries(headers)) {
+    res.setHeader(key, value);
+  }
+  next();
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'starlink-orbital-ops', timestamp: new Date().toISOString() });
@@ -174,6 +191,28 @@ app.post('/api/refresh', (_req, res) => {
     });
   res.json({ ok: true, message: 'Cache cleared — catalog refresh started in background' });
 });
+
+/** Production: Vite `dist` at `/` (not `/constellation/`). `/?embed=1` is the Orion iframe. */
+const serveWeb = process.env.SERVE_WEB === '1' || process.env.SERVE_WEB === 'true';
+if (serveWeb) {
+  const distDir = path.resolve(process.env.DIST_DIR ?? 'dist');
+  const publicDir = path.resolve(process.env.PUBLIC_DIR ?? 'public');
+  if (fs.existsSync(distDir)) {
+    app.use(express.static(distDir));
+  }
+  if (fs.existsSync(publicDir)) {
+    app.use(express.static(publicDir));
+  }
+  app.get(/.*/, (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    const indexHtml = path.join(distDir, 'index.html');
+    if (!fs.existsSync(indexHtml)) {
+      res.status(404).json({ error: 'UI not built — run npm run build or unset SERVE_WEB' });
+      return;
+    }
+    res.sendFile(indexHtml);
+  });
+}
 
 const server = http.createServer(app);
 
